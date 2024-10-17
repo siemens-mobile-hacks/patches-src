@@ -1357,7 +1357,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>elf2vkp.exe "$EXE_DIR$\drawhook.elf"  "$EXE_DIR$\drawhook_cx70v56.vkp" ..\bin\CX70v56.bin</postbuild>
+        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\CX70v56.txt</postbuild>
       </data>
     </settings>
     <settings>
