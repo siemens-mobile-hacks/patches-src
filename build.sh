@@ -15,5 +15,15 @@ then
 else
 	for model in ${MODELS[*]}; do
 		wine $IAR drawhook.ewp -make $model
+
+		if [[ -f ../elfloader3/ff/$model.bin ]]; then
+			wine postbuild/elf2vkp.exe VKP/$model/drawhook.elf VKP/$model/drawhook.vkp.tmp ../elfloader3/ff/$model.bin
+		else
+			wine postbuild/elf2vkp.exe VKP/$model/drawhook.elf VKP/$model/drawhook.vkp.tmp
+		fi
+
+		cat postbuild/header.txt VKP/$model/drawhook.vkp.tmp > VKP/$model/drawhook.vkp
+		rm VKP/$model/drawhook.vkp.tmp
+		rm VKP/$model/drawhook.elf
 	done
 fi

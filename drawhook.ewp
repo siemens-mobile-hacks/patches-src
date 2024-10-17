@@ -534,7 +534,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\S65v58.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -1357,7 +1357,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\CX70v56.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -2180,7 +2180,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\SL65v53.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -3003,7 +3003,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\CX75v25.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -3826,7 +3826,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\SK65v50.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -4649,7 +4649,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\C75v22.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
