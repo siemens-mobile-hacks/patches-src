@@ -56,6 +56,6 @@ __attribute__((section(".text.ScreenSaver_SetLangMesIntoWS")))
                 return;
             }
         }
-        _GetLangMesIntoWS(LGP_ID, ws);
+        _GetLangMesIntoWS(lgp_id, ws);
     }
 #endif
