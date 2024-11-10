@@ -13,3 +13,6 @@
 
 ### fix_network_icon
 Добавляет иконку сети специально для режима при котором отключена сеть.
+
+### open_disk_selection_menu_in_ce_by_hotkey
+Открывает меню выбора дисков по зеленой кнопке в Card Explorer.
