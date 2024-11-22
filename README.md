@@ -21,5 +21,10 @@
 ### open_disk_selection_menu_in_ce_by_hotkey
 Открывает меню выбора дисков по зеленой кнопке в Card Explorer.
 
+### show_error_message_if_browser_could_not_start
+Добавлены некоторые сообщения об ошибках, если не удалось запустить браузер:
+1. Браузер отключен - "Browser is disabled!"
+2. Браузер уже запущен - "Browser is already running!"
+
 ### using_elfs_screensavers
 Патч для замены стандартных скринсейверов телефона на скринсейверы-эльфы.
