@@ -9,7 +9,6 @@
     #endif
 #endif
 
-#define _GetScreenSaverType ((int (*)())(ADDR_GetScreenSaverType))
 #define _CreateGUI ((int (*)(GUI *gui))(ADDR_CreateGUI))
 #define _GBS_SendMessage ((void (*)(int cepid, int msg, ...))(ADDR_GBS_SendMessage))
 #define _DrawRectangle ((void (*)(int, int, int, int, int, const char *, const char *))(ADDR_DrawRectangle))
@@ -23,7 +22,7 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.CreateGUI")))
 int CreateGUI_SS(GUI *gui) {
     int gui_id = _CreateGUI(gui);
-    if (_GetScreenSaverType() == SCREENSAVER_ELF) {
+    if (gui->definition == DEFINITON_ENERGY_SAVER) {
         _GBS_SendMessage(MMI_CEPID, 0x3FA, gui_id, gui);
     }
     return gui_id;
