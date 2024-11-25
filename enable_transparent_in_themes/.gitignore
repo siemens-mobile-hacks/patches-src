@@ -1,4 +1,0 @@
-/.idea/
-
-patch*
-!patch.c
