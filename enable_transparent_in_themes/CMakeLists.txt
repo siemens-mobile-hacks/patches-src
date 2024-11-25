@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
-project(patch_open_disk_selection_menu_in_ce_by_hotkey LANGUAGES C ASM)
+project(patch_enable_transparent_in_themes LANGUAGES C ASM)
 
 set(CMAKE_C_STANDARD 99)
 add_compile_options(-Os)
