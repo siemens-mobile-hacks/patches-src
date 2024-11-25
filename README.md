@@ -21,6 +21,10 @@
 ### open_disk_selection_menu_in_ce_by_hotkey
 Открывает меню выбора дисков по зеленой кнопке в Card Explorer.
 
+### set_dir_of_theme_resources
+По умолчанию ресурсы тем сохраняются в каталоги **0:\Pictures**, **0:\Sounds** и тем самым загрязняют их.
+Данный патч переносит запись в директорию **1:\ThemeResources**. Перед применением темы каталог **1:\ThemeResources** очищается.
+
 ### show_error_message_if_browser_could_not_start
 Добавлены некоторые сообщения об ошибках, если не удалось запустить браузер:
 1. Браузер отключен - "Browser is disabled!"
