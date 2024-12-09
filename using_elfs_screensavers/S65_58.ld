@@ -8,11 +8,11 @@ SECTIONS {
     .CreateGUI_Jump 0xA16A2B3C : {
         KEEP(*(.text.CreateGUI_Jump))
     }
-    .FixR1_1 0xA16A2934 : {
-        KEEP(*(.text.FixR1_1))
+    .FixScreenSaver_1 0xA16A2934 : {
+        KEEP(*(.text.FixScreenSaver_1))
     }
-    .FixR1_2 0xA16A295E : {
-        KEEP(*(.text.FixR1_2))
+    .FixScreenSaver_2 0xA16A295E : {
+        KEEP(*(.text.FixScreenSaver_2))
     }
     .OnRedraw_Addr 0xA16BA1A0 : {
         KEEP(*(.data.OnRedraw_Addr))
