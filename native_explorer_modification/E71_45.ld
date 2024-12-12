@@ -9,8 +9,8 @@ SECTIONS {
     .Replace_AllocMLMenuItem 0xA071E17C : {
         KEEP(*(.text.Replace_AllocMLMenuItem))
     }
-    .FixMemoryLeak 0xA071E1D8 : {
-        KEEP(*(.text.FixMemoryLeak))
+    .FixMemoryLeak_1 0xA071E1D8 : {
+        KEEP(*(.text.FixMemoryLeak_1))
     }
     .Replace_GetExtIconLarge_1 0xA071E5B4 : {
         KEEP(*(.text.Replace_GetExtIconLarge_1))
@@ -68,6 +68,9 @@ SECTIONS {
     .ShowHiddenFiles_Part2 0xA069412C : {
         KEEP(*(.text.ShowHiddenFiles_Part2))
     }
+    .ShowExtensions 0xA071E9D8 : {
+        KEEP(*(.text.ShowExtensions))
+    }
 
     .DisableSortFavoritesDirsOnTop 0xA06935AC : {
         KEEP(*(.text.DisableSortFavoritesDirsOnTop))
@@ -110,6 +113,9 @@ SECTIONS {
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
     }
+    .FixCopyMarkedDirs 0xA0715D60 : {
+        KEEP(*(.text.FixCopyMarkedDirs))
+    }
 
     .FixHeader_Part1 0xA071EF04 : {
         KEEP(*(.text.FixHeader_Part1))
@@ -120,6 +126,12 @@ SECTIONS {
 
     .FixMenu4Dirs 0xA071CBD4 : {
         KEEP(*(.text.FixMenu4Dirs))
+    }
+    .FixMenu4MarkedDirs_Part1 0xA071B5C0 : {
+        KEEP(*(.text.FixMenu4MarkedDirs_Part1))
+    }
+    .FixMenu4MarkedDirs_Part2 0xA071B5E4 : {
+        KEEP(*(.text.FixMenu4MarkedDirs_Part2))
     }
     .FixMenuItem_Copy 0xA071CCF0 : {
         KEEP(*(.text.FixMenuItem_Copy))
@@ -139,6 +151,9 @@ SECTIONS {
         KEEP(*(.text.DisablePleaseWait))
     }
 
+    .FixMemoryLeak_2 0xA0786408 : {
+        KEEP(*(.text.FixMemoryLeak_2))
+    }
     .SkipFindChildren 0xA069445C : {
         KEEP(*(.text.SkipFindChildren))
     }

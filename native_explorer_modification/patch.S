@@ -1,7 +1,9 @@
 #ifdef E71_45
     .equ GetMenuGUI, 0xA0950125
+    .equ SetCursorTab, 0xA07FA3F8
     .equ AllocMenuItem, 0xA0954585
     .equ GetExtIconSmall, 0xA05028C8
+    .equ Send806D, 0xA0698794
     .equ Show5461, 0xA0698968
 #endif
 
@@ -13,7 +15,7 @@ blx GetMenuGUI
 .arm
 blx AllocMenuItem
 
-.section .text.FixMemoryLeak
+.section .text.FixMemoryLeak_1
 .arm
 cmp r6,r6
 
@@ -76,6 +78,10 @@ cmp r0, #0xFF
 .arm
 cmp r0, #0xFF
 
+.section .text.ShowExtensions
+.arm
+cmp r0, r0
+
 
 .section .text.DisableSortFavoritesDirsOnTop
 .arm
@@ -128,6 +134,10 @@ movne r0, #0x00
 .arm
 b . + 0x24
 
+.section .text.FixCopyMarkedDirs
+.arm
+nop
+
 
 .section .text.FixHeader_Part1
 .arm
@@ -141,6 +151,14 @@ cmp r0, #0xFF
 .section .text.FixMenu4Dirs
 .arm
 mov r0, #0x00
+
+.section .text.FixMenu4MarkedDirs_Part1
+.arm
+mov r0, #0x00
+
+.section .text.FixMenu4MarkedDirs_Part2
+.arm
+b . + 0x1A8
 
 .section .text.FixMenuItem_Copy
 .arm
@@ -162,6 +180,16 @@ b . + 0x60
 .section .text.DisablePleaseWait
 .arm
 nop
+
+
+.section .text.FixMemoryLeak_2
+.arm
+mov r0, r5
+mov r1, r6
+bl SetCursorTab
+mov r0, #0x1F
+mov r1, r7
+bl Send806D
 
 
 .section .text.SkipFindChildren
