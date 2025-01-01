@@ -107,14 +107,26 @@ SECTIONS {
         KEEP(*(.text.ShowDrives))
     }
 
+    .FixRenameFiles 0xA0715114 : {
+        KEEP(*(.text.FixRenameFiles))
+    }
+    .RenameWithExt_Part1 0xA0714F28 : {
+        KEEP(*(.text.RenameWithExt_Part1))
+    }
+    .RenameWithExt_Part2 0xA05D0988 : {
+        KEEP(*(.text.RenameWithExt_Part2))
+    }
+    .FixCopyFiles 0xA0716470 : {
+        KEEP(*(.text.FixCopyFiles))
+    }
+    .FixCopyMarkedDirs 0xA0715D60 : {
+        KEEP(*(.text.FixCopyMarkedDirs))
+    }
     .FixDeleteROFiles_Part1 0xA05D0F00 : {
         KEEP(*(.text.FixDeleteROFiles_Part1))
     }
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
-    }
-    .FixCopyMarkedDirs 0xA0715D60 : {
-        KEEP(*(.text.FixCopyMarkedDirs))
     }
 
     .FixHeader_Part1 0xA071EF04 : {

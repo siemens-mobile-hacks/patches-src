@@ -1,4 +1,5 @@
 #ifdef E71_45
+    .equ wstrcmp, 0xA0FB3D74
     .equ GetMenuGUI, 0xA0950125
     .equ SetCursorTab, 0xA07FA3F8
     .equ AllocMenuItem, 0xA0954585
@@ -126,6 +127,26 @@ mov r0, #0x01
 bx lr
 
 
+.section .text.FixRenameFiles
+.arm
+bl wstrcmp
+
+.section .text.RenameWithExt_Part1
+.arm
+mov r0, #0x01
+
+.section .text.RenameWithExt_Part2
+.arm
+b . + 0xC4
+
+.section .text.FixCopyFiles
+.arm
+mov r0, #0x01
+
+.section .text.FixCopyMarkedDirs
+.arm
+mov r0, #0x00
+
 .section .text.FixDeleteROFiles_Part1
 .arm
 movne r0, #0x00
@@ -133,10 +154,6 @@ movne r0, #0x00
 .section .text.FixDeleteROFiles_Part2
 .arm
 b . + 0x24
-
-.section .text.FixCopyMarkedDirs
-.arm
-nop
 
 
 .section .text.FixHeader_Part1
