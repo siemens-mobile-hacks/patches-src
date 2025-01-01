@@ -117,6 +117,12 @@ mov r6, #0x02
 .arm
 blne Set2ndTabPath
 
+.section .text.FixInitTab
+.arm
+blx FixInitTabHook
+cmp r0, #0xFF
+strne r0, [r4, #0x60]
+
 .section .text.FixMMCTabIcon
 .arm
 cmp r4, #0x03
@@ -156,13 +162,9 @@ movne r0, #0x00
 b . + 0x24
 
 
-.section .text.FixHeader_Part1
+.section .text.FixHeader
 .arm
-cmp r0, #0xFF
-
-.section .text.FixHeader_Part2
-.arm
-cmp r0, #0xFF
+b . + 0x150
 
 
 .section .text.FixMenu4Dirs

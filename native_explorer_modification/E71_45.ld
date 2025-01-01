@@ -100,6 +100,12 @@ SECTIONS {
     .Set2ndTabPath_Jump 0xA0699654 : {
         KEEP(*(.text.Set2ndTabPath_Jump))
     }
+    .FixInitTabHook 0xA13806D0 : {
+        KEEP(*(.text.FixInitTabHook))
+    }
+    .FixInitTab 0xA06993EC : {
+        KEEP(*(.text.FixInitTab))
+    }
     .FixMMCTabIcon 0xA0786044 : {
         KEEP(*(.text.FixMMCTabIcon))
     }
@@ -129,11 +135,8 @@ SECTIONS {
         KEEP(*(.text.FixDeleteROFiles_Part2))
     }
 
-    .FixHeader_Part1 0xA071EF04 : {
-        KEEP(*(.text.FixHeader_Part1))
-    }
-    .FixHeader_Part2 0xA071EF84 : {
-        KEEP(*(.text.FixHeader_Part2))
+    .FixHeader 0xA071EEE8 : {
+        KEEP(*(.text.FixHeader))
     }
 
     .FixMenu4Dirs 0xA071CBD4 : {

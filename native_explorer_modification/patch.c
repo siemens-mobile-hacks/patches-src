@@ -35,3 +35,13 @@ __attribute__((section(".text.Set2ndTabPath")))
 void Set2ndTabPath(void *r0, WSHDR *ws) {
     _wsprintf(ws, "1:\\");
 }
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixInitTabHook")))
+int FixInitTabHook(int r0, const WSHDR *ws) {
+    int id = ws->wsbody[1] & 0xFF - '0';
+    if (id >= 4) {
+        id = 3;
+    }
+    return id;
+}
