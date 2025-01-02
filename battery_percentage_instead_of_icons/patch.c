@@ -1,10 +1,16 @@
 #include <swilib.h>
 
-#ifdef SGOLD
+#ifdef NEWSGOLD
+    #ifdef ELKA
+        #ifdef E71_45
+            #include "E71_45.h"
+        #endif
+    #define HEADER_H 24
+    #endif
+#else
     #ifdef S65_58
         #include "S65_58.h"
     #endif
-
     #define HEADER_H 18
 #endif
 
@@ -18,7 +24,15 @@
 
 #define GetCap() (*ADDR_RamCap)
 
-#define FONT FONT_SMALL_BOLD
+#ifdef ELKA
+    #define SCREEN_W 240
+    #define OFFSET_RIGHT 4
+    #define FONT FONT_SMALL
+#else
+    #define SCREEN_W 132
+    #define OFFSET_RIGHT 2
+    #define FONT FONT_SMALL_BOLD
+#endif
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.DrawPercentage")))
@@ -29,8 +43,8 @@ void DrawPercentage(void *canvas_data, int x1, int y1, int x2, int y2, int flag_
     _wsprintf(&ws, "%d%", GetCap());
 
     const int h = _GetFontYSIZE(FONT);
-    const int _x1 = 132 - _Get_WS_width(&ws, FONT) - 2;
-    const int _x2 = 132 - 2;
+    const int _x1 = SCREEN_W - _Get_WS_width(&ws, FONT) - OFFSET_RIGHT;
+    const int _x2 = SCREEN_W - OFFSET_RIGHT;
     const int _y1 = (HEADER_H - h) / 2;
     const int _y2 = _y1 + h;
 
