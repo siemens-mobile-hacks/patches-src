@@ -62,11 +62,8 @@ SECTIONS {
         KEEP(*(.text.SetPreviewHook_Jump))
     }
 
-    .ShowHiddenFiles_Part1 0xA0694024 : {
-        KEEP(*(.text.ShowHiddenFiles_Part1))
-    }
-    .ShowHiddenFiles_Part2 0xA069412C : {
-        KEEP(*(.text.ShowHiddenFiles_Part2))
+    .ShowHiddenFiles 0xA0698300 : {
+        KEEP(*(.text.ShowHiddenFiles))
     }
     .ShowExtensions 0xA071E9D8 : {
         KEEP(*(.text.ShowExtensions))
@@ -138,6 +135,15 @@ SECTIONS {
     .FixHeader 0xA071EEE8 : {
         KEEP(*(.text.FixHeader))
     }
+    .SetHeaderExtraLgpID 0xA088B784 : {
+        KEEP(*(.text.SetHeaderExtraLgpID))
+    }
+    .SetHeader 0xA1380720 : {
+        KEEP(*(.text.SetHeader))
+    }
+    .SetHeader_Jump 0xA06987EC : {
+        KEEP(*(.text.SetHeader_Jump))
+    }
 
     .FixMenu4Dirs 0xA071CBD4 : {
         KEEP(*(.text.FixMenu4Dirs))
@@ -171,6 +177,9 @@ SECTIONS {
     }
     .SkipFindChildren 0xA069445C : {
         KEEP(*(.text.SkipFindChildren))
+    }
+    .SkipApplicationError 0xA0698C70 : {
+        KEEP(*(.text.SkipApplicationError))
     }
 
 

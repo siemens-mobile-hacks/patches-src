@@ -71,13 +71,10 @@ blx MergeIconsHook
 .arm
 bl SetPreviewHook
 
-.section .text.ShowHiddenFiles_Part1
-.arm
-cmp r0, #0xFF
 
-.section .text.ShowHiddenFiles_Part2
+.section .text.ShowHiddenFiles
 .arm
-cmp r0, #0xFF
+nop
 
 .section .text.ShowExtensions
 .arm
@@ -166,6 +163,14 @@ b . + 0x24
 .arm
 b . + 0x150
 
+.section .text.SetHeaderExtraLgpID
+.arm
+.int 0x7FFFC092
+
+.section .text.SetHeader_Jump
+.arm
+blx SetHeader
+
 
 .section .text.FixMenu4Dirs
 .arm
@@ -210,10 +215,13 @@ mov r0, #0x1F
 mov r1, r7
 bl Send806D
 
-
 .section .text.SkipFindChildren
 .arm
 nop
+
+.section .text.SkipApplicationError
+.arm
+b . + 0x10
 
 
 .section .text.ReplaceHelpMenuItem_Part1
