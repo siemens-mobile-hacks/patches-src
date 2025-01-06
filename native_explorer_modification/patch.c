@@ -13,6 +13,11 @@
 #define _GetMenuItemCount ((int (*)(void *))(ADDR_GetMenuItemCount))
 #define _MenuGetUserPointer ((void *(*)(void *))(ADDR_MenuGetUserPointer))
 
+__attribute__((always_inline))
+inline void *GetCSM(void *gui) {
+    return (void*)(*(int*)((int)_MenuGetUserPointer(gui) + 8));
+}
+
 #define MergeIMGHDR ((void (*)(IMGHDR *src, IMGHDR *dest))(ADDR_MergeIMGHDR))
 #define MergeIcons_Unk ((void (*)(void *, void *))(ADDR_MergeIcons_Unk))
 
@@ -56,7 +61,6 @@ int FixInitTabHook(int r0, const WSHDR *ws) {
 #define ClearLgp     ((void (*)(int))(ADDR_ClearLgp))
 #define SetLgpText ((void (*)(int, const WSHDR *))(ADDR_SetLgpText))
 #define SetHeaderExtraLgp ((void (*)(void *, int, void *, void *))(ADDR_SetHeaderExtraLgp))
-#define SetHeaderLgp ((void (*)(void *, int, void *, void *))(0xa0a28138 | 1))
 #define GetCurrentItemPath ((void (*)(void *, int, WSHDR *))(ADDR_GetCurrentItemPath))
 
 inline uint8_t GetFileAttr(uint8_t file_attr, uint8_t attr, uint8_t c) {
@@ -75,8 +79,7 @@ void SetHeader(int cepid, int msg, int r2, int item_n, void *tab_gui) {
         uint16_t wsbody_path[128];
         register void *gui asm("r4");
 
-        void *data = _MenuGetUserPointer(gui);
-        void *csm = (void*)(*(int*)((int)data + 8));
+        void *csm = GetCSM(gui);
 
         _CreateLocalWS(&ws_path, wsbody_path, 128);
         GetCurrentItemPath(csm, item_n, &ws_path);

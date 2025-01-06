@@ -20,3 +20,7 @@
 #define ADDR_SetLgpText         (0xA095D468)
 #define ADDR_SetHeaderExtraLgp  (0xA0A281EA | 1)
 #define ADDR_GetCurrentItemPath (0xA0698C24)
+
+#define KEYMAP (uint8_t*)(0xA1380850)
+#define ADDR_OnKey       (0xA07864B8)
+#define ADDR_SendCMD     (0xA0698794)

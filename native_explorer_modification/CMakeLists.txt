@@ -9,5 +9,5 @@ set(CMAKE_C_STANDARD 99)
 add_compile_options(-Os)
 
 # E71v45
-add_executable(E71v45 patch.c patch.S)
+add_executable(E71v45 patch.c keyhook.c patch.S keyhook.S)
 define_patch(E71v45 ELKA E71 45)

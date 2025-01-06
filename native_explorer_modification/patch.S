@@ -171,7 +171,6 @@ b . + 0x150
 .arm
 blx SetHeader
 
-
 .section .text.FixMenu4Dirs
 .arm
 mov r0, #0x00

@@ -201,4 +201,14 @@ SECTIONS {
     .Remove5461Combination 0xA071DCC0 : {
         KEEP(*(.text.Remove5461Combination))
     }
+
+    .DisableFastSearch 0xA088B710 : {
+        KEEP(*(.data.DisableFastSearch))
+    }
+    .ChangeOnKey 0xA088B6FC : {
+        KEEP(*(.data.ChangeOnKey))
+    }
+    .KeyHook 0xA1380890 : {
+        KEEP(*(.text.KeyHook))
+    }
 }
