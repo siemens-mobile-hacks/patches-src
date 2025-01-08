@@ -59,17 +59,21 @@ mov r0, #0x1A
 .section .data.FixCheckedIcon
 .int 0x53A
 
-.section .text.MergeIconsHook_AddParam
+.section .text.MergeIcons_Jump1_AddParam
 .arm
 mov r2, r0
 
-.section .text.MergeIconsHook_Jump
+.section .text.MergeIconsHook_Jump1
 .arm
 blx MergeIconsHook
 
-.section .text.SetPreviewHook_Jump
+.section .text.MergeIconsHook_Jump2
 .arm
-bl SetPreviewHook
+blx MergeIconsHook
+
+.section .text.IsAllowThumbnail_Jump
+.arm
+blx IsAllowThumbnail
 
 
 .section .text.ShowHiddenFiles
@@ -146,7 +150,15 @@ b . + 0xC4
 .arm
 mov r0, #0x01
 
-.section .text.FixCopyMarkedDirs
+.section .text.FixCopyMarkedDirs_Part1
+.arm
+mov r0, #0x00
+
+.section .text.FixCopyMarkedDirs_Part2
+.arm
+mov r0, #0x00
+
+.section .text.FixCopyMarkedDirs_Part3
 .arm
 mov r0, #0x00
 
@@ -158,6 +170,14 @@ movne r0, #0x00
 .arm
 b . + 0x24
 
+.section .text.FixPaste_Part1
+.arm
+b . + 0x0C
+
+.section .text.FixPaste_Part2
+.arm
+blx FixPaste_Hook
+
 
 .section .text.FixHeader
 .arm
@@ -167,9 +187,15 @@ b . + 0x150
 .arm
 .int 0x7FFFC092
 
-.section .text.SetHeader_Jump
+.section .text.SetHeaderExtra_Jump
 .arm
-blx SetHeader
+blx SetHeaderExtra_Hook
+
+
+.section .text.FixSoftkeys_Jump
+.arm
+blx FixSoftkeys_Hook
+
 
 .section .text.FixMenu4Dirs
 .arm

@@ -49,17 +49,20 @@ SECTIONS {
     .MergeIconsHook 0xA1380650 : {
         KEEP(*(.text.MergeIconsHook))
     }
-    .MergeIconsHook_AddParam 0xA0719BBC : {
-        KEEP(*(.text.MergeIconsHook_AddParam))
+    .MergeIcons_Jump1_AddParam 0xA0719BBC : {
+        KEEP(*(.text.MergeIcons_Jump1_AddParam))
     }
-    .MergeIconsHook_Jump 0xA0719BC8 : {
-        KEEP(*(.text.MergeIconsHook_Jump))
+    .MergeIconsHook_Jump1 0xA0719BC8 : {
+        KEEP(*(.text.MergeIconsHook_Jump1))
     }
-    .SetPreviewHook 0xA13806A0 : {
-        KEEP(*(.text.SetPreviewHook))
+    .MergeIconsHook_Jump2 0xA0719DD4 : {
+        KEEP(*(.text.MergeIconsHook_Jump2))
     }
-    .SetPreviewHook_Jump 0xA0719580 : {
-        KEEP(*(.text.SetPreviewHook_Jump))
+    .IsAllowThumbnail 0xA13806A0 : {
+        KEEP(*(.text.IsAllowThumbnail))
+    }
+    .IsAllowThumbnail_Jump 0xA0718E50 : {
+        KEEP(*(.text.IsAllowThumbnail_Jump))
     }
 
     .ShowHiddenFiles 0xA0698300 : {
@@ -122,14 +125,29 @@ SECTIONS {
     .FixCopyFiles 0xA0716470 : {
         KEEP(*(.text.FixCopyFiles))
     }
-    .FixCopyMarkedDirs 0xA0715D60 : {
-        KEEP(*(.text.FixCopyMarkedDirs))
+    .FixCopyMarkedDirs_Part1 0xA069B3F0 : {
+        KEEP(*(.text.FixCopyMarkedDirs_Part1))
+    }
+    .FixCopyMarkedDirs_Part2 0xA0715DAC : {
+        KEEP(*(.text.FixCopyMarkedDirs_Part2))
+    }
+    .FixCopyMarkedDirs_Part3 0xA0715D60 : {
+        KEEP(*(.text.FixCopyMarkedDirs_Part3))
     }
     .FixDeleteROFiles_Part1 0xA05D0F00 : {
         KEEP(*(.text.FixDeleteROFiles_Part1))
     }
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
+    }
+    .FixPaste_Part1 0xA069B508 : {
+        KEEP(*(.text.FixPaste_Part1))
+    }
+    .FixPaste_Part2 0xA069B534 : {
+        KEEP(*(.text.FixPaste_Part2))
+    }
+    .FixPaste_Hook 0xA1380900 : {
+        KEEP(*(.text.FixPaste_Hook))
     }
 
     .FixHeader 0xA071EEE8 : {
@@ -138,11 +156,18 @@ SECTIONS {
     .SetHeaderExtraLgpID 0xA088B784 : {
         KEEP(*(.text.SetHeaderExtraLgpID))
     }
-    .SetHeader 0xA1380720 : {
-        KEEP(*(.text.SetHeader))
+    .SetHeaderExtra_Hook 0xA1380720 : {
+        KEEP(*(.text.SetHeaderExtra_Hook))
     }
-    .SetHeader_Jump 0xA06987EC : {
-        KEEP(*(.text.SetHeader_Jump))
+    .SetHeaderExtra_Jump 0xA06987EC : {
+        KEEP(*(.text.SetHeaderExtra_Jump))
+    }
+
+    .FixSoftkeys_Hook 0xA1380950: {
+        KEEP(*(.text.FixSoftkeys_Hook))
+    }
+    FixSoftkeys_Jump 0xA071DF1C : {
+        KEEP(*(.text.FixSoftkeys_Jump))
     }
 
     .FixMenu4Dirs 0xA071CBD4 : {
