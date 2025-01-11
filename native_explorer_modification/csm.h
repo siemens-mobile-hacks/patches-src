@@ -5,6 +5,15 @@
 typedef unsigned char   undefined;
 typedef unsigned int    undefined4;
 typedef struct NATIVE_EXPLORER_CSM NATIVE_EXPLORER_CSM;
+typedef struct NATIVE_EXPLORER_CM_LIST NATIVE_EXPLORER_CM_LIST;
+
+struct NATIVE_EXPLORER_CM_LIST {
+    WSHDR *dir;
+    WSHDR *file_name;
+    NATIVE_EXPLORER_CM_LIST *next;
+    NATIVE_EXPLORER_CM_LIST *prev;
+    uint16_t item_n;
+};
 
 struct NATIVE_EXPLORER_CSM {
     undefined field0_0x0;
@@ -67,7 +76,7 @@ struct NATIVE_EXPLORER_CSM {
     undefined field60_0x45;
     undefined field61_0x46;
     undefined field62_0x47;
-    undefined4 *field63_0x48;
+    NATIVE_EXPLORER_CM_LIST *cm_list;
     int field64_0x4c;
     undefined field65_0x50;
     undefined field66_0x51;

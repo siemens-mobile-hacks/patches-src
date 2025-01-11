@@ -6,6 +6,8 @@
     .equ GetExtIconSmall, 0xA05028C8
     .equ Send806D, 0xA0698794
     .equ Show5461, 0xA0698968
+    .equ RefreshTab, 0xA069A57C
+    .equ GetTabByCSM, 0xA071D770
 #endif
 
 .section .text.Replace_GetMultiLinesMenuGUI
@@ -63,13 +65,13 @@ mov r0, #0x1A
 .arm
 mov r2, r0
 
-.section .text.MergeIconsHook_Jump1
+.section .text.MergeIcons_Jump1
 .arm
-blx MergeIconsHook
+blx MergeIcons_Hook
 
-.section .text.MergeIconsHook_Jump2
+.section .text.MergeIcons_Jump2
 .arm
-blx MergeIconsHook
+blx MergeIcons_Hook
 
 .section .text.IsAllowThumbnail_Jump
 .arm
@@ -120,7 +122,7 @@ blne Set2ndTabPath
 
 .section .text.FixInitTab
 .arm
-blx FixInitTabHook
+blx FixInitTab_Hook
 cmp r0, #0xFF
 strne r0, [r4, #0x60]
 
@@ -170,6 +172,7 @@ movne r0, #0x00
 .arm
 b . + 0x24
 
+
 .section .text.FixPaste_Part1
 .arm
 b . + 0x0C
@@ -177,6 +180,18 @@ b . + 0x0C
 .section .text.FixPaste_Part2
 .arm
 blx FixPaste_Hook
+
+.section .text.FixPaste_Part3
+.arm
+nop
+
+.section .text.FixPaste_Part4
+.arm
+nop
+
+.section .text.FixDisableItem_Jump
+.arm
+blx FixDisableItem_Hook
 
 
 .section .text.FixHeader
@@ -209,9 +224,17 @@ mov r0, #0x00
 .arm
 b . + 0x1A8
 
-.section .text.FixMenuItem_Copy
+.section .text.FixMenuItem_Open
+.arm
+b . + 0x08
+
+.section .text.FixMenuItem_Copy_Part1
 .arm
 mov r0, #0x00
+
+.section .text.FixMenuItem_Copy_Part2
+.arm
+b . + 0x18
 
 .section .text.FixDriveInfo
 .arm
@@ -225,9 +248,17 @@ b . + 0x60
 .section .data.FixPopupLgpID
 .int 0x1DD4
 
-
 .section .text.DisablePleaseWait
 .arm
+nop
+
+.section .text.DisableCopyMoveMessage
+.arm
+mov r0, r4
+bl GetTabByCSM
+mov r1,r0
+mov r0,r4
+bl RefreshTab
 nop
 
 

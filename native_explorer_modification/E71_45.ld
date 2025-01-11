@@ -46,17 +46,17 @@ SECTIONS {
     .FixCheckedIcon 0xA0718E2C : {
         KEEP(*(.data.FixCheckedIcon))
     }
-    .MergeIconsHook 0xA1380650 : {
-        KEEP(*(.text.MergeIconsHook))
+    .MergeIcons_Hook 0xA1380650 : {
+        KEEP(*(.text.MergeIcons_Hook))
     }
     .MergeIcons_Jump1_AddParam 0xA0719BBC : {
         KEEP(*(.text.MergeIcons_Jump1_AddParam))
     }
-    .MergeIconsHook_Jump1 0xA0719BC8 : {
-        KEEP(*(.text.MergeIconsHook_Jump1))
+    .MergeIcons_Jump1 0xA0719BC8 : {
+        KEEP(*(.text.MergeIcons_Jump1))
     }
-    .MergeIconsHook_Jump2 0xA0719DD4 : {
-        KEEP(*(.text.MergeIconsHook_Jump2))
+    .MergeIcons_Jump2 0xA0719DD4 : {
+        KEEP(*(.text.MergeIcons_Jump2))
     }
     .IsAllowThumbnail 0xA13806A0 : {
         KEEP(*(.text.IsAllowThumbnail))
@@ -100,8 +100,8 @@ SECTIONS {
     .Set2ndTabPath_Jump 0xA0699654 : {
         KEEP(*(.text.Set2ndTabPath_Jump))
     }
-    .FixInitTabHook 0xA13806D0 : {
-        KEEP(*(.text.FixInitTabHook))
+    .FixInitTab_Hook 0xA13806D0 : {
+        KEEP(*(.text.FixInitTab_Hook))
     }
     .FixInitTab 0xA06993EC : {
         KEEP(*(.text.FixInitTab))
@@ -140,14 +140,31 @@ SECTIONS {
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
     }
+
+
     .FixPaste_Part1 0xA069B508 : {
         KEEP(*(.text.FixPaste_Part1))
     }
     .FixPaste_Part2 0xA069B534 : {
         KEEP(*(.text.FixPaste_Part2))
     }
-    .FixPaste_Hook 0xA1380900 : {
+    .FixPaste_Part3 0xA069B53C : {
+        KEEP(*(.text.FixPaste_Part3))
+    }
+    .FixPaste_Part4 0xA069B54C :{
+        KEEP(*(.text.FixPaste_Part4))
+    }
+    .IsAllowPaste 0xA1380910 : {
+        KEEP(*(.text.IsAllowPaste))
+    }
+    .FixPaste_Hook 0xA138096A : {
         KEEP(*(.text.FixPaste_Hook))
+    }
+    .FixDisableItem_Hook 0xA13809CA : {
+        KEEP(*(.text.FixDisableItem_Hook))
+    }
+    .FixDisableItem_Jump 0xA071E42C : {
+        KEEP(*(.text.FixDisableItem_Jump))
     }
 
     .FixHeader 0xA071EEE8 : {
@@ -163,10 +180,10 @@ SECTIONS {
         KEEP(*(.text.SetHeaderExtra_Jump))
     }
 
-    .FixSoftkeys_Hook 0xA1380950: {
+    .FixSoftkeys_Hook 0xA13809F0: {
         KEEP(*(.text.FixSoftkeys_Hook))
     }
-    FixSoftkeys_Jump 0xA071DF1C : {
+    .FixSoftkeys_Jump 0xA071DF1C : {
         KEEP(*(.text.FixSoftkeys_Jump))
     }
 
@@ -179,8 +196,14 @@ SECTIONS {
     .FixMenu4MarkedDirs_Part2 0xA071B5E4 : {
         KEEP(*(.text.FixMenu4MarkedDirs_Part2))
     }
-    .FixMenuItem_Copy 0xA071CCF0 : {
-        KEEP(*(.text.FixMenuItem_Copy))
+    .FixMenuItem_Open 0xA071C5EC : {
+        KEEP(*(.text.FixMenuItem_Open))
+    }
+    .FixMenuItem_Copy_Part1 0xA071CCF0 : {
+        KEEP(*(.text.FixMenuItem_Copy_Part1))
+    }
+    .FixMenuItem_Copy_Part2 0xA071CC90 : {
+        KEEP(*(.text.FixMenuItem_Copy_Part2))
     }
     .FixDriveInfo 0xA069B8EC : {
         KEEP(*(.text.FixDriveInfo))
@@ -192,9 +215,11 @@ SECTIONS {
     .FixPopupLgpID 0xA069B1DC : {
         KEEP(*(.data.FixPopupLgpID))
     }
-
     .DisablePleaseWait 0xA069A688 : {
         KEEP(*(.text.DisablePleaseWait))
+    }
+    .DisableCopyMoveMessage 0xA0715EBC : {
+        KEEP(*(.text.DisableCopyMoveMessage))
     }
 
     .FixMemoryLeak_2 0xA0786408 : {
@@ -233,7 +258,16 @@ SECTIONS {
     .ChangeOnKey 0xA088B6FC : {
         KEEP(*(.data.ChangeOnKey))
     }
-    .KeyHook 0xA1380890 : {
+    .DisabledCMD_Default 0xA1380A50 : {
+        KEEP(*(.data.DisabledCMD_Default))
+    }
+    .DisabledCMD_Mark 0xA1380A60 : {
+        KEEP(*(.data.DisabledCMD_Mark))
+    }
+    .DisabledCMD_CopyMove 0xA1380A70 : {
+        KEEP(*(.data.DisabledCMD_CopyMove))
+    }
+    .KeyHook 0xA1380A80 : {
         KEEP(*(.text.KeyHook))
     }
 }

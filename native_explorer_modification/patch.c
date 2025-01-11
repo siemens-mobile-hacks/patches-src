@@ -3,11 +3,11 @@
 #include "functions.h"
 
 #define MergeIMGHDR ((void (*)(IMGHDR *src, IMGHDR *dest))(ADDR_MergeIMGHDR))
-#define MergeIcons_Unk ((void (*)(void *, void *))(ADDR_MergeIcons_Unk))
+#define MergeIcons ((void (*)(void *, void *))(ADDR_MergeIcons))
 
 __attribute__((target("thumb")))
-__attribute__((section(".text.MergeIconsHook")))
-void MergeIconsHook(NATIVE_EXPLORER_CSM *csm, void *r1, IMGHDR *src) {
+__attribute__((section(".text.MergeIcons_Hook")))
+void MergeIcons_Hook(NATIVE_EXPLORER_CSM *csm, void *r1, IMGHDR *src) {
     register int r3 asm("r3");
     if (r3 != 3) {
         if (csm->mark_mode) {
@@ -16,7 +16,7 @@ void MergeIconsHook(NATIVE_EXPLORER_CSM *csm, void *r1, IMGHDR *src) {
         IMGHDR *dest = (IMGHDR*)((char*)r1 + 8);
         MergeIMGHDR(src, dest);
     }
-    MergeIcons_Unk(csm, r1);
+    MergeIcons(csm, r1);
 }
 
 __attribute__((target("thumb")))
@@ -31,9 +31,13 @@ void Set2ndTabPath(void *r0, WSHDR *ws) {
     _wsprintf(ws, "1:\\");
 }
 
+/*
+ * Неправильная инициализация начальной вкладки при выборе файла. Проявляется при отображении всех дисков.
+ */
+
 __attribute__((target("thumb")))
-__attribute__((section(".text.FixInitTabHook")))
-int FixInitTabHook(int r0, const WSHDR *ws) {
+__attribute__((section(".text.FixInitTab_Hook")))
+int FixInitTab_Hook(int r0, const WSHDR *ws) {
     int id = ws->wsbody[1] & 0xFF - '0';
     if (id >= 4) {
         id = 3;
@@ -81,13 +85,58 @@ void SetHeaderExtra_Hook(int cepid, int msg, int r2, int item_n, void *tab_gui) 
 }
 
 __attribute__((target("thumb")))
+__attribute__((section(".text.IsAllowPaste")))
+int IsAllowPaste(NATIVE_EXPLORER_CSM *csm, WSHDR *ws) {
+    WSHDR path;
+    uint16_t wsbody_path[128];
+    _CreateLocalWS(&path, wsbody_path, 128);
+    NATIVE_EXPLORER_CM_LIST *p = csm->cm_list;
+    while (p) {
+        if (_BuildPath(&path, p->file_name, p->dir)) {
+            if (_wstrcmp(&path, ws) == 0) {
+                return 0;
+            }
+        }
+        p = p->next;
+    }
+    return 1;
+}
+
+/*
+ * Фикс вставки файлов по хоткею
+ */
+
+#define Paste_Unknown_1 ((void (*)(NATIVE_EXPLORER_CSM *csm))(ADDR_Paste_Unknown_1))
+#define Paste_Unknown_2 ((void (*)(NATIVE_EXPLORER_CSM *csm, WSHDR *ws, int zero))(ADDR_Paste_Unknown_2))
+
+__attribute__((target("thumb")))
 __attribute__((section(".text.FixPaste_Hook")))
 void FixPaste_Hook(NATIVE_EXPLORER_CSM *csm, int item_n, WSHDR *ws) {
     GetItemPath(csm, item_n, ws);
     if (!_wstrlen(ws)) {
         GetCurrentDir(csm, ws);
     }
+    if (IsAllowPaste(csm, ws)) {
+        Paste_Unknown_1(csm);
+        Paste_Unknown_2(csm, ws, 0);
+    }
 }
+
+/*
+ * При копировании|перемещении нескольких папок некоторые элементы списка не отключались.
+ */
+
+#define DisableItem_Unknown ((int (*)(NATIVE_EXPLORER_CSM *csm, WSHDR *ws))(ADDR_DisableItem_Unknown))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixDisableItem_Hook")))
+int FixDisableItem_Hook(NATIVE_EXPLORER_CSM *csm, WSHDR *ws) {
+    return !IsAllowPaste(csm, ws) ? 0 : DisableItem_Unknown(csm, ws);
+}
+
+/*
+ * При копировании|перемещении в некоторых режимах не менялся правый софткей в корне.
+ */
 
 #define IsRootDir ((int (*)(NATIVE_EXPLORER_CSM *csm))(ADDR_IsRootDir))
 
@@ -96,8 +145,8 @@ __attribute__((section(".text.FixSoftkeys_Hook")))
 int FixSoftkeys_Hook(NATIVE_EXPLORER_CSM *csm) {
     if (_wstrlen(csm->root_dir)) {
         WSHDR current_dir;
-        uint16_t wsbody_path[128];
-        _CreateLocalWS(&current_dir, wsbody_path, 128);
+        uint16_t wsbody_current_dir[128];
+        _CreateLocalWS(&current_dir, wsbody_current_dir, 128);
         GetCurrentDir(csm, &current_dir);
         return _wstrcmp(csm->root_dir, &current_dir) == 0;
     }
