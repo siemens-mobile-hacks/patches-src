@@ -148,6 +148,11 @@ mov r0, #0x01
 .arm
 b . + 0xC4
 
+.section .text.FixRenameFile_Jump
+.arm
+blx FixRenameFile_Hook
+
+
 .section .text.FixCopyFiles
 .arm
 mov r0, #0x01
@@ -164,6 +169,16 @@ mov r0, #0x00
 .arm
 mov r0, #0x00
 
+.section .text.FixCopyFile_Jump
+.arm
+blx FixCopyFile_Hook
+
+
+.section .text.FixMoveFile_Jump
+.arm
+blx FixMoveFile_Hook
+
+
 .section .text.FixDeleteROFiles_Part1
 .arm
 movne r0, #0x00
@@ -171,6 +186,10 @@ movne r0, #0x00
 .section .text.FixDeleteROFiles_Part2
 .arm
 b . + 0x24
+
+.section .text.FixDeleteFile_Jump
+.arm
+blx FixDeleteFile_Hook
 
 
 .section .text.FixPaste_Part1
@@ -192,6 +211,16 @@ nop
 .section .text.FixDisableItem_Jump
 .arm
 blx FixDisableItem_Hook
+
+
+.section .text.FixSendFile_Jump
+.arm
+blx FixSendFile_Hook
+
+
+.section .text.FixSetAsFile_Jump
+.arm
+blx FixSetAsFile_Hook
 
 
 .section .text.FixHeader
@@ -236,6 +265,26 @@ mov r0, #0x00
 .arm
 b . + 0x18
 
+.section .text.HideMenuItems_Part1
+.arm
+b . + 0x0C
+
+.section .text.HideMenuItems_Jump1
+.arm
+add r0, sp, #0x3E0
+blx HideMenuItems_Hook
+b . + 0x2C
+
+.section .text.HideMenuItems_Part2
+.arm
+b . + 0x28
+
+.section .text.HideMenuItems_Jump2
+.arm
+mov r0, r4
+blx HideMenuItems_Hook
+b . + 0x08
+
 .section .text.FixDriveInfo
 .arm
 b . + 0x30
@@ -256,8 +305,8 @@ nop
 .arm
 mov r0, r4
 bl GetTabByCSM
-mov r1,r0
-mov r0,r4
+mov r1, r0
+mov r0, r4
 bl RefreshTab
 nop
 
@@ -278,6 +327,10 @@ nop
 .section .text.SkipApplicationError
 .arm
 b . + 0x10
+
+.section .text.DisableSearch
+.arm
+bx lr
 
 
 .section .text.ReplaceHelpMenuItem_Part1
@@ -301,5 +354,9 @@ mov r1, #0x01
 mov r1, #0x01
 
 .section .text.Remove5461Combination
+.arm
+mov r0, #0x00
+
+.section .text.Rename_SkipFindChildren
 .arm
 mov r0, #0x00

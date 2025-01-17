@@ -103,10 +103,90 @@ int IsAllowPaste(NATIVE_EXPLORER_CSM *csm, WSHDR *ws) {
 }
 
 /*
- * Фикс вставки файлов по хоткею
+ * Фикс переименовывания файлов по хоткею.
  */
 
-#define Paste_Unknown_1 ((void (*)(NATIVE_EXPLORER_CSM *csm))(ADDR_Paste_Unknown_1))
+#define ShowRename ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_ShowRename))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixRenameFile_Hook")))
+void FixRenameFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        ShowRename(csm, item_n);
+    }
+}
+
+/*
+ * Фикс копирывания файлов по хоткею.
+ */
+
+#define CopyFile ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_CopyFile))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixCopyFile_Hook")))
+void FixCopyFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        CopyFile(csm, item_n);
+    }
+}
+
+/*
+ * Фикс перемещения файлов по хоткею.
+ */
+
+#define MoveFile ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_MoveFile))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixMoveFile_Hook")))
+void FixMoveFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        MoveFile(csm, item_n);
+    }
+}
+
+/*
+ * Фикс удаления файлов по хоткею.
+ */
+
+#define DeleteFile ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_DeleteFile))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixDeleteFile_Hook")))
+void FixDeleteFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        DeleteFile(csm, item_n);
+    }
+}
+
+/*
+ * Фикс передачи файлов по хоткею.
+ */
+
+#define SendFile ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_SendFile))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixSendFile_Hook")))
+void FixSendFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        SendFile(csm, item_n);
+    }
+}
+
+#define ShowSetAs ((void (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_ShowSetAs))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixSetAsFile_Hook")))
+void FixSetAsFile_Hook(NATIVE_EXPLORER_CSM *csm, int item_n) {
+    if (GetTabItemsCount(csm)) {
+        ShowSetAs(csm, item_n);
+    }
+}
+
+/*
+ * Фикс вставки файлов по хоткею.
+ */
+
+#define Paste_Unknown_1 ((void (*)(NATIVE_EXPLORER_CSM *))(ADDR_Paste_Unknown_1))
 #define Paste_Unknown_2 ((void (*)(NATIVE_EXPLORER_CSM *csm, WSHDR *ws, int zero))(ADDR_Paste_Unknown_2))
 
 __attribute__((target("thumb")))
@@ -151,4 +231,18 @@ int FixSoftkeys_Hook(NATIVE_EXPLORER_CSM *csm) {
         return _wstrcmp(csm->root_dir, &current_dir) == 0;
     }
     return IsRootDir(csm);
+}
+
+/*
+ * Отключаем "ненужные" пункты меню.
+ */
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.HideMenuItems_Hook")))
+void HideMenuItems_Hook(int *hide_list) {
+    int count = hide_list[0] + 1;
+    hide_list[count++] = 0x16; // Manage licence
+    hide_list[count++] = 0x17; // Format card
+    hide_list[count  ] = 0x13; // Search
+    hide_list[0] = count;
 }

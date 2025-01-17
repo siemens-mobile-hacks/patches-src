@@ -9,6 +9,7 @@
 #define _wstrcmp ((int (*)(const WSHDR *, const WSHDR *))(ADDR_wstrcmp))
 #define _BuildPath ((int (*)(WSHDR *ws, const WSHDR *, const WSHDR *))(ADDR_BuildPath))
 #define _GetPITaddr ((IMGHDR *(*)(int num))(ADDR_GetPITaddr))
+#define _wsInsertChar ((int (*)(WSHDR *, int, int))(ADDR_wsInsertChar))
 #define _CreateLocalWS ((void (*)(WSHDR *, uint16_t *, int))(ADDR_CreateLocalWS))
 #define _GBS_SendMessage ((void (*)(int, int , ...))(ADDR_GBS_SendMessage))
 #define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
@@ -16,8 +17,9 @@
 #define _GetMenuItemCount ((int (*)(void *))(ADDR_GetMenuItemCount))
 #define _MenuGetUserPointer ((void *(*)(void *))(ADDR_MenuGetUserPointer))
 
-#define GetItemPath ((void (*)(void *, int, WSHDR *))(ADDR_GetItemPath))
-#define GetCurrentDir ((void (*)(void *, WSHDR *ws))(ADDR_GetCurrentDir))
+#define GetItemPath ((void (*)(NATIVE_EXPLORER_CSM *, int, WSHDR *))(ADDR_GetItemPath))
+#define GetCurrentDir ((void (*)(NATIVE_EXPLORER_CSM *, WSHDR *ws))(ADDR_GetCurrentDir))
+#define GetTabItemsCount ((int (*)(NATIVE_EXPLORER_CSM *))(ADDR_GetTabItemsCount))
 
 
 __attribute__((always_inline))

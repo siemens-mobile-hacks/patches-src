@@ -122,6 +122,14 @@ SECTIONS {
     .RenameWithExt_Part2 0xA05D0988 : {
         KEEP(*(.text.RenameWithExt_Part2))
     }
+    .FixRenameFile_Hook 0xA13808B0 : {
+        KEEP(*(.text.FixRenameFile_Hook))
+    }
+    .FixRenameFile_Jump 0xA07169A0 : {
+        KEEP(*(.text.FixRenameFile_Jump))
+    }
+
+
     .FixCopyFiles 0xA0716470 : {
         KEEP(*(.text.FixCopyFiles))
     }
@@ -134,11 +142,33 @@ SECTIONS {
     .FixCopyMarkedDirs_Part3 0xA0715D60 : {
         KEEP(*(.text.FixCopyMarkedDirs_Part3))
     }
+    .FixCopyFile_Hook 0xA13808DA : {
+        KEEP(*(.text.FixCopyFile_Hook))
+    }
+    .FixCopyFile_Jump 0xA0716960 : {
+        KEEP(*(.text.FixCopyFile_Jump))
+    }
+
+
+    .FixMoveFile_Hook 0xA1380620 : {
+        KEEP(*(.text.FixMoveFile_Hook))
+    }
+    .FixMoveFile_Jump 0xA0716950 : {
+        KEEP(*(.text.FixMoveFile_Jump))
+    }
+
+
     .FixDeleteROFiles_Part1 0xA05D0F00 : {
         KEEP(*(.text.FixDeleteROFiles_Part1))
     }
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
+    }
+    .FixDeleteFile_Hook 0xA1380B30 : {
+        KEEP(*(.text.FixDeleteFile_Hook))
+    }
+    .FixDeleteFile_Jump 0xA0716980 : {
+        KEEP(*(.text.FixDeleteFile_Jump))
     }
 
 
@@ -167,6 +197,23 @@ SECTIONS {
         KEEP(*(.text.FixDisableItem_Jump))
     }
 
+
+    .FixSendFile_Hook 0xA1380B8A : {
+        KEEP(*(.text.FixSendFile_Hook))
+    }
+    .FixSendFile_Jump 0xA0716940 : {
+        KEEP(*(.text.FixSendFile_Jump))
+    }
+
+
+    .FixSetAsFile_Hook 0xA1380B5A : {
+        KEEP(*(.text.FixSetAsFile_Hook))
+    }
+    .FixSetAsFile_Jump 0xA0716A00 : {
+        KEEP(*(.text.FixSetAsFile_Jump))
+    }
+
+
     .FixHeader 0xA071EEE8 : {
         KEEP(*(.text.FixHeader))
     }
@@ -180,12 +227,14 @@ SECTIONS {
         KEEP(*(.text.SetHeaderExtra_Jump))
     }
 
+
     .FixSoftkeys_Hook 0xA13809F0: {
         KEEP(*(.text.FixSoftkeys_Hook))
     }
     .FixSoftkeys_Jump 0xA071DF1C : {
         KEEP(*(.text.FixSoftkeys_Jump))
     }
+
 
     .FixMenu4Dirs 0xA071CBD4 : {
         KEEP(*(.text.FixMenu4Dirs))
@@ -205,6 +254,23 @@ SECTIONS {
     .FixMenuItem_Copy_Part2 0xA071CC90 : {
         KEEP(*(.text.FixMenuItem_Copy_Part2))
     }
+    .HideMenuItems_Part1 0xA071CAB8 : {
+        KEEP(*(.text.HideMenuItems_Part1))
+    }
+    .HideMenuItems_Hook 0xA1380880 : {
+        KEEP(*(.text.HideMenuItems_Hook))
+    }
+    .HideMenuItems_Jump1 0xA071CAC4 : {
+        KEEP(*(.text.HideMenuItems_Jump1))
+    }
+    .HideMenuItems_Part2 0xA071B510 : {
+        KEEP(*(.text.HideMenuItems_Part2))
+    }
+    .HideMenuItems_Jump2 0xA071B538 : {
+        KEEP(*(.text.HideMenuItems_Jump2))
+    }
+
+
     .FixDriveInfo 0xA069B8EC : {
         KEEP(*(.text.FixDriveInfo))
     }
@@ -230,6 +296,9 @@ SECTIONS {
     }
     .SkipApplicationError 0xA0698C70 : {
         KEEP(*(.text.SkipApplicationError))
+    }
+    .DisableSearch 0xA069B950 : {
+        KEEP(*(.text.DisableSearch))
     }
 
 
@@ -269,5 +338,9 @@ SECTIONS {
     }
     .KeyHook 0xA1380A80 : {
         KEEP(*(.text.KeyHook))
+    }
+
+    .Rename_SkipFindChildren 0xA0714FB8 : {
+        KEEP(*(.text.Rename_SkipFindChildren))
     }
 }
