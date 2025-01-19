@@ -122,12 +122,6 @@ SECTIONS {
     .RenameWithExt_Part2 0xA05D0988 : {
         KEEP(*(.text.RenameWithExt_Part2))
     }
-    .FixRenameFile_Hook 0xA13808B0 : {
-        KEEP(*(.text.FixRenameFile_Hook))
-    }
-    .FixRenameFile_Jump 0xA07169A0 : {
-        KEEP(*(.text.FixRenameFile_Jump))
-    }
 
 
     .FixCopyFiles 0xA0716470 : {
@@ -142,20 +136,6 @@ SECTIONS {
     .FixCopyMarkedDirs_Part3 0xA0715D60 : {
         KEEP(*(.text.FixCopyMarkedDirs_Part3))
     }
-    .FixCopyFile_Hook 0xA13808DA : {
-        KEEP(*(.text.FixCopyFile_Hook))
-    }
-    .FixCopyFile_Jump 0xA0716960 : {
-        KEEP(*(.text.FixCopyFile_Jump))
-    }
-
-
-    .FixMoveFile_Hook 0xA1380620 : {
-        KEEP(*(.text.FixMoveFile_Hook))
-    }
-    .FixMoveFile_Jump 0xA0716950 : {
-        KEEP(*(.text.FixMoveFile_Jump))
-    }
 
 
     .FixDeleteROFiles_Part1 0xA05D0F00 : {
@@ -164,53 +144,71 @@ SECTIONS {
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
     }
-    .FixDeleteFile_Hook 0xA1380B30 : {
-        KEEP(*(.text.FixDeleteFile_Hook))
-    }
-    .FixDeleteFile_Jump 0xA0716980 : {
-        KEEP(*(.text.FixDeleteFile_Jump))
-    }
 
-
-    .FixPaste_Part1 0xA069B508 : {
-        KEEP(*(.text.FixPaste_Part1))
-    }
-    .FixPaste_Part2 0xA069B534 : {
-        KEEP(*(.text.FixPaste_Part2))
-    }
-    .FixPaste_Part3 0xA069B53C : {
-        KEEP(*(.text.FixPaste_Part3))
-    }
-    .FixPaste_Part4 0xA069B54C :{
-        KEEP(*(.text.FixPaste_Part4))
-    }
     .IsAllowPaste 0xA1380910 : {
         KEEP(*(.text.IsAllowPaste))
     }
-    .FixPaste_Hook 0xA138096A : {
-        KEEP(*(.text.FixPaste_Hook))
-    }
-    .FixDisableItem_Hook 0xA13809CA : {
-        KEEP(*(.text.FixDisableItem_Hook))
-    }
-    .FixDisableItem_Jump 0xA071E42C : {
-        KEEP(*(.text.FixDisableItem_Jump))
+    .IsAllowPaste_Jump 0xA07162FC : {
+        KEEP(*(.text.IsAllowPaste_Jump))
     }
 
 
+    .FixCopyFile_Hook 0xA13808DA : {
+        KEEP(*(.text.FixCopyFile_Hook))
+    }
+    .FixCopyFile_Jump 0xA0716960 : {
+        KEEP(*(.text.FixCopyFile_Jump))
+    }
+    .FixMoveFile_Hook 0xA1380620 : {
+        KEEP(*(.text.FixMoveFile_Hook))
+    }
+    .FixMoveFile_Jump 0xA0716950 : {
+        KEEP(*(.text.FixMoveFile_Jump))
+    }
     .FixSendFile_Hook 0xA1380B8A : {
         KEEP(*(.text.FixSendFile_Hook))
     }
     .FixSendFile_Jump 0xA0716940 : {
         KEEP(*(.text.FixSendFile_Jump))
     }
-
-
-    .FixSetAsFile_Hook 0xA1380B5A : {
+    .FixSortFiles_Hook 0xA1380B5A : {
+       KEEP(*(.text.FixSortFiles_Hook))
+    }
+    .FixSortFiles_Jump 0xA07169B0 : {
+        KEEP(*(.text.FixSortFiles_Jump))
+    }
+    .FixSetAsFile_Hook 0xA1380BF0 : {
         KEEP(*(.text.FixSetAsFile_Hook))
     }
     .FixSetAsFile_Jump 0xA0716A00 : {
         KEEP(*(.text.FixSetAsFile_Jump))
+    }
+    .FixRenameFile_Hook 0xA13808B0 : {
+        KEEP(*(.text.FixRenameFile_Hook))
+    }
+    .FixRenameFile_Jump 0xA07169A0 : {
+       KEEP(*(.text.FixRenameFile_Jump))
+    }
+    .FixDeleteFile_Hook 0xA1380B30 : {
+       KEEP(*(.text.FixDeleteFile_Hook))
+    }
+    .FixDeleteFile_Jump 0xA0716980 : {
+        KEEP(*(.text.FixDeleteFile_Jump))
+    }
+    .FixPaste_Part1 0xA069B508 : {
+        KEEP(*(.text.FixPaste_Part1))
+    }
+    .FixPaste_Part2 0xA069B53C : {
+        KEEP(*(.text.FixPaste_Part2))
+    }
+    .FixPaste_Part3 0xA069B54C :{
+        KEEP(*(.text.FixPaste_Part3))
+    }
+    .FixPaste_Hook 0xA138096A : {
+        KEEP(*(.text.FixPaste_Hook))
+    }
+    .FixPaste_Jump 0xA069B534 : {
+        KEEP(*(.text.FixPaste_Jump))
     }
 
 
@@ -257,7 +255,7 @@ SECTIONS {
     .HideMenuItems_Part1 0xA071CAB8 : {
         KEEP(*(.text.HideMenuItems_Part1))
     }
-    .HideMenuItems_Hook 0xA1380880 : {
+    .HideMenuItems_Hook 0xA138087A : {
         KEEP(*(.text.HideMenuItems_Hook))
     }
     .HideMenuItems_Jump1 0xA071CAC4 : {
@@ -268,6 +266,9 @@ SECTIONS {
     }
     .HideMenuItems_Jump2 0xA071B538 : {
         KEEP(*(.text.HideMenuItems_Jump2))
+    }
+    .HideMenuItems_Jump3 0xA071B874 : {
+        KEEP(*(.text.HideMenuItems_Jump3))
     }
 
 

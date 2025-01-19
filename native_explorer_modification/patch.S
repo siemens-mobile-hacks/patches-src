@@ -148,10 +148,6 @@ mov r0, #0x01
 .arm
 b . + 0xC4
 
-.section .text.FixRenameFile_Jump
-.arm
-blx FixRenameFile_Hook
-
 
 .section .text.FixCopyFiles
 .arm
@@ -169,15 +165,6 @@ mov r0, #0x00
 .arm
 mov r0, #0x00
 
-.section .text.FixCopyFile_Jump
-.arm
-blx FixCopyFile_Hook
-
-
-.section .text.FixMoveFile_Jump
-.arm
-blx FixMoveFile_Hook
-
 
 .section .text.FixDeleteROFiles_Part1
 .arm
@@ -187,53 +174,11 @@ movne r0, #0x00
 .arm
 b . + 0x24
 
-.section .text.FixDeleteFile_Jump
-.arm
-blx FixDeleteFile_Hook
 
-
-.section .text.FixPaste_Part1
-.arm
-b . + 0x0C
-
-.section .text.FixPaste_Part2
-.arm
-blx FixPaste_Hook
-
-.section .text.FixPaste_Part3
-.arm
-nop
-
-.section .text.FixPaste_Part4
-.arm
-nop
-
-.section .text.FixDisableItem_Jump
-.arm
-blx FixDisableItem_Hook
-
-
-.section .text.FixSendFile_Jump
-.arm
-blx FixSendFile_Hook
-
-
-.section .text.FixSetAsFile_Jump
-.arm
-blx FixSetAsFile_Hook
-
-
-.section .text.FixHeader
-.arm
-b . + 0x150
-
-.section .text.SetHeaderExtraLgpID
-.arm
-.int 0x7FFFC092
-
-.section .text.SetHeaderExtra_Jump
-.arm
-blx SetHeaderExtra_Hook
+.section .text.IsAllowPaste_Jump
+stmdb sp!, {r4, r5, lr}
+blx IsAllowPaste
+ldmia sp!, {r4, r5, pc}
 
 
 .section .text.FixSoftkeys_Jump
@@ -271,9 +216,10 @@ b . + 0x0C
 
 .section .text.HideMenuItems_Jump1
 .arm
-add r0, sp, #0x3E0
+mov r0, r4
+add r1, sp, #0x3E0
 blx HideMenuItems_Hook
-b . + 0x2C
+b . + 0x28
 
 .section .text.HideMenuItems_Part2
 .arm
@@ -281,7 +227,15 @@ b . + 0x28
 
 .section .text.HideMenuItems_Jump2
 .arm
-mov r0, r4
+mov r0, r6
+mov r1, r4
+blx HideMenuItems_Hook
+nop
+
+.section .text.HideMenuItems_Jump3
+.arm
+mov r0, r6
+mov r1, r4
 blx HideMenuItems_Hook
 b . + 0x08
 

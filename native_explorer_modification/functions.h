@@ -5,11 +5,11 @@
 #endif
 
 #define _wstrlen ((int (*)(const WSHDR *))(ADDR_wstrlen))
-#define _wsprintf ((void (*)(WSHDR *, const char *, ...))(ADDR_wsprintf))
 #define _wstrcmp ((int (*)(const WSHDR *, const WSHDR *))(ADDR_wstrcmp))
+#define _wsprintf ((void (*)(WSHDR *, const char *, ...))(ADDR_wsprintf))
+#define _isdir_ws ((int (*)(const WSHDR *))(ADDR_isdir_ws))
 #define _BuildPath ((int (*)(WSHDR *ws, const WSHDR *, const WSHDR *))(ADDR_BuildPath))
 #define _GetPITaddr ((IMGHDR *(*)(int num))(ADDR_GetPITaddr))
-#define _wsInsertChar ((int (*)(WSHDR *, int, int))(ADDR_wsInsertChar))
 #define _CreateLocalWS ((void (*)(WSHDR *, uint16_t *, int))(ADDR_CreateLocalWS))
 #define _GBS_SendMessage ((void (*)(int, int , ...))(ADDR_GBS_SendMessage))
 #define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
