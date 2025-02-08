@@ -80,7 +80,8 @@ blx IsAllowThumbnail
 
 .section .text.ShowHiddenFiles
 .arm
-nop
+mov r0, #0x01
+bx lr
 
 .section .text.ShowExtensions
 .arm

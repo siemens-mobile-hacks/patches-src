@@ -65,7 +65,7 @@ SECTIONS {
         KEEP(*(.text.IsAllowThumbnail_Jump))
     }
 
-    .ShowHiddenFiles 0xA0698300 : {
+    .ShowHiddenFiles 0xA06982FC : {
         KEEP(*(.text.ShowHiddenFiles))
     }
     .ShowExtensions 0xA071E9D8 : {
