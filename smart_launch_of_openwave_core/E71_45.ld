@@ -32,6 +32,9 @@ SECTIONS {
         KEEP(*(.text.Jump_2))
     }
 
+    .SkipStateCheck 0xA06E7C84 : {
+        KEEP(*(.text.SkipStateCheck))
+    }
     .DisableErrorMessage 0xA05FB08E : {
         KEEP(*(.text.DisableErrorMessage))
     }

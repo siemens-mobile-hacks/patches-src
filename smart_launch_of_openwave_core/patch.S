@@ -27,6 +27,11 @@ pop {pc}
 .thumb
 blx Trampoline_2
 
+.section .text.SkipStateCheck
+.thumb
+mov r0, #0x01
+nop
+
 .section .text.DisableErrorMessage
 .thumb
 nop
