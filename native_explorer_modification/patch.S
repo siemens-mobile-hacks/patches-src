@@ -199,15 +199,23 @@ mov r0, #0x00
 .arm
 b . + 0x1A8
 
-.section .text.FixMenuItem_Open
+.section .text.FixMenuItem_Open_Part1
 .arm
 b . + 0x08
+
+.section .text.FixMenuItem_Open_Part2
+.arm
+cmp r5, #0xFF
 
 .section .text.FixMenuItem_Copy_Part1
 .arm
 mov r0, #0x00
 
 .section .text.FixMenuItem_Copy_Part2
+.arm
+b . + 0x18
+
+.section .text.FixMenuItem_Send
 .arm
 b . + 0x18
 
@@ -239,6 +247,24 @@ mov r0, r6
 mov r1, r4
 blx HideMenuItems_Hook
 b . + 0x08
+
+
+.section .text.FixJavaDirs_Part1
+.arm
+nop
+
+.section .text.FixJavaDirs_Part2
+.arm
+nop
+
+.section .text.FixJavaDirs_Part3
+.arm
+cmp r0, #0xFF
+
+.section .text.FixRunJava
+.thumb
+b . + 0x12
+
 
 .section .text.FixDriveInfo
 .arm

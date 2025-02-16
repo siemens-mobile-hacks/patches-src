@@ -243,14 +243,20 @@ SECTIONS {
     .FixMenu4MarkedDirs_Part2 0xA071B5E4 : {
         KEEP(*(.text.FixMenu4MarkedDirs_Part2))
     }
-    .FixMenuItem_Open 0xA071C5EC : {
-        KEEP(*(.text.FixMenuItem_Open))
+    .FixMenuItem_Open_Part1 0xA071C5EC : {
+        KEEP(*(.text.FixMenuItem_Open_Part1))
+    }
+    .FixMenuItem_Open_Part2 0xA071C6D4 : {
+        KEEP(*(.text.FixMenuItem_Open_Part2))
     }
     .FixMenuItem_Copy_Part1 0xA071CCF0 : {
         KEEP(*(.text.FixMenuItem_Copy_Part1))
     }
     .FixMenuItem_Copy_Part2 0xA071CC90 : {
         KEEP(*(.text.FixMenuItem_Copy_Part2))
+    }
+    .FixMenuItem_Send 0xA071CF08 : {
+        KEEP(*(.text.FixMenuItem_Send))
     }
     .HideMenuItems_Part1 0xA071CAB8 : {
         KEEP(*(.text.HideMenuItems_Part1))
@@ -271,6 +277,18 @@ SECTIONS {
         KEEP(*(.text.HideMenuItems_Jump3))
     }
 
+    .FixJavaDirs_Part1 0xA069AB04 : {
+        KEEP(*(.text.FixJavaDirs_Part1))
+    }
+    .FixJavaDirs_Part2 0xA071E554 : {
+        KEEP(*(.text.FixJavaDirs_Part2))
+    }
+    .FixJavaDirs_Part3 0xA0718F58 : {
+        KEEP(*(.text.FixJavaDirs_Part3))
+    }
+    .FixRunJava 0xA09EEC7E: {
+        KEEP(*(.text.FixRunJava))
+    }
 
     .FixDriveInfo 0xA069B8EC : {
         KEEP(*(.text.FixDriveInfo))
