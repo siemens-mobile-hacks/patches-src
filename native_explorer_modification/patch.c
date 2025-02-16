@@ -20,23 +20,28 @@ int IsAllowPaste(NATIVE_EXPLORER_CSM *csm, WSHDR *ws) {
     return 1;
 }
 
-#define MergeIMGHDR ((void (*)(IMGHDR *src, IMGHDR *dest))(ADDR_MergeIMGHDR))
+
 #define MergeIcons ((void (*)(void *, void *))(ADDR_MergeIcons))
+#define MergeIMGHDR ((void (*)(IMGHDR *src, IMGHDR *dest))(ADDR_MergeIMGHDR))
+#define IsDirectory ((int (*)(NATIVE_EXPLORER_CSM *, int))(ADDR_IsDirectory))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.MergeIcons_Hook")))
-void MergeIcons_Hook(NATIVE_EXPLORER_CSM *csm, void *r1, IMGHDR *src) {
+void MergeIcons_Hook(NATIVE_EXPLORER_CSM *csm, void *item, IMGHDR *src) {
     register int r3 asm ("r3");
     if (csm->mark_mode) {
-        src = _GetPITaddr(1336);
+        const int item_n = *((uint8_t*)item + 4);
+        if (csm->mode == NATIVE_EXPLORER_MODE_DEFAULT || !IsDirectory(csm, item_n)) {
+            src = _GetPITaddr(1336);
+        }
         goto MERGE;
     }
     if (r3 != 3) {
         MERGE:
-            IMGHDR *dest = (IMGHDR*)((char*)r1 + 8);
+            IMGHDR *dest = (IMGHDR*)((uint8_t*)item + 8);
             MergeIMGHDR(src, dest);
     }
-    MergeIcons(csm, r1);
+    MergeIcons(csm, item);
 }
 
 __attribute__((target("thumb")))

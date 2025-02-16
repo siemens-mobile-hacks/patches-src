@@ -46,7 +46,7 @@ SECTIONS {
     .FixCheckedIcon 0xA0718E2C : {
         KEEP(*(.data.FixCheckedIcon))
     }
-    .MergeIcons_Hook 0xA1380650 : {
+    .MergeIcons_Hook 0xA1380640 : {
         KEEP(*(.text.MergeIcons_Hook))
     }
     .MergeIcons_Jump1_AddParam 0xA0719BBC : {
