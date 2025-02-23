@@ -14,6 +14,7 @@
 #define _GBS_SendMessage ((void (*)(int, int , ...))(ADDR_GBS_SendMessage))
 #define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
 #define _GetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t *, unsigned int *))(ADDR_GetFileAttrib_ws))
+#define _SetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t, unsigned int *))(ADDR_SetFileAttrib_ws))
 #define _GetMenuItemCount ((int (*)(void *))(ADDR_GetMenuItemCount))
 #define _MenuGetUserPointer ((void *(*)(void *))(ADDR_MenuGetUserPointer))
 

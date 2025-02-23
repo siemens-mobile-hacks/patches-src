@@ -105,3 +105,24 @@ void HideMenuItems_Hook(NATIVE_EXPLORER_CSM *csm, int *hide_list) {
     hide_list[count  ] = 0x17; // Format card
     hide_list[0] = count;
 }
+
+/*
+ * Фикс установки атрибутов папок при их копировании или перемещении.
+ */
+
+#define CreateDir ((int (*)(const WSHDR *ws, const WSHDR *unk))(ADDR_CreateDir))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixCopyDirsAttributes_Hook")))
+int FixCopyDirsAttributes_Hook(const WSHDR *dest_dir, const WSHDR *unk) {
+    int result = CreateDir(dest_dir, unk);
+
+    uint8_t attr;
+    uint32_t err;
+    register const WSHDR *source_dir asm ("r8");
+    if (_GetFileAttrib_ws(source_dir, &attr, &err)) {
+        _SetFileAttrib_ws(dest_dir, attr, &err);
+    }
+
+    return result;
+}

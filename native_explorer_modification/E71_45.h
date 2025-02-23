@@ -11,6 +11,7 @@
 #define ADDR_CreateLocalWS      (0xA04FB25B)
 #define ADDR_GBS_SendMessage    (0xA0091EAB)
 #define ADDR_GetFileAttrib_ws   (0xA0567EF8)
+#define ADDR_SetFileAttrib_ws   (0xA05681EC)
 #define ADDR_GetHeaderPointer   (0xA0954E3D)
 #define ADDR_GetMenuItemCount   (0xA0950F33)
 #define ADDR_MenuGetUserPointer (0xA095654F)
@@ -47,3 +48,5 @@
 #define ADDR_DisableItem_Unknown (0xA07162FC)
 
 #define ADDR_IsRootDir (0xA0699D84)
+
+#define ADDR_CreateDir (0xA05D02E8)

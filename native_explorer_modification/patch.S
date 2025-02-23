@@ -166,6 +166,15 @@ mov r0, #0x00
 .arm
 mov r0, #0x00
 
+.section .text.FixCopyDirsAttributes_Jump
+.arm
+blx FixCopyDirsAttributes_Hook
+
+
+.section .text.FixMoveSystemDirs
+.arm
+b . + 0x18
+
 
 .section .text.FixDeleteROFiles_Part1
 .arm
@@ -174,6 +183,10 @@ movne r0, #0x00
 .section .text.FixDeleteROFiles_Part2
 .arm
 b . + 0x24
+
+.section .text.FixDeleteSystemDirs
+.arm
+b . + 0x18
 
 
 .section .text.IsAllowPaste_Jump
@@ -255,7 +268,7 @@ nop
 
 .section .text.FixJavaDirs_Part2
 .arm
-nop
+mov r0, #0x00
 
 .section .text.FixJavaDirs_Part3
 .arm

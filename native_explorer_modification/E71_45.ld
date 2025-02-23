@@ -136,13 +136,25 @@ SECTIONS {
     .FixCopyMarkedDirs_Part3 0xA0715D60 : {
         KEEP(*(.text.FixCopyMarkedDirs_Part3))
     }
+    .FixCopyDirsAttributes_Hook 0xA1380C60 : {
+        KEEP(*(.text.FixCopyDirsAttributes_Hook))
+    }
+    .FixCopyDirsAttributes_Jump 0xA0695800 : {
+        KEEP(*(.text.FixCopyDirsAttributes_Jump))
+    }
 
+    .FixMoveSystemDirs 0xA0695F30 : {
+        KEEP(*(.text.FixMoveSystemDirs))
+    }
 
     .FixDeleteROFiles_Part1 0xA05D0F00 : {
         KEEP(*(.text.FixDeleteROFiles_Part1))
     }
     .FixDeleteROFiles_Part2 0xA0694F28 : {
         KEEP(*(.text.FixDeleteROFiles_Part2))
+    }
+    .FixDeleteSystemDirs 0xA06950EC : {
+        KEEP(*(.text.FixDeleteSystemDirs))
     }
 
     .IsAllowPaste 0xA1380910 : {
