@@ -1,13 +1,19 @@
+.global wstrlen
+.global wsAppendChar
+
 #ifdef E71_45
+    .equ wstrlen, 0xA0C0CF84
     .equ wstrcmp, 0xA0FB3D74
     .equ GetMenuGUI, 0xA0950125
     .equ SetCursorTab, 0xA07FA3F8
+    .equ wsAppendChar, 0xA07F9F00
     .equ AllocMenuItem, 0xA0954585
-    .equ GetExtIconSmall, 0xA05028C8
+
     .equ Send806D, 0xA0698794
     .equ Show5461, 0xA0698968
     .equ RefreshTab, 0xA069A57C
     .equ GetTabByCSM, 0xA071D770
+    .equ GetExtIconSmall, 0xA05028C8
 #endif
 
 .section .text.Replace_GetMultiLinesMenuGUI
@@ -22,11 +28,7 @@ blx AllocMenuItem
 .arm
 cmp r6,r6
 
-.section .text.Replace_GetExtIconLarge_1
-.arm
-bl GetExtIconSmall
-
-.section .text.Replace_GetExtIconLarge_2
+.section .text.Replace_GetExtIconLarge
 .arm
 bl GetExtIconSmall
 
@@ -176,19 +178,6 @@ blx FixCopyDirsAttributes_Hook
 b . + 0x18
 
 
-.section .text.FixDeleteROFiles_Part1
-.arm
-movne r0, #0x00
-
-.section .text.FixDeleteROFiles_Part2
-.arm
-b . + 0x24
-
-.section .text.FixDeleteSystemDirs
-.arm
-b . + 0x18
-
-
 .section .text.IsAllowPaste_Jump
 stmdb sp!, {r4, r5, lr}
 blx IsAllowPaste
@@ -217,6 +206,10 @@ b . + 0x1A8
 b . + 0x08
 
 .section .text.FixMenuItem_Open_Part2
+.arm
+cmp r5, #0xFF
+
+.section .text.FixMenuItem_Open_Part3
 .arm
 cmp r5, #0xFF
 
@@ -259,7 +252,7 @@ nop
 mov r0, r6
 mov r1, r4
 blx HideMenuItems_Hook
-b . + 0x08
+nop
 
 
 .section .text.FixJavaDirs_Part1
@@ -268,15 +261,23 @@ nop
 
 .section .text.FixJavaDirs_Part2
 .arm
-mov r0, #0x00
-
-.section .text.FixJavaDirs_Part3
-.arm
 cmp r0, #0xFF
+
+.section .text.FixJavaDirIcon_Part1
+.arm
+ldr r0, [pc, #0x848]
+add r0, r0, #0x04
+
+.section .data.FixJavaDirIcon_Part2
+.int 0x3FC
 
 .section .text.FixRunJava
 .thumb
 b . + 0x12
+
+.section .text.FixJavaAttributes
+.arm
+mov r0, #0x00
 
 
 .section .text.FixDriveInfo

@@ -94,3 +94,15 @@ void FixPaste_Hook(NATIVE_EXPLORER_CSM *csm, int item_n, WSHDR *ws) {
         Paste_Unknown_2(csm, ws, 0);
     }
 }
+
+#define ShowFileAttributes ((void (*)(const WSHDR *, const WSHDR *))(ADDR_ShowFileAttributes))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FixShowFileAttributes_Hook")))
+void FixShowFileAttributes_Hook(const WSHDR *dir, const WSHDR *file_name) {
+    if (_wstrlen(dir) == (3 - 1) && _wstrlen(file_name) == 0) {
+        return;
+    } else {
+        ShowFileAttributes(dir, file_name);
+    }
+}

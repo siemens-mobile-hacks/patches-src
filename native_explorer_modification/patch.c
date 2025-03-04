@@ -97,8 +97,23 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.HideMenuItems_Hook")))
 void HideMenuItems_Hook(NATIVE_EXPLORER_CSM *csm, int *hide_list) {
     int count = hide_list[0] + 1;
-    if (csm->mark_mode) {
-        hide_list[count++] = 0x02; // Send
+    if (csm->mode == NATIVE_EXPLORER_MODE_DEFAULT) {
+        if (csm->mark_mode) {
+            hide_list[count++] = 0x02; // Send
+        } else {
+            WSHDR path;
+            uint16_t wsbody_path[128];
+            register int item_n asm("r5");
+            _CreateLocalWS(&path, wsbody_path, 128);
+            GetItemPath(csm, item_n, &path);
+
+            uint8_t attr;
+            uint32_t err;
+            _GetFileAttrib_ws(&path, &attr, &err);
+            if (attr & FA_READONLY || attr & FA_SYSTEM) {
+                hide_list[count++] = 0x08; // Delete
+            }
+        }
     }
     hide_list[count++] = 0x13; // Search
     hide_list[count++] = 0x16; // Manage licence
@@ -116,13 +131,13 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.FixCopyDirsAttributes_Hook")))
 int FixCopyDirsAttributes_Hook(const WSHDR *dest_dir, const WSHDR *unk) {
     int result = CreateDir(dest_dir, unk);
-
-    uint8_t attr;
-    uint32_t err;
-    register const WSHDR *source_dir asm ("r8");
-    if (_GetFileAttrib_ws(source_dir, &attr, &err)) {
-        _SetFileAttrib_ws(dest_dir, attr, &err);
+    if (result == 0) {
+        uint8_t attr;
+        uint32_t err;
+        register const WSHDR *src_dir asm ("r8");
+        if (_GetFileAttrib_ws(src_dir, &attr, &err)) {
+            _SetFileAttrib_ws(dest_dir, attr, &err);
+        }
     }
-
     return result;
 }

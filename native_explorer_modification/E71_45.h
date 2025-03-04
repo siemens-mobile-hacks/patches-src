@@ -47,6 +47,8 @@
 #define ADDR_Paste_Unknown_2     (0xA0716004)
 #define ADDR_DisableItem_Unknown (0xA07162FC)
 
+#define ADDR_ShowFileAttributes (0xA07130DC)
+
 #define ADDR_IsRootDir (0xA0699D84)
 
 #define ADDR_CreateDir (0xA05D02E8)

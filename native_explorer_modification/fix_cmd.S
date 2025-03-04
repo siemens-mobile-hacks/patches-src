@@ -41,3 +41,7 @@ nop
 .section .text.FixPaste_Jump
 .arm
 blx FixPaste_Hook
+
+.section .text.FixShowFileAttributes_Jump
+.arm
+blx FixShowFileAttributes_Hook

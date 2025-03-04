@@ -12,11 +12,8 @@ SECTIONS {
     .FixMemoryLeak_1 0xA071E1D8 : {
         KEEP(*(.text.FixMemoryLeak_1))
     }
-    .Replace_GetExtIconLarge_1 0xA071E5B4 : {
-        KEEP(*(.text.Replace_GetExtIconLarge_1))
-    }
-    .Replace_GetExtIconLarge_2 0xA071E570 : {
-        KEEP(*(.text.Replace_GetExtIconLarge_2))
+    .Replace_GetExtIconLarge 0xA071E5B4 : {
+        KEEP(*(.text.Replace_GetExtIconLarge))
     }
     .FixDirIcon_1 0xA0870A54 : {
         KEEP(*(.data.FixDirIcon_1))
@@ -147,16 +144,6 @@ SECTIONS {
         KEEP(*(.text.FixMoveSystemDirs))
     }
 
-    .FixDeleteROFiles_Part1 0xA05D0F00 : {
-        KEEP(*(.text.FixDeleteROFiles_Part1))
-    }
-    .FixDeleteROFiles_Part2 0xA0694F28 : {
-        KEEP(*(.text.FixDeleteROFiles_Part2))
-    }
-    .FixDeleteSystemDirs 0xA06950EC : {
-        KEEP(*(.text.FixDeleteSystemDirs))
-    }
-
     .IsAllowPaste 0xA1380910 : {
         KEEP(*(.text.IsAllowPaste))
     }
@@ -222,6 +209,12 @@ SECTIONS {
     .FixPaste_Jump 0xA069B534 : {
         KEEP(*(.text.FixPaste_Jump))
     }
+    .FixShowFileAttributes_Hook 0xA1380880 : {
+        KEEP(*(.text.FixShowFileAttributes_Hook))
+    }
+    .FixShowFileAttributes_Jump 0xA069B860 : {
+        KEEP(*(.text.FixShowFileAttributes_Jump))
+    }
 
 
     .FixHeader 0xA071EEE8 : {
@@ -261,6 +254,9 @@ SECTIONS {
     .FixMenuItem_Open_Part2 0xA071C6D4 : {
         KEEP(*(.text.FixMenuItem_Open_Part2))
     }
+    .FixMenuItem_Open_Part3 0xA071C6E8 : {
+        KEEP(*(.text.FixMenuItem_Open_Part3))
+    }
     .FixMenuItem_Copy_Part1 0xA071CCF0 : {
         KEEP(*(.text.FixMenuItem_Copy_Part1))
     }
@@ -273,7 +269,7 @@ SECTIONS {
     .HideMenuItems_Part1 0xA071CAB8 : {
         KEEP(*(.text.HideMenuItems_Part1))
     }
-    .HideMenuItems_Hook 0xA138087A : {
+    .HideMenuItems_Hook 0xA1380CB0 : {
         KEEP(*(.text.HideMenuItems_Hook))
     }
     .HideMenuItems_Jump1 0xA071CAC4 : {
@@ -292,14 +288,20 @@ SECTIONS {
     .FixJavaDirs_Part1 0xA069AB04 : {
         KEEP(*(.text.FixJavaDirs_Part1))
     }
-    .FixJavaDirs_Part2 0xA071E554 : {
+    .FixJavaDirs_Part2 0xA0718F58 : {
         KEEP(*(.text.FixJavaDirs_Part2))
     }
-    .FixJavaDirs_Part3 0xA0718F58 : {
-        KEEP(*(.text.FixJavaDirs_Part3))
+    .FixJavaDirIcon_Part1 0xA071E56C : {
+        KEEP(*(.text.FixJavaDirIcon_Part1))
     }
-    .FixRunJava 0xA09EEC7E: {
+    .FixJavaDirIcon_Part2 0xA0870A60 : {
+        KEEP(*(.data.FixJavaDirIcon_Part2))
+    }
+    .FixRunJava 0xA09EEC7E : {
         KEEP(*(.text.FixRunJava))
+    }
+    .FixJavaAttributes 0xA069B7D4 : {
+        KEEP(*(.text.FixJavaAttributes))
     }
 
     .FixDriveInfo 0xA069B8EC : {
