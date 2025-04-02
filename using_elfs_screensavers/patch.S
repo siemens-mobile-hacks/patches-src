@@ -2,7 +2,7 @@
 .thumb
 bl CreateGUI_SS
 
-#ifdef NEWSGOLD
+#ifdef ELKA
     .section .text.FixScreenSaver_1
     .thumb
     cmp r5, #0xFF
@@ -10,14 +10,6 @@ bl CreateGUI_SS
     .section .text.FixScreenSaver_2
     .thumb
     cmp r5, #0xFF
-
-    .section .text.GetLangMessageIntoWS_Jump_1
-    .thumb
-    bl GetLangMessageIntoWS
-
-    .section .text.GetLangMessageIntoWS_Jump_2
-    .thumb
-    bl GetLangMessageIntoWS
 #else
     .section .text.FixScreenSaver_1
     .thumb
@@ -26,9 +18,19 @@ bl CreateGUI_SS
     .section .text.FixScreenSaver_2
     .thumb
     mov r1, #0x01
+#endif
 
+#ifdef NEWSGOLD
+    .section .text.GetLangMessageIntoWS_Jump_1
+    .thumb
+    bl GetLangMessageIntoWS
+
+    .section .text.GetLangMessageIntoWS_Jump_2
+    .thumb
+    bl GetLangMessageIntoWS
+#else
     .section .data.OnRedraw_Addr
-    .int 0xA1720101
+    .int OnRedraw
 
     .section .text.GetLangMessageIntoWS_Jump
     .thumb

@@ -1,15 +1,21 @@
 #include <swilib.h>
 
 #ifdef NEWSGOLD
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
     #ifdef E71_45
         #include "E71_45.h"
     #endif
 #else
-    #define SCREEN_W 132
-    #define SCREEN_H 176
     #ifdef S65_58
         #include "S65_58.h"
     #endif
+#endif
+
+#ifndef ELKA
+    #define SCREEN_W 132
+    #define SCREEN_H 176
 #endif
 
 #define _CreateGUI ((int (*)(GUI *gui))(ADDR_CreateGUI))

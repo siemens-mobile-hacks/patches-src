@@ -12,6 +12,10 @@ add_compile_options(-Os)
 add_executable(S65v58 patch.c patch.S)
 define_patch(S65v58 SG S65 58)
 
+# S75v52
+add_executable(S75v52 patch.c patch.S)
+define_patch(S75v52 NSG S75 52)
+
 # E71v45
 add_executable(E71v45 patch.c patch.S)
 define_patch(E71v45 ELKA E71 45)
