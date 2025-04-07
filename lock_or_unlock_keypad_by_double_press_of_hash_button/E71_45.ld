@@ -15,6 +15,9 @@ SECTIONS {
     .KbdUnlock_Part3 0xA0669846 : {
         KEEP(*(.text.KbdUnlock_Part3))
     }
+    .KbdUnlock_Part4 0xA05C2BAC : {
+        KEEP(*(.text.KbdUnlock_Part4))
+    }
     .KeypadLock_DisableText 0xA0669AA0 : {
         KEEP(*(.text.KeypadLock_DisableText))
     }

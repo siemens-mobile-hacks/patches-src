@@ -20,6 +20,11 @@ b . + 0x34
 .thumb
 sub r0, #0x94
 
+.section .text.KbdUnlock_Part4
+.thumb
+cmp r1, #0x23
+beq . + 0x1A
+
 .section .text.KeypadLock_DisableText
 .thumb
 b . + 0x44
