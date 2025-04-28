@@ -23,3 +23,6 @@ b . + 0x13E
 .section .text.DrawIcons_Jump_Part2
 .thumb
 nop
+
+.section .data.ChangeAutoUpdateTimer
+.int 500

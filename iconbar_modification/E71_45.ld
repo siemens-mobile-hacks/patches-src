@@ -21,4 +21,8 @@ SECTIONS {
     .DrawIcons_Jump_Part2 0xA05C1532 : {
         KEEP(*(.text.DrawIcons_Jump_Part2))
     }
+
+    .ChangeAutoUpdateTimer 0xA066D130 : {
+        KEEP(*(.data.ChangeAutoUpdateTimer))
+    }
 }
