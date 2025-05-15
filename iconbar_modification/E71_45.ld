@@ -9,17 +9,17 @@ SECTIONS {
     .DrawIconBarIcon 0xA13816A0 : {
         KEEP(*(.text.DrawIconBarIcon))
     }
-    .DrawIcons_Hook 0xA1381700 : {
-        KEEP(*(.text.DrawIcons_Hook))
+    .DrawIconBar_Hook 0xA1381700 : {
+        KEEP(*(.text.DrawIconBar_Hook))
     }
-    .DrawIcons_Trampoline 0xA05C6B4C : {
-        KEEP(*(.text.DrawIcons_Trampoline))
+    .DrawIconBar_Trampoline 0xA05C6B4C : {
+        KEEP(*(.text.DrawIconBar_Trampoline))
     }
-    .DrawIcons_Jump_Part1 0xA05C13E8 : {
-        KEEP(*(.text.DrawIcons_Jump_Part1))
+    .DrawIconBar_Jump_Part1 0xA05C13E8 : {
+        KEEP(*(.text.DrawIconBar_Jump_Part1))
     }
-    .DrawIcons_Jump_Part2 0xA05C1532 : {
-        KEEP(*(.text.DrawIcons_Jump_Part2))
+    .DrawIconBar_Jump_Part2 0xA05C1532 : {
+        KEEP(*(.text.DrawIconBar_Jump_Part2))
     }
 
     .ChangeAutoUpdateTimer 0xA066D130 : {

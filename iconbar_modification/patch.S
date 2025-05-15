@@ -7,20 +7,20 @@ b . + 0x60
 b . + 0x9C
 
 
-.section .text.DrawIcons_Trampoline
+.section .text.DrawIconBar_Trampoline
 .arm
-DrawIcons_Trampoline:
+DrawIconBar_Trampoline:
 push {r0, r1, lr}
-blx DrawIcons_Hook
+blx DrawIconBar_Hook
 pop {r0, r1, pc}
 
-.section .text.DrawIcons_Jump_Part1
+.section .text.DrawIconBar_Jump_Part1
 .thumb
 mov r1, r7
-blx DrawIcons_Trampoline
+blx DrawIconBar_Trampoline
 b . + 0x13E
 
-.section .text.DrawIcons_Jump_Part2
+.section .text.DrawIconBar_Jump_Part2
 .thumb
 nop
 
