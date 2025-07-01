@@ -10,8 +10,10 @@
     #ifdef S65_58
         #include "S65_58.h"
     #endif
+    #ifdef CX70_56
+        #include "CX70_56.h"
+    #endif
     #define GetNetworkState() (*ADDR_RamNetworkState)
-    #define NETWORK_ICON 731
 #endif
 
 #define _GetNetworkIcon ((int (*)())(ADDR_GetNetworkIcon))
