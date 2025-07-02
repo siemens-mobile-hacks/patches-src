@@ -4,6 +4,9 @@
     #ifdef S65_58
         #include "S65_58.h"
     #endif
+    #ifdef CX70_56
+        #include "CX70_56.h"
+    #endif
 #endif
 
 #define _MenuGetUserPointer ((void* (*)(void *gui))(ADDR_MenuGetUserPointer))
