@@ -7,13 +7,13 @@
 .section .text.CheckNetworkState
 .thumb
 bl GetNetworkState
-cmp r0, #0x04
+cmp r0, #0x02
 
 .section .data.ReplaceLgpID_1
-.int 0xEF1
+.int 0xEF0
 
 .section .data.ReplaceLgpID_2
-.int 0xEF0
+.int 0xEF1
 
 .section .data.ReplaceItemProc
 .int 0xA1380DA1

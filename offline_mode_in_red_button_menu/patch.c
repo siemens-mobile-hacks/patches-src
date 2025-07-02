@@ -20,7 +20,7 @@ __attribute__((section(".text.SwitchOfflineMode")))
 void SwitchOfflineMode() {
     if (SimIsPresent()) {
         _GeneralFuncF1(1);
-        if (GetNetworkState() == 4) {
+        if (GetNetworkState() == 2) {
             EnableNetwork();
         } else {
             DisableNetwork();
