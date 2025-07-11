@@ -1,0 +1,211 @@
+#include <swilib.h>
+#include "data.h"
+#include "functions.h"
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.AllocData")))
+void AllocData(MP_CSM *csm) {
+    malloc_data();
+    _zeromem(data, sizeof(DATA));
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.FreeData")))
+void FreeData(MP_CSM *csm) {
+    if (data->cover) {
+        mfree(data->cover->bitmap);
+        mfree(data->cover);
+    }
+    free_data();
+}
+
+
+#define MP_OnKey ((int (*)(MP_GUI *gui, GUI_MSG *msg))(ADDR_OnKey))
+#define MP_GHook ((void (*)(MP_GUI *gui, int cmd))(ADDR_GHook))
+#define ReloadMenu ((void (*)(MP_GUI *gui))(ADDR_ReloadMenu))
+#define ChangeSoundViewMode ((void (*)(MP_GUI *gui, uint8_t mode))(ADDR_ChangeSoundViewMode))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.PlayProc")))
+void PlayProc(MP_GUI *gui) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    if (data->flag == 0) {
+        WIDGET *menu = *gui->menu;
+        int cursor = _GetCurMenuItem(menu);
+        _GBS_SendMessage(MMI_CEPID, 0x8053, cursor, csm->csm.id, 0x1D);
+    }
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.HideListProc")))
+void HideListProc(MP_GUI *gui) {
+    ChangeSoundViewMode(gui, 1);
+}
+
+__attribute__((always_inline))
+inline int IsDisableNavigation(MP_CSM *csm) {
+    return (csm->field110_0xcc != 0 || csm->play_status == MP_PLAY_STATUS_FAST_FORWARD || csm->play_status == MP_PLAY_STATUS_REWIND_BACKWARD);
+}
+
+__attribute__((always_inline))
+inline void StartTimerHideList(MP_GUI *gui) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    _GUI_StartTimerProc(gui, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.OnKey")))
+int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    WIDGET *menu = *gui->menu;
+
+    if (gui->media_type == MP_MEDIA_TYPE_AUDIO) {
+        StartTimerHideList(gui);
+
+        if (gui_msg->keys == 0x15) { // '#'
+            return -1;
+        }
+
+        int msg = gui_msg->gbsmsg->msg;
+        int submess = gui_msg->gbsmsg->submess;
+        if (gui->sound_view_mode == MP_SOUND_VIEW_MODE_ANIMATION) {
+            if (gui_msg->keys == 0x26 || gui_msg->keys == 0x25) { // UP_BUTTON, DOWN_BUTTON => '#'
+                gui_msg->keys = 0x15;
+            } else if (msg == KEY_DOWN) {
+                if (submess == LEFT_BUTTON || submess == RIGHT_BUTTON) {
+                    data->flag = submess;
+                    return -1;
+                }
+            } else if (msg == LONG_PRESS) {
+                if (submess == LEFT_BUTTON || RIGHT_BUTTON) {
+                    data->flag = 0;
+                }
+            } else if (msg == KEY_UP) {
+                if (submess == data->flag) {
+                    if (submess == LEFT_BUTTON) {
+                        PREV:
+                            gui_msg->gbsmsg->submess = KEY_DOWN;
+                            gui_msg->keys = 0x26; // UP_BUTTON
+                    } else if (submess == RIGHT_BUTTON) {
+                        NEXT:
+                            gui_msg->gbsmsg->submess = KEY_DOWN;
+                            gui_msg->keys = 0x25; // DOWN_BUTTON
+                    }
+                }
+            }
+        } else {
+            if (IsDisableNavigation(csm)) {
+                if (submess == UP_BUTTON || submess == DOWN_BUTTON) {
+                    return -1;
+                }
+            }
+            if (msg == KEY_DOWN || msg == LONG_PRESS) {
+                if (submess == UP_BUTTON) {
+                    int cursor = _GetCurMenuItem(menu) - 1;
+                    if (cursor < 0) {
+                        cursor = _GetMenuItemCount(menu) - 1;
+                    }
+                    _SetCursorToMenuItem(menu, cursor);
+                    ReloadMenu(gui);
+                    data->flag = submess;
+                    return -1;
+                } else if (submess == DOWN_BUTTON) {
+                    int cursor = _GetCurMenuItem(menu) + 1;
+                    if (cursor > _GetMenuItemCount(menu) - 1) {
+                        cursor = 0;
+                    }
+                    _SetCursorToMenuItem(menu, cursor);
+                    ReloadMenu(gui);
+                    data->flag = submess;
+                    return -1;
+                }
+            } else if (msg == KEY_UP) {
+                if (data->flag == submess) {
+                    data->flag = 0;
+                    _GUI_StartTimerProc(gui, data->timer_play, 500, (void (*)(void*))PlayProc);
+                    return -1;
+                }
+            }
+        }
+    }
+    return MP_OnKey(gui, gui_msg);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.GHook")))
+void GHook(MP_GUI *gui, int cmd) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    if (csm->media_type == MP_MEDIA_TYPE_AUDIO) {
+        if (cmd == 0x2) { // create
+            data->timer_play = _GUI_NewTimer(gui);
+            data->timer_hide_list = _GUI_NewTimer(gui);
+        } else if (cmd == 0x3) { // destroy
+            _GUI_DeleteTimer(gui, data->timer_play);
+            _GUI_DeleteTimer(gui, data->timer_hide_list);
+        }
+        else if (cmd == 0xA) { //focus
+            StartTimerHideList(gui);
+        }
+    }
+    MP_GHook(gui, cmd);
+}
+
+#define BaseOnRedraw ((void (*)(void *gui))(ADDR_BaseOnRedraw))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.BaseOnRedraw_Hook")))
+void BaseOnRedraw_Hook(MP_GUI *gui) {
+    if (gui->media_type == MP_MEDIA_TYPE_AUDIO && gui->sound_view_mode == MP_SOUND_VIEW_MODE_LIST) {
+        IMGHDR *img = _GetIMGHDRFromThemeCache(BODY_STANDART);
+
+        WIDGET *menu = *gui->menu;
+        WIDGET *header = _GetDataOfItemByID(gui, 2);
+        if (header) {
+            header->methods->onRedraw(header);
+        }
+
+        int x = menu->canvas->x;
+        int width = menu->canvas->x2 - x;
+        int height = 30;
+
+        int y = YDISP + 32;
+        _DrawCroppedIMGHDR(x, y, 0, 0, width, height, 0, img);
+
+        y = menu->canvas->y2;
+        int offset_y = menu->canvas->y2 - YDISP - 32;
+        _DrawCroppedIMGHDR(x, y, 0, offset_y, width, height, 0, img);
+
+        WIDGET *softkeys = _GetDataOfItemByID(gui, 0);
+        if (softkeys) {
+            softkeys->methods->onRedraw(softkeys);
+        }
+
+    } else BaseOnRedraw(gui);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.ChangeTrackName")))
+void ChangeTrackName(WSHDR *ws, const WSHDR *artist) {
+    _wsInsertChar(ws, ' ', 1);
+    _wsInsertChar(ws, '-', 1);
+    _wsInsertChar(ws, ' ', 1);
+    _wstrinsert(ws, artist, 1);
+}
+
+#define DrawAnimation ((void (*)(MP_GUI *gui, int animation_type))(ADDR_DrawAnimation))
+
+__attribute__((section(".text.DrawCover")))
+void DrawCover(MP_GUI *gui, int animation_type) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    if (data->cover) {
+        int x = 60;
+        int y = 95;
+        int width = gui->gui.canvas->x2 - gui->gui.canvas->x;
+        int height = 120;
+        IMGHDR *bg = _GetIMGHDRFromThemeCache(BODY_STANDART);
+        _DrawCroppedIMGHDR(gui->gui.canvas->x, y, 0, y - YDISP - 32, width, height, 0, bg);
+        _DrawIMGHDR(60, y, data->cover);
+    } else {
+        DrawAnimation(gui, animation_type);
+    }
+}
