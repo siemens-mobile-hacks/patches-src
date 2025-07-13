@@ -38,17 +38,17 @@ SECTIONS {
         KEEP(*(.text.HideListProc))
     }
 
-    .AllocData 0xA13822D0 : {
-        KEEP(*(.text.AllocData))
+    .InitData 0xA1381E30 : {
+        KEEP(*(.text.InitData))
     }
-    .AllocData_Jump 0xA072C570 : {
-        KEEP(*(.text.AllocData_Jump))
+    .InitData_Jump 0xA072C570 : {
+        KEEP(*(.text.InitData_Jump))
     }
-    .FreeData 0xA13822F0 : {
-        KEEP(*(.text.FreeData))
+    .DestroyData 0xA1381E60 : {
+        KEEP(*(.text.DestroyData))
     }
-    .FreeData_Jump 0xA072C36C : {
-        KEEP(*(.text.FreeData_Jump))
+    .DestroyData_Jump 0xA072C36C : {
+        KEEP(*(.text.DestroyData_Jump))
     }
 
     .OnKey 0xA1381970 : {
@@ -98,13 +98,17 @@ SECTIONS {
         KEEP(*(.text.ChangeTrackName_Jump))
     }
 
-    .ID3v2_ReadCover 0xA1381E30 : {
+    .ID3v2_GetIMGHDRFromPICFrame 0xA1381F00 : {
+        KEEP(*(.text.ID3v2_GetIMGHDRFromPICFrame))
+    }
+    .ID3v2_ReadCover 0xA1382270 : {
         KEEP(*(.text.ID3v2_ReadCover))
     }
     .ID3v2_ReadCover_Jump 0xA0792280 : {
         KEEP(*(.text.ID3v2_ReadCover_Jump))
     }
-    .DrawCover 0xA1382200 : {
+
+    .DrawCover 0xA1382600 : {
         KEEP(*(.text.DrawCover))
     }
     .DrawCover_Jump_1 0xA079F6AC : {

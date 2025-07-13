@@ -54,3 +54,6 @@
 #define _Obs_Output_GetPictstruct ((int (*)(HObj, IMGHDR **))(ADDR_Obs_Output_GetPictstruct))
 #define _Obs_DestroyObject ((int (*)(HObj))(ADDR_Obs_DestroyObject))
 #define _CalcBitmapSize ((int (*)(short, short, char))(ADDR_CalcBitmapSize))
+
+#define _NU_Sleep ((void (*)(unsigned long))(ADDR_NU_Sleep))
+#define _SUBPROC(f, p2) _GBS_SendMessage(HELPER_CEPID, 0x0001, p2, f, NULL);

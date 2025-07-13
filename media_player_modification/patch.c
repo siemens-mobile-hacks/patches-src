@@ -3,19 +3,17 @@
 #include "functions.h"
 
 __attribute__((target("thumb")))
-__attribute__((section(".text.AllocData")))
-void AllocData(MP_CSM *csm) {
+__attribute__((section(".text.InitData")))
+void InitData(MP_CSM *csm) {
     malloc_data();
     _zeromem(data, sizeof(DATA));
 }
 
 __attribute__((target("thumb")))
-__attribute__((section(".text.FreeData")))
-void FreeData(MP_CSM *csm) {
-    if (data->cover) {
-        mfree(data->cover->bitmap);
-        mfree(data->cover);
-    }
+__attribute__((section(".text.DestroyData")))
+void DestroyData(MP_CSM *csm) {
+    free_pic_frame();
+    free_cover();
     free_data();
 }
 
@@ -197,15 +195,20 @@ void ChangeTrackName(WSHDR *ws, const WSHDR *artist) {
 __attribute__((section(".text.DrawCover")))
 void DrawCover(MP_GUI *gui, int animation_type) {
     MP_CSM *csm = _MenuGetUserPointer(gui);
-    if (data->cover) {
-        int x = 60;
-        int y = 95;
-        int width = gui->gui.canvas->x2 - gui->gui.canvas->x;
-        int height = 120;
-        IMGHDR *bg = _GetIMGHDRFromThemeCache(BODY_STANDART);
-        _DrawCroppedIMGHDR(gui->gui.canvas->x, y, 0, y - YDISP - 32, width, height, 0, bg);
-        _DrawIMGHDR(60, y, data->cover);
-    } else {
-        DrawAnimation(gui, animation_type);
+    switch (data->cover_status) {
+        case COVER_DISABLED: default:
+            DrawAnimation(gui, animation_type);
+        break;
+        case COVER_LOADING: break;
+        case COVER_LOADED:
+            if (data->cover) {
+                int y = 95;
+                int width = gui->gui.canvas->x2 - gui->gui.canvas->x;
+                int height = 120;
+                IMGHDR *bg = _GetIMGHDRFromThemeCache(BODY_STANDART);
+                _DrawCroppedIMGHDR(gui->gui.canvas->x, y, 0, y - YDISP - 32, width, height, 0, bg);
+                _DrawIMGHDR(60, y, data->cover);
+            }
+        break;
     }
 }

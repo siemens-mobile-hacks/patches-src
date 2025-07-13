@@ -37,33 +37,33 @@ inline int GetPictureUID(const char *mime_type) {
 }
 
 __attribute__((always_inline))
-inline int ReadPICFrame(PIC_FRAME *frame, int fp, size_t frame_header_size, size_t frame_size) {
+inline PIC_FRAME *ReadPICFrame(int fp, size_t frame_size) {
     uint32_t err;
+    PIC_FRAME *frame = malloc(sizeof(PIC_FRAME));
     frame->raw_frame = malloc(frame_size);
     if (_sys_read(fp, frame->raw_frame, frame_size, &err) != frame_size) {
-        return 0;
+        goto ERROR;
     }
-
 
     uint32_t offset = 0;
     //encoding
     frame->encoding = (FrameEncoding)frame->raw_frame[0];
     if (frame->encoding != FRAME_ENCODING_ISO8859_1) {
-        return 0;
+        goto ERROR;
     }
     offset++;
     //mime_type
     char *mime_type = (frame->raw_frame) + offset;
     frame->uid = GetPictureUID(mime_type);
     if (!frame->uid) {
-        return 0;
+        goto ERROR;
     }
     offset += strlen(mime_type) + 1;
 
     //picture_type
-    frame->picture_type = *(FramePicture*)(frame->raw_frame + offset);
-    if (frame->picture_type != FRAME_PICTURE_TYPE_COVER_FRONT) {
-        return 0;
+    frame->picture_type = *(FramePictureType*)(frame->raw_frame + offset);
+    if (frame->picture_type != FRAME_PICTURE_TYPE_COVER_FRONT && frame->picture_type != FRAME_PICTURE_TYPE_OTHER) {
+        goto ERROR;
     }
     offset++;
     //description
@@ -71,53 +71,67 @@ inline int ReadPICFrame(PIC_FRAME *frame, int fp, size_t frame_header_size, size
     offset += strlen(description) + 1;
     //picture_data
     frame->picture_data = (int8_t*)(frame->raw_frame + offset);
-    frame->picture_data_size = frame_size - (frame_header_size + offset);
-    return 1;
+    frame->picture_data_size = frame_size - (FRAME_HEADER_SIZE + offset);
+    if (frame->picture_data_size >= 512 * 1024) { // 512 kb
+        ERROR:
+            mfree(frame->raw_frame);
+            mfree(frame);
+            return NULL;
+    }
+    return frame;
 }
 
-__attribute__((always_inline))
-inline IMGHDR *GetIMGHDRFromPICFrame(PIC_FRAME *pic_frame, short width, short height) {
+__attribute__((target("thumb")))
+__attribute__((section(".text.ID3v2_GetIMGHDRFromPICFrame")))
+void ID3v2_GetIMGHDRFromPICFrame(MP_CSM *csm) {
+    data->cover_status = COVER_LOADING;
+
+    IMGHDR *img = NULL;
     uint32_t err;
-    HObj hobj = _Obs_CreateObject(pic_frame->uid, 0x2D, 0x02, 0, 1, 1, &err);
-    if (!hobj) {
-        return NULL;
+    HObj hobj = _Obs_CreateObject(data->pic_frame->uid, 0x2D, 0x02, 0, 1, 1, &err);
+    if (hobj) {
+        int status = _Obs_SetInputMemory(hobj, 0, (char*)(data->pic_frame->picture_data), data->pic_frame->picture_data_size);
+        if (status != 0 && status <= 0x7FFF) {
+            goto EXIT;
+        }
+        status = _Obs_SetOutputImageSize(hobj, 120, 120);
+        if (status != 0 && status <= 0x7FFF) {
+            goto EXIT;
+        }
+        status = _Obs_SetScaling(hobj, 5);
+        if (status != 0 && status <= 0x7FFF) {
+            goto EXIT;
+        }
+        status = _Obs_Start(hobj);
+        if (status != 0 && status <= 0x7FFF) {
+            goto EXIT;
+        }
+        IMGHDR *tmp = NULL;
+        status = _Obs_Output_GetPictstruct(hobj, &tmp);
+        if (status != 0 && status <= 0x7FFF) {
+            goto EXIT;
+        }
+        size_t size = _CalcBitmapSize(tmp->w, tmp->h, tmp->bpnum);
+        img = malloc(sizeof(IMGHDR));
+        memcpy(img, tmp, sizeof(IMGHDR));
+        img->bitmap = malloc(size);
+        memcpy(img->bitmap, tmp->bitmap, size);
     }
-    if (_Obs_SetInputMemory(hobj, 0, (char*)(pic_frame->picture_data), pic_frame->picture_data_size) != 0) {
-        return NULL;
-    }
-    if (_Obs_SetOutputImageSize(hobj, width, height) != 0) {
-        return NULL;
-    }
-    if (_Obs_SetScaling(hobj, 5) != 0) {
-        return NULL;
-    }
-    if (_Obs_Start(hobj) != 0) {
-        return NULL;
-    }
-
-    IMGHDR *tmp = NULL;
-    if (_Obs_Output_GetPictstruct(hobj, &tmp) != 0) {
-        return NULL;
-    }
-
-    size_t size = _CalcBitmapSize(tmp->w, tmp->h, tmp->bpnum);
-    IMGHDR *img = malloc(sizeof(IMGHDR));
-    memcpy(img, tmp, sizeof(IMGHDR));
-    img->bitmap = malloc(size);
-    memcpy(img->bitmap, tmp->bitmap, size);
-    _Obs_DestroyObject(hobj);
-    return img;
+    EXIT:
+        _Obs_DestroyObject(hobj);
+        free_pic_frame();
+        data->cover = img;
+        data->cover_status = (data->cover) ? COVER_LOADED : COVER_DISABLED;
 }
-
-
 __attribute__((target("thumb")))
 __attribute__((section(".text.ID3v2_ReadCover")))
 void ID3v2_ReadCover(MP_CSM *csm) {
-    if (data->cover) {
-        mfree(data->cover->bitmap);
-        mfree(data->cover);
-        data->cover = NULL;
+    while (data->cover_status == COVER_LOADING) {
+        _NU_Sleep(50);
     }
+    data->cover_status = COVER_DISABLED;
+    free_pic_frame();
+    free_cover();
     if (csm->uid != 3) { // !mp3
         return;
     }
@@ -141,9 +155,6 @@ void ID3v2_ReadCover(MP_CSM *csm) {
     if (strncmp(header.identifier, "ID3", 3) != 0) {
         goto CLOSE;
     }
-    if (_sys_lseek(fp, offset, S_SET, &err, &err2) == - 1) {
-        goto CLOSE;
-    }
     if (header.version[0] != 3 && header.version[0] != 4) {
         goto CLOSE;
     }
@@ -159,24 +170,26 @@ void ID3v2_ReadCover(MP_CSM *csm) {
         offset += extended_header_size;
     }
 
-    PIC_FRAME pic_frame;
-    pic_frame.raw_frame = NULL;
     ID3V2_FRAME_HEADER frame_header;
-    size_t frame_size = 0;
-
-    const size_t tag_size = SynchsafeInteger2Integer(&(header.size));
-    while (offset < tag_size) {
+    PIC_FRAME *pic_frame_cover = NULL;
+    PIC_FRAME *pic_frame_other = NULL;
+    while (offset < SynchsafeInteger2Integer(&(header.size))) {
         if (_sys_read(fp, &frame_header, FRAME_HEADER_SIZE, &err) != FRAME_HEADER_SIZE) {
             break;
         }
         if (!IsValidFrameID(frame_header.id)) {
             break;
         }
-        frame_size = bswap_32(frame_header.frame_size);
+        size_t frame_size = bswap_32(frame_header.frame_size);
         if (strncmp(frame_header.id, "APIC", 4) == 0) {
-            if (ReadPICFrame(&pic_frame, fp, FRAME_HEADER_SIZE, frame_size) == 1) {
-                data->cover = GetIMGHDRFromPICFrame(&pic_frame, 120, 120);
-                break;
+            PIC_FRAME *pic_frame = ReadPICFrame(fp, frame_size);
+            if (pic_frame) {
+                if (pic_frame->picture_type == FRAME_PICTURE_TYPE_COVER_FRONT) {
+                    pic_frame_cover = pic_frame;
+                    break;
+                } else if (pic_frame->picture_type == FRAME_PICTURE_TYPE_OTHER) {
+                    pic_frame_other = pic_frame;
+                }
             }
         }
         offset += FRAME_HEADER_SIZE + frame_size;
@@ -184,8 +197,18 @@ void ID3v2_ReadCover(MP_CSM *csm) {
             break;
         }
     }
-    if (pic_frame.raw_frame) {
-        mfree(pic_frame.raw_frame);
+    if (pic_frame_cover) {
+        data->pic_frame = pic_frame_cover;
+        _SUBPROC(ID3v2_GetIMGHDRFromPICFrame, csm);
+    }
+    if (pic_frame_other) {
+        if (!pic_frame_cover) {
+            data->pic_frame = pic_frame_other;
+            _SUBPROC(ID3v2_GetIMGHDRFromPICFrame, csm);
+        } else {
+            mfree(pic_frame_other->raw_frame);
+            mfree(pic_frame_other);
+        }
     }
     CLOSE:
         _sys_close(fp, &err);

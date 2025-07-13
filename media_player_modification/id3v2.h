@@ -16,8 +16,9 @@ typedef struct {
 } ID3V2_FRAME_HEADER;
 
 typedef enum FramePictureType {
+    FRAME_PICTURE_TYPE_OTHER = 0x00,
     FRAME_PICTURE_TYPE_COVER_FRONT = 0x03,
-} FramePicture;
+} FramePictureType;
 
 typedef enum FrameEncoding {
     FRAME_ENCODING_ISO8859_1,
@@ -26,7 +27,7 @@ typedef enum FrameEncoding {
 typedef struct {
     FrameEncoding encoding;
     int uid;
-    FramePicture picture_type;
+    FramePictureType picture_type;
     int8_t *picture_data;
     uint32_t picture_data_size;
     //

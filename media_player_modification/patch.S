@@ -32,15 +32,15 @@ nop
 .arm
 nop
 
-.section .text.AllocData_Jump
+.section .text.InitData_Jump
 .arm
 mov r0, r4
-blx AllocData
+blx InitData
 
-.section .text.FreeData_Jump
+.section .text.DestroyData_Jump
 .arm
 mov r0, r4
-blx FreeData
+blx DestroyData
 
 .section .data.OnKey_Jump
 .int OnKey

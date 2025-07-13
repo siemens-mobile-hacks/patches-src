@@ -47,6 +47,8 @@
 #define ADDR_Obs_DestroyObject        (0xA0CBBA94)
 #define ADDR_CalcBitmapSize           (0xA094CF5D)
 
+#define ADDR_NU_Sleep (0xA009CD50)
+
 #define ADDR_BaseOnRedraw (0xA0955BEE | 1)
 
 #define ADDR_OnKey               (0xA078A81C)
