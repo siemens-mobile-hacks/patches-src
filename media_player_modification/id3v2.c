@@ -84,13 +84,11 @@ inline PIC_FRAME *ReadPICFrame(int fp, size_t frame_size) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.ID3v2_GetIMGHDRFromPICFrame")))
 void ID3v2_GetIMGHDRFromPICFrame(MP_CSM *csm) {
-    data->cover_status = COVER_LOADING;
-
     IMGHDR *img = NULL;
     uint32_t err;
-    HObj hobj = _Obs_CreateObject(data->pic_frame->uid, 0x2D, 0x02, 0, 1, 1, &err);
+    HObj hobj = _Obs_CreateObject(data->cover.frame->uid, 0x2D, 3, 0, 1, 1, &err);
     if (hobj) {
-        int status = _Obs_SetInputMemory(hobj, 0, (char*)(data->pic_frame->picture_data), data->pic_frame->picture_data_size);
+        int status = _Obs_SetInputMemory(hobj, 0, (char*)(data->cover.frame->picture_data), data->cover.frame->picture_data_size);
         if (status != 0 && status <= 0x7FFF) {
             goto EXIT;
         }
@@ -120,16 +118,22 @@ void ID3v2_GetIMGHDRFromPICFrame(MP_CSM *csm) {
     EXIT:
         _Obs_DestroyObject(hobj);
         free_pic_frame();
-        data->cover = img;
-        data->cover_status = (data->cover) ? COVER_LOADED : COVER_DISABLED;
+        data->cover.img = img;
+        data->cover.status = (data->cover.img) ? COVER_LOADED : COVER_DISABLED;
 }
+
+__attribute__((always_inline))
+inline void CoverLoadingWait(const MP_CSM *csm) {
+    while (data->cover.status == COVER_LOADING) {
+        _NU_Sleep(50);
+    }
+}
+
 __attribute__((target("thumb")))
 __attribute__((section(".text.ID3v2_ReadCover")))
 void ID3v2_ReadCover(MP_CSM *csm) {
-    while (data->cover_status == COVER_LOADING) {
-        _NU_Sleep(50);
-    }
-    data->cover_status = COVER_DISABLED;
+    CoverLoadingWait(csm);
+    data->cover.status = COVER_DISABLED;
     free_pic_frame();
     free_cover();
     if (csm->uid != 3) { // !mp3
@@ -198,12 +202,15 @@ void ID3v2_ReadCover(MP_CSM *csm) {
         }
     }
     if (pic_frame_cover) {
-        data->pic_frame = pic_frame_cover;
+        data->cover.frame = pic_frame_cover;
+        data->cover.status = COVER_LOADING;
         _SUBPROC(ID3v2_GetIMGHDRFromPICFrame, csm);
     }
     if (pic_frame_other) {
         if (!pic_frame_cover) {
-            data->pic_frame = pic_frame_other;
+            CoverLoadingWait(csm);
+            data->cover.frame = pic_frame_other;
+            data->cover.status = COVER_LOADING;
             _SUBPROC(ID3v2_GetIMGHDRFromPICFrame, csm);
         } else {
             mfree(pic_frame_other->raw_frame);

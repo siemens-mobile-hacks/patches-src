@@ -49,14 +49,15 @@
 
 #define ADDR_NU_Sleep (0xA009CD50)
 
-#define ADDR_BaseOnRedraw (0xA0955BEE | 1)
-
-#define ADDR_OnKey               (0xA078A81C)
-#define ADDR_GHook               (0xA078B774)
-#define ADDR_EnableMenu          (0xA079CC7C)
-#define ADDR_ReloadMenu          (0xA079CD8C)
-#define ADDR_DrawAnimation       (0xA079E49C)
-#define ADDR_GetInfoLineText     (0xA07A06A8)
-#define ADDR_ChangeSoundViewMode (0xA07A09BC)
-
+#define ADDR_KeyLock                  (0xA06E8372 | 1)
+#define ADDR_BaseOnRedraw             (0xA0955BEE | 1)
+#define ADDR_ShowKeypadLockedPopup    (0xA0700346 | 1)
 #define ADDR_SynchsafeInteger2Integer (0xA079B350)
+
+#define ADDR_OnKey                       (0xA078A81C)
+#define ADDR_GHook                       (0xA078B774)
+#define ADDR_EnableMenu                  (0xA079CC7C)
+#define ADDR_ReloadMenu                  (0xA079CD8C)
+#define ADDR_DrawAnimation               (0xA079E49C)
+#define ADDR_GetInfoLineText             (0xA07A06A8)
+#define ADDR_ChangeSoundViewMode         (0xA07A09BC)

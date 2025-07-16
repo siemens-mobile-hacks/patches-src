@@ -31,6 +31,13 @@ SECTIONS {
         KEEP(*(.text.FastSwitch_Part4))
     }
 
+    .ChangeVolumeWhenKbdIsLocked 0xA0796AA8 : {
+        KEEP(*(.text.ChangeVolumeWhenKbdIsLocked))
+    }
+    .DisableHideWhenKbdIsLocked 0xA072B31C : {
+        KEEP(*(.text.DisableHideWhenKbdIsLocked))
+    }
+
     .PlayProc 0xA13818EA : {
         KEEP(*(.text.PlayProc))
     }
@@ -116,5 +123,12 @@ SECTIONS {
     }
     .DrawCover_Jump_2 0xA079F92C : {
         KEEP(*(.text.DrawCover_Jump_2))
+    }
+
+    .Menu_RemoveHelpItem_1 0xA08AF394 : {
+        KEEP(*(.data.Menu_RemoveHelpItem_1))
+    }
+    .Menu_RemoveHelpItem_2 0xA08AA7C0 : {
+        KEEP(*(.data.Menu_RemoveHelpItem_2))
     }
 }

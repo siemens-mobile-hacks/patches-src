@@ -32,6 +32,14 @@ nop
 .arm
 nop
 
+.section .text.ChangeVolumeWhenKbdIsLocked
+.arm
+mov r0, #0x00
+
+.section .text.DisableHideWhenKbdIsLocked
+.arm
+b . + 0x20
+
 .section .text.InitData_Jump
 .arm
 mov r0, r4

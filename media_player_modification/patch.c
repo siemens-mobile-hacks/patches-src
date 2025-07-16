@@ -51,6 +51,9 @@ inline void StartTimerHideList(MP_GUI *gui) {
     _GUI_StartTimerProc(gui, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
 }
 
+
+#define KeyLock ((void (*)())(ADDR_KeyLock))
+
 __attribute__((target("thumb")))
 __attribute__((section(".text.OnKey")))
 int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
@@ -60,12 +63,18 @@ int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
     if (gui->media_type == MP_MEDIA_TYPE_AUDIO) {
         StartTimerHideList(gui);
 
-        if (gui_msg->keys == 0x15) { // '#'
-            return -1;
-        }
-
         int msg = gui_msg->gbsmsg->msg;
         int submess = gui_msg->gbsmsg->submess;
+        if (msg == KEY_DOWN) {
+            if (submess == '#') {
+                return -1;
+            }
+        } else if (msg == LONG_PRESS) {
+            if (submess == '#') {
+                KeyLock();
+                return -1;
+            }
+        }
         if (gui->sound_view_mode == MP_SOUND_VIEW_MODE_ANIMATION) {
             if (gui_msg->keys == 0x26 || gui_msg->keys == 0x25) { // UP_BUTTON, DOWN_BUTTON => '#'
                 gui_msg->keys = 0x15;
@@ -195,19 +204,19 @@ void ChangeTrackName(WSHDR *ws, const WSHDR *artist) {
 __attribute__((section(".text.DrawCover")))
 void DrawCover(MP_GUI *gui, int animation_type) {
     MP_CSM *csm = _MenuGetUserPointer(gui);
-    switch (data->cover_status) {
+    switch (data->cover.status) {
         case COVER_DISABLED: default:
             DrawAnimation(gui, animation_type);
         break;
         case COVER_LOADING: break;
         case COVER_LOADED:
-            if (data->cover) {
+            if (data->cover.img) {
                 int y = 95;
                 int width = gui->gui.canvas->x2 - gui->gui.canvas->x;
                 int height = 120;
                 IMGHDR *bg = _GetIMGHDRFromThemeCache(BODY_STANDART);
                 _DrawCroppedIMGHDR(gui->gui.canvas->x, y, 0, y - YDISP - 32, width, height, 0, bg);
-                _DrawIMGHDR(60, y, data->cover);
+                _DrawIMGHDR(60, y, data->cover.img);
             }
         break;
     }
