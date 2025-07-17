@@ -125,6 +125,13 @@ SECTIONS {
         KEEP(*(.text.DrawCover_Jump_2))
     }
 
+    .MediaDB_IsAllowFile 0xA1382750 : {
+        KEEP(*(.text.MediaDB_IsAllowFile))
+    }
+    .MediaDB_IsAllowFile_Jump 0xA0725C30 : {
+        KEEP(*(.text.MediaDB_IsAllowFile_Jump))
+    }
+
     .Menu_RemoveHelpItem_1 0xA08AF394 : {
         KEEP(*(.data.Menu_RemoveHelpItem_1))
     }

@@ -70,3 +70,7 @@ bl DrawCover
 
 .section .text.DrawCover_Jump_2
 blne DrawCover
+
+.section .text.MediaDB_IsAllowFile_Jump
+.arm
+blx MediaDB_IsAllowFile

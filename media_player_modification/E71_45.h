@@ -32,8 +32,9 @@
 #define ADDR_sys_lseek   (0xA0568418)
 #define ADDR_sys_close   (0xA05683B8)
 
-#define ADDR_BuildPath    (0xA05D0534)
-#define ADDR_GetExtUid_ws (0xA0502624)
+#define ADDR_BuildPath              (0xA05D0534)
+#define ADDR_GetExtUid_ws           (0xA0502624)
+#define ADDR_GetExtUidByFileName_ws (0xA05026F8)
 
 #define ADDR_iso8859_1_2ws (0xA04FBC53)
 #define ADDR_str_2ws       (0xA0568AB0)
@@ -61,3 +62,5 @@
 #define ADDR_DrawAnimation               (0xA079E49C)
 #define ADDR_GetInfoLineText             (0xA07A06A8)
 #define ADDR_ChangeSoundViewMode         (0xA07A09BC)
+
+#define ADDR_MediaDB_GetFileState (0xA0725BD0)

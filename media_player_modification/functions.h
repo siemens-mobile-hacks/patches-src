@@ -41,7 +41,8 @@
 #define _sys_close ((int (*)(int, uint32_t *))(ADDR_sys_close))
 
 #define _BuildPath ((int (*)(WSHDR *, const WSHDR *, const WSHDR *))(ADDR_BuildPath))
-#define _GetExtUid_ws ((int (*)(WSHDR *ext))(ADDR_GetExtUid_ws))
+#define _GetExtUid_ws ((int (*)(const WSHDR *))(ADDR_GetExtUid_ws))
+#define _GetExtUidByFileName_ws ((int (*)(const WSHDR *))(ADDR_GetExtUidByFileName_ws))
 
 #define _iso8859_1_2ws ((int (*)(WSHDR *, const char *, size_t))(ADDR_iso8859_1_2ws))
 #define _str_2ws ((int (*)(WSHDR *, const char *, size_t))(ADDR_str_2ws))
