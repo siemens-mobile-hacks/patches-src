@@ -9,5 +9,5 @@ set(CMAKE_C_STANDARD 99)
 add_compile_options(-Os -DSWILIB_MODERN)
 
 # E71v45
-add_executable(E71v45 patch.c patch.S header.c header.S id3v2.c id3v2.S menu.S)
+add_executable(E71v45 patch.c patch.S header.c header.S id3v2.c id3v2.S menu.S visualizer.c visualizer.S)
 define_patch(E71v45 ELKA E71 45)

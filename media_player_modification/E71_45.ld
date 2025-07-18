@@ -125,6 +125,16 @@ SECTIONS {
         KEEP(*(.text.DrawCover_Jump_2))
     }
 
+    .DisableVisualizerBG 0xA079E528 : {
+        KEEP(*(.text.DisableVisualizerBG))
+    }
+    .DrawVisualizer_Hook 0xA13827E0 : {
+        KEEP(*(.text.DrawVisualizer_Hook))
+    }
+    .DrawVisualizer_Jump 0xA079E61C : {
+        KEEP(*(.text.DrawVisualizer_Jump))
+    }
+
     .MediaDB_IsAllowFile 0xA1382750 : {
         KEEP(*(.text.MediaDB_IsAllowFile))
     }

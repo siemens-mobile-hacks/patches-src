@@ -30,7 +30,10 @@ void PlayProc(MP_GUI *gui) {
     if (data->flag == 0) {
         WIDGET *menu = *gui->menu;
         int cursor = _GetCurMenuItem(menu);
-        _GBS_SendMessage(MMI_CEPID, 0x8053, cursor, csm->csm.id, 0x1D);
+        int playing_id = (int)gui->menu[4];
+        if (cursor != playing_id) {
+            _GBS_SendMessage(MMI_CEPID, 0x8053, cursor, csm->csm.id, 0x1D);
+        }
     }
 }
 
@@ -199,14 +202,14 @@ void ChangeTrackName(WSHDR *ws, const WSHDR *artist) {
     _wstrinsert(ws, artist, 1);
 }
 
-#define DrawAnimation ((void (*)(MP_GUI *gui, int animation_type))(ADDR_DrawAnimation))
+#define DrawVisualizer ((void (*)(MP_GUI *gui, int animation_type))(ADDR_DrawVisualizer))
 
 __attribute__((section(".text.DrawCover")))
 void DrawCover(MP_GUI *gui, int animation_type) {
     MP_CSM *csm = _MenuGetUserPointer(gui);
     switch (data->cover.status) {
         case COVER_DISABLED: default:
-            DrawAnimation(gui, animation_type);
+            DrawVisualizer(gui, animation_type);
         break;
         case COVER_LOADING: break;
         case COVER_LOADED:
@@ -232,8 +235,9 @@ int MediaDB_IsAllowFile(const WSHDR *path) {
     _CreateLocalWS(&ws, wsbody, 31);
     _str_2ws(&ws, "zbin\\", 31);
     int uid = _GetExtUidByFileName_ws(path);
-    if (uid == 0x27 && _wstriwstr(path, &ws, 3) != 0xFFFF) { // ignore all png files in X:\\zbin
+    if (uid == 0x27 && _wstriwstr(path, &ws, 3) == 4) { // ignore all png files in X:\\zbin
         return -1;
     }
     return MediaDB_GetFileState(path);
 }
+

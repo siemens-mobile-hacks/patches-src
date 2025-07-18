@@ -19,7 +19,8 @@
 #define _DrawIMGHDR ((void (*)(int x, int y, const IMGHDR *))(ADDR_DrawIMGHDR))
 #define _wstrinsert ((void (*)(WSHDR *, const WSHDR *, int))(ADDR_wstrinsert))
 #define _wsInsertChar ((void (*)(WSHDR *, uint16_t, int))(ADDR_wsInsertChar))
-#define _CreateLocalWS ((WSHDR *(*)(WSHDR *header, uint16_t *body, int size))(ADDR_CreateLocalWS))
+#define _CreateLocalWS ((WSHDR *(*)(WSHDR *, uint16_t *, size_t))(ADDR_CreateLocalWS))
+#define _DrawRectangle ((void (*)(int, int, int, int, int, const char *, const char *))(ADDR_DrawRectangle))
 #define _GetCurMenuItem ((int (*)(void *))(ADDR_GetCurMenuItem))
 #define _GBS_SendMessage ((void (*)(int, int, ...))(ADDR_GBS_SendMessage))
 #define _GetLangMesIntoWS ((void (*)(int, WSHDR *))(ADDR_GetLangMesIntoWS))
@@ -30,6 +31,7 @@
 #define _SetCursorToMenuItem ((void (*)(void *, int))(ADDR_SetCursorToMenuItem))
 #define _SetHeaderScrollText ((void (*)(void *, const WSHDR *, const void *, const void *))(ADDR_SetHeaderScrollText))
 #define _GetIMGHDRFromThemeCache ((IMGHDR *(*)(int))(ADDR_GetIMGHDRFromThemeCache))
+#define _GetPaletteAdrByColorIndex ((const char *(*)(int))(ADDR_GetPaletteAdrByColorIndex))
 
 #define _GUI_NewTimer ((int (*)(void *))(ADDR_GUI_NewTimer))
 #define _GUI_DeleteTimer ((int (*)(void *, int))(ADDR_GUI_DeleteTimer))
@@ -46,6 +48,12 @@
 
 #define _iso8859_1_2ws ((int (*)(WSHDR *, const char *, size_t))(ADDR_iso8859_1_2ws))
 #define _str_2ws ((int (*)(WSHDR *, const char *, size_t))(ADDR_str_2ws))
+
+#define _GetDateTime ((void (*)(TDate *, TTime *))(ADDR_GetDateTime))
+#define _GetSecondsFromDateTimeSince1997 ((int (*)(int *, TDate *, TTime *))(ADDR_GetSecondsFromDateTimeSince1997))
+
+#define srand ((void (*)(uint32_t))(ADDR_srand))
+#define _rand ((int (*)())(ADDR_rand))
 
 #define _Obs_CreateObject ((HObj (*)(int, int, int, int, int, int, uint32_t *))(ADDR_Obs_CreateObject))
 #define _Obs_SetInputMemory ((int (*)(HObj, int, char *, int))(ADDR_Obs_SetInput_Memory))
