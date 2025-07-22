@@ -7,9 +7,12 @@
 #define ADDR_strncmp                   (0xA122B001)
 #define ADDR_zeromem                   (0xA0FAFC00)
 #define ADDR_AllocWS                   (0xA093F611)
+#define ADDR_wsprintf                  (0xA093EB4D)
 #define ADDR_wstriwstr                 (0xA04FB651)
+#define ADDR_DrawString                (0xA094A3AB)
 #define ADDR_DrawIMGHDR                (0xA0A0CA97)
 #define ADDR_wstrinsert                (0xA04FB61F)
+#define ADDR_GetFontYSIZE              (0xA0A32378)
 #define ADDR_wsInsertChar              (0xA04FB48D)
 #define ADDR_CreateLocalWS             (0xA04FB25B)
 #define ADDR_DrawRectangle             (0xA0A0C193)
@@ -45,7 +48,7 @@
 #define ADDR_GetSecondsFromDateTimeSince1997 (0xA058A2D5)
 
 #define ADDR_srand (0xA0FAFB25)
-#define ADDR_rand  (0xa0d37b83)
+#define ADDR_rand  (0xA0D37B83)
 
 #define ADDR_Obs_CreateObject         (0xA0CD01B0)
 #define ADDR_Obs_SetInput_Memory      (0xA0CCCCE8)
@@ -69,7 +72,10 @@
 #define ADDR_ReloadMenu                  (0xA079CD8C)
 #define ADDR_DrawVisualizer              (0xA079E49C)
 #define ADDR_GetInfoLineText             (0xA07A06A8)
+#define ADDR_DrawMediaBitmaps            (0xA079E15C)
 #define ADDR_GetImgHeightWidth           (0xA07A47EC)
 #define ADDR_ChangeSoundViewMode         (0xA07A09BC)
+
+#define ADDR_Zoom_OnKey (0xA07EE8DC)
 
 #define ADDR_MediaDB_GetFileState (0xA0725BD0)

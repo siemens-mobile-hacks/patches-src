@@ -65,7 +65,7 @@ SECTIONS {
         KEEP(*(.data.OnKey_Jump))
     }
 
-    .GHook 0xA1381B50 : {
+    .GHook 0xA1381B70 : {
         KEEP(*(.text.GHook))
     }
     .GHook_Jump 0xA088B8F0 : {
@@ -133,6 +133,24 @@ SECTIONS {
     }
     .DrawVisualizer_Jump 0xA079E61C : {
         KEEP(*(.text.DrawVisualizer_Jump))
+    }
+
+    .DrawResolution 0xA1382900 : {
+        KEEP(*(.text.DrawResolution))
+    }
+    .DrawResolution_Jump 0xA079F9B0 : {
+        KEEP(*(.text.DrawResolution_Jump))
+    }
+
+    .Zoom_DisableSoftKeys_Part_1 0xA079F8CC : {
+        KEEP(*(.text.Zoom_DisableSoftKeys_Part_1))
+    }
+
+    .Zoom_DisableSoftKeys_Part_2 0xA08AF4E4 : {
+        KEEP(*(.data.Zoom_DisableSoftKeys_Part_2))
+    }
+    .Zoom_DisableSoftKeys_Part_3 0xA08AF500 : {
+        KEEP(*(.data.Zoom_DisableSoftKeys_Part_3))
     }
 
     .MediaDB_IsAllowFile 0xA1382750 : {

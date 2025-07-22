@@ -4,8 +4,8 @@
 
 #ifdef NEWSGOLD
     #ifdef E71_45
-        #include "E71_45.h"
-    #endif
+        #include "../E71_45.h"
+#endif
 #endif
 
 #define malloc ((void *(*)(size_t))(ADDR_malloc))
@@ -15,9 +15,12 @@
 #define strncmp ((int (*)(const char *, const char *, size_t))(ADDR_strncmp))
 #define _zeromem ((void (*)(void *, size_t))(ADDR_zeromem))
 #define _AllocWS ((WSHDR *(*)(size_t))(ADDR_AllocWS))
+#define _wsprintf ((void (*)(WSHDR *, const char *, ...))(ADDR_wsprintf))
 #define _wstriwstr ((int (*)(const WSHDR *, const WSHDR *, int))(ADDR_wstriwstr))
+#define _DrawString ((void (*)(const WSHDR *, int, int, int, int, int, int, const char *, const char *))(ADDR_DrawString))
 #define _DrawIMGHDR ((void (*)(int x, int y, const IMGHDR *))(ADDR_DrawIMGHDR))
 #define _wstrinsert ((void (*)(WSHDR *, const WSHDR *, int))(ADDR_wstrinsert))
+#define _GetFontYSIZE ((int (*)(int))(ADDR_GetFontYSIZE))
 #define _wsInsertChar ((void (*)(WSHDR *, uint16_t, int))(ADDR_wsInsertChar))
 #define _CreateLocalWS ((WSHDR *(*)(WSHDR *, uint16_t *, size_t))(ADDR_CreateLocalWS))
 #define _DrawRectangle ((void (*)(int, int, int, int, int, const char *, const char *))(ADDR_DrawRectangle))

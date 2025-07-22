@@ -1,9 +1,3 @@
-.global SOFTKEYS_D
-
-.section .text.DisableBacklightFadeHandler
-.arm
-sub r12, r5, #0xFE
-
 .section .text.DisableAutoPlayInMenu_Part1
 .arm
 movne r0, r0
@@ -36,29 +30,6 @@ nop
 .arm
 mov r0, #0x00
 
-.section .text.DisableHideWhenKbdIsLocked
-.arm
-b . + 0x20
-
-.section .text.InitData_Jump
-.arm
-mov r0, r4
-blx InitData
-
-.section .text.DestroyData_Jump
-.arm
-mov r0, r4
-blx DestroyData
-
-.section .data.OnKey_Jump
-.int OnKey
-
-.section .data.GHook_Jump
-.int GHook
-
-.section .text.BaseOnRedraw_Jump
-blx BaseOnRedraw_Hook
-
 .section .text.ChangeTrackName_Jump
 mov r1, r5
 mov r0, r6
@@ -71,6 +42,10 @@ bl DrawCover
 .section .text.DrawCover_Jump_2
 blne DrawCover
 
-.section .text.MediaDB_IsAllowFile_Jump
+.section .text.DisableVisualizerBG
 .arm
-blx MediaDB_IsAllowFile
+b . + 0xCC
+
+.section .text.DrawVisualizer_Jump
+.arm
+blx DrawVisualizer_Hook

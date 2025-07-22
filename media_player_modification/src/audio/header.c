@@ -1,5 +1,5 @@
 #include <swilib.h>
-#include "functions.h"
+#include "../functions.h"
 
 #define EnableMenu ((void (*)(MP_GUI *gui, int flag))(ADDR_EnableMenu))
 #define GetInfoLineText ((void (*)(MP_GUI *, WSHDR *))(ADDR_GetInfoLineText))

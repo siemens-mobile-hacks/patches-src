@@ -1,6 +1,6 @@
 #pragma once
 
-#include "id3v2.h"
+#include "audio/id3v2.h"
 #include "functions.h"
 
 typedef enum CoverStatus {

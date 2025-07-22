@@ -1,8 +1,8 @@
 #include <swilib.h>
 #include <byteswap.h>
-#include "data.h"
+#include "../data.h"
+#include "../functions.h"
 #include "id3v2.h"
-#include "functions.h"
 
 #define SynchsafeInteger2Integer ((uint32_t (*)(uint32_t *))(ADDR_SynchsafeInteger2Integer))
 
