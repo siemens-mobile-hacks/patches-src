@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <configuration>
+    <name>CX75v25</name>
+    <outputs>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\jheap.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\cutheap.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\remap.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\ds_mopi.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\config_data.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\conf_loader.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\stat.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\realloc.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\malloc.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\defapps.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\eh_lib.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\eheap.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\jhook.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\ds_patch.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\ds_mopi.r79</file>
+      <file>$PROJ_DIR$\..\inc\pngconf.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\malloc.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\realloc.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\stat.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\config_data.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\conf_loader.r79</file>
+      <file>$PROJ_DIR$\VKP\CX75v25\eheap.elf</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\free.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\calloc.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\alloc.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\init_mem.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\alloc_sie.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\jheap.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\remap.r79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\cutheap.r79</file>
+      <file>$PROJ_DIR$\alloc\alloc.c</file>
+      <file>$PROJ_DIR$\alloc\alloc_sie.asm</file>
+      <file>$PROJ_DIR$\alloc\calloc.c</file>
+      <file>$PROJ_DIR$\alloc\free.c</file>
+      <file>$PROJ_DIR$\alloc\init_mem.c</file>
+      <file>$PROJ_DIR$\alloc\malloc.c</file>
+      <file>$PROJ_DIR$\alloc\realloc.c</file>
+      <file>$PROJ_DIR$\alloc\stat.c</file>
+      <file>$PROJ_DIR$\bcfg\conf_loader.c</file>
+      <file>$PROJ_DIR$\bcfg\config_data.c</file>
+      <file>$PROJ_DIR$\devsetup\ds_mopi.c</file>
+      <file>$PROJ_DIR$\devsetup\ds_patch.asm</file>
+      <file>$PROJ_DIR$\eheap\cutheap.c</file>
+      <file>$PROJ_DIR$\eheap\defapps.asm</file>
+      <file>$PROJ_DIR$\eheap\eh_lib.asm</file>
+      <file>$PROJ_DIR$\eheap\eheap.asm</file>
+      <file>$PROJ_DIR$\eheap\remap.c</file>
+      <file>$PROJ_DIR$\jheap\jheap.c</file>
+      <file>$PROJ_DIR$\jheap\jhook.asm</file>
+      <file>$PROJ_DIR$\..\inc\swilib.h</file>
+      <file>$PROJ_DIR$\..\inc\png.h</file>
+      <file>$PROJ_DIR$\..\inc\zlib.h</file>
+      <file>$PROJ_DIR$\..\inc\zconf.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\calloc.lst</file>
+      <file>$PROJ_DIR$\config\CX75sw25.xcl</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\calloc.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\conf_loader.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\conf_loader.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\realloc.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\cutheap.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\free.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\free.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\cutheap.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\realloc.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\remap.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\remap.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\calloc.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\free.pbi</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\init_mem.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\stdlib.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\alloc.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\ysizet.h</file>
+      <file>$PROJ_DIR$\eheap\eheap.h</file>
+      <file>$PROJ_DIR$\bcfg\conf_loader.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\Obj\eheap.pbd</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\malloc.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\malloc.lst</file>
+      <file>$PROJ_DIR$\..\inc\obs.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\config_data.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\config_data.s79</file>
+      <file>$PROJ_DIR$\..\inc\data_n.h</file>
+      <file>$PROJ_DIR$\..\inc\bn.h</file>
+      <file>$PROJ_DIR$\..\inc\rsa.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\alloc.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\init_mem.s79</file>
+      <file>$TOOLKIT_DIR$\lib\dl5tptinl8n.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\stat.s79</file>
+      <file>$PROJ_DIR$\..\inc\crypto.h</file>
+      <file>$PROJ_DIR$\..\inc\sha.h</file>
+      <file>$PROJ_DIR$\..\inc\md5.h</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\stat.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\init_mem.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\alloc.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\ds_mopi.s79</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\ds_mopi.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\jheap.lst</file>
+      <file>$PROJ_DIR$\Other\CX75v25\List\jheap.s79</file>
+      <file>$TOOLKIT_DIR$\lib\dl5tptinl8n.r79</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\VKP\CX75v25\eheap.elf</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 54 24 26 23 20 19 29 9 14 13 10 11 22 25 27 12 16 17 28 18 103</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\alloc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 24 89 98</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 75</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78 69 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78 69 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\alloc_sie.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\calloc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 23 55 53</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 69 70 76 91 73 72 71 77 74</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69 70 76 73 72 71 77 74</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\free.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 22 61 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 67</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\init_mem.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 25 90 97</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\malloc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 16 81 82</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\realloc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 58 63</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 69 70 76 91 73 72 71 77 74</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69 70 76 73 72 71 77 74</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\alloc\stat.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 18 92 96</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\bcfg\conf_loader.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 20 57 56</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 5</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 49 50 51 52 15 88 87 93 94 95 86 83 79</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49 50 51 52 15 88 87 93 94 95 86 83 79</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\bcfg\config_data.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 19 85 84</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 79 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 79 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\devsetup\ds_mopi.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 99 100</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\devsetup\ds_patch.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 13</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\eheap\cutheap.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 29 62 59</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\eheap\defapps.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\eheap\eh_lib.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 10</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\eheap\eheap.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 11</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\eheap\remap.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 28 64 65</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 2</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78 69 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78 69 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\jheap\jheap.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 27 102 101</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 78 69 70 76 91 73 72 71 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78 69 70 76 73 72 71 77</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\jheap\jhook.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 78</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Other\CX75v25\Obj\eheap.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 75 66 5 4 1 3 67 68 0 8 7 2 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[REBUILD_ALL]</name>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+
