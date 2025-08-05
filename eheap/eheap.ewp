@@ -3,7 +3,7 @@
 <project>
   <fileVersion>1</fileVersion>
   <configuration>
-    <name>CX75v25</name>
+    <name>CX75sw25</name>
     <toolchain>
       <name>ARM</name>
     </toolchain>
@@ -25,15 +25,15 @@
         </option>
         <option>
           <name>ExePath</name>
-          <state>VKP\CX75v25</state>
+          <state>VKP\CX75sw25</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>Other\CX75v25\Obj</state>
+          <state>Other\CX75sw25\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>Other\CX75v25\List</state>
+          <state>Other\CX75sw25\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -534,7 +534,7 @@
       <archiveVersion>1</archiveVersion>
       <data>
         <prebuild></prebuild>
-        <postbuild>$PROJ_DIR$\postbuild\postbuild.cmd $PROJ_DIR$ $EXE_DIR$ $PROJ_DIR$\config\CX75v25.txt</postbuild>
+        <postbuild></postbuild>
       </data>
     </settings>
     <settings>
@@ -860,7 +860,7 @@
     <file>
       <name>$PROJ_DIR$\bcfg\config_data.c</name>
       <configuration>
-        <name>CX75v25</name>
+        <name>CX75sw25</name>
         <settings>
           <name>ICCARM</name>
           <data>

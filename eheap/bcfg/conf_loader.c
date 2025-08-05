@@ -1,4 +1,4 @@
-#include "..\..\inc\swilib.h"
+#include "../../../elfloader3/src/inc/swilib.h"
 #include "conf_loader.h"
 
 
