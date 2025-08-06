@@ -6,16 +6,15 @@
 __attribute__((target("thumb")))
 __attribute__((section(".text.DrawResolution")))
 void DrawResolution(MP_GUI *gui) {
-    if (gui->media_type == MP_MEDIA_TYPE_IMAGE && !gui->is_fullscreen && !gui->is_zoom) {
-        MP_CSM *csm = _MenuGetUserPointer(gui);
-        if (csm && csm->file_info) {
+    MP_CSM *csm = _MenuGetUserPointer(gui);
+    if (csm && csm->uid != 0x28 /*.gif*/ && csm->file_info) {
+        if (gui->media_type == MP_MEDIA_TYPE_IMAGE && !gui->is_fullscreen && !gui->is_zoom) {
             int width = csm->file_info->w;
             int height = csm->file_info->h;
             if (width || height) {
                 WSHDR ws;
                 uint16_t wsbody[32];
                 _CreateLocalWS(&ws, wsbody, 31);
-
                 _wsprintf(&ws, "%dx%d", width, height);
 
                 int y = YDISP + 32;

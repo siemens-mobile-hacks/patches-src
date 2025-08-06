@@ -1,31 +1,19 @@
 #include <swilib.h>
 
-#define DYNLIGHT_FEATURE_ID 0x581
-
 #ifdef NEWSGOLD
     #ifdef E71_45
         #include "E71_45.h"
     #endif
 #endif
 
-#define SetVLType ((void (*)(void *, int))(ADDR_SetVLType))
-#define StopVibration ((int (*)())(ADDR_StopVibration))
-#define IsVibraLocked ((int (*)())(ADDR_IsVibraLocked))
-#define IsFeatureEnabled ((int (*)(int))(ADDR_IsFeatureEnabled))
-#define GetDynlightStatus ((int (*)())(ADDR_GetDynlightStatus))
-
 #define _SLI_SetState ((void (*)(uint8_t))(ADDR_SLI_SetState))
 #define _SetVibration ((void (*)(uint8_t))(ADDR_SetVibration))
 #define _GetVibraStatus ((int (*)())(ADDR_GetVibraStatus))
 
-__attribute__((target("thumb")))
-__attribute__((section(".text.IsEnableFeature_Hook")))
-int IsEnableFeature_Hook(int id) { // enable features in setup
-    register int r2 asm("r2");
-    if (id == DYNLIGHT_FEATURE_ID && r2 == 0) {
-        return 1;
-    } else return IsFeatureEnabled(id);
-}
+#define SetVLType ((void (*)(void *, int))(ADDR_SetVLType))
+#define StopVibration ((int (*)())(ADDR_StopVibration))
+#define IsVibraLocked ((int (*)())(ADDR_IsVibraLocked))
+#define GetDynlightStatus ((int (*)())(ADDR_GetDynlightStatus))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.SetVLType_Hook")))

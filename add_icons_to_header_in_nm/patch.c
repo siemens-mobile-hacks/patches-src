@@ -1,4 +1,4 @@
-#include <swilib/gui.h>
+#include <swilib.h>
 
 #ifdef NEWSGOLD
     #ifdef ELKA
@@ -27,14 +27,14 @@
     #endif
 #endif
 
-#define _malloc ((void *(*)(unsigned int size))(ADDR_MALLOC))
-#define _mfree  ((void (*)(void *))(ADDR_MFREE))
-#define _GetHeaderPointer ((void *(*)(void *gui))(ADDR_GET_HEADER_POINTER))
-#define _SetHeaderIcon ((void (*)(void *hdr_pointer, const int *icon, void *malloc_adr, void *mfree_adr))(ADDR_SET_HEADER_ICON))
+#define _malloc ((void *(*)(size_t))(ADDR_malloc))
+#define _mfree  ((void (*)(void *))(ADDR_mfree))
+#define _SetHeaderIcon ((void (*)(void *, const int *, void *, void *))(ADDR_SetHeaderIcon))
+#define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
 
-#define OnCreate_unk ((void (*)(void *gui, void *r1, void *r2))(ADDR_ON_CREATE_UNK))
-#define OnChange_unk ((void (*)(GUI *gui))(ADDR_ON_CHANGE_UNK))
-#define OnClose_unk  ((void (*)(GUI *gui, void *r1))(ADDR_ON_CLOSE_UNK))
+#define OnCreate_unk ((void (*)(GUI *gui, void *r1, void *r2))(ADDR_OnCreate_unk))
+#define OnChange_unk ((void (*)(GUI *gui))(ADDR_OnChange_unk))
+#define OnClose_unk  ((void (*)(GUI *gui, void *r1))(ADDR_OnClose_unk))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.NativeMenu_OnCreate")))
@@ -47,7 +47,7 @@ void NativeMenu_OnCreate(GUI *gui, void *r1, void *r2) {
 #endif
     OnCreate_unk(gui, r1, r2);
 #ifdef NEWSGOLD
-    _SetHeaderIcon(_GetHeaderPointer(gui), icons, (unsigned int *)ADDR_MALLOC, (unsigned int *)ADDR_MFREE);
+    _SetHeaderIcon(_GetHeaderPointer(gui), icons, ADDR_malloc, ADDR_mfree);
     gui->color1 = (int)icons;
 #endif
 }
@@ -56,14 +56,23 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.NativeMenu_OnChange")))
 void NativeMenu_OnChange(GUI *gui) {
     OnChange_unk(gui);
+    int cursor = gui->unk10 - 4;
 #ifdef NEWSGOLD
     int *icons = (int*)(gui->color1);
-    icons[0] = ICONS_TABLE[gui->unk10 - 4] + ICONS_OFFSET;
+    icons[0] = ICONS_TABLE[cursor] + ICONS_OFFSET;
+    #ifdef E71_45
+        if (cursor == 8) { //radio or alarm
+            int lgp_id = *(int*)(ADDR_RADIO_ALARM_LGP_ID);
+            if (lgp_id == LGP_ID_ALARM) {
+                icons[0] -= 5;
+            }
+        }
+    #endif
 #else
-    if (gui->definition == (void*)ADDR_NATIVEMENU_DEFINITION) {
+    if (gui->definition == (void*)ADDR_NATIVE_MENU_DEFINITION) {
         int *icons = (int*)(gui->color1);
-        icons[0] = ICONS_TABLE[gui->unk10 - 4] + ICONS_OFFSET;
-        _SetHeaderIcon(_GetHeaderPointer(gui), icons, (unsigned int *)ADDR_MALLOC, (unsigned int *)ADDR_MFREE);
+        icons[0] = ICONS_TABLE[cursor] + ICONS_OFFSET;
+        _SetHeaderIcon(_GetHeaderPointer(gui), icons, ADDR_malloc, ADDR_mfree);
     }
 #endif
 }

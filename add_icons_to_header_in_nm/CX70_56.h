@@ -1,15 +1,15 @@
 #pragma once
 
-#define ADDR_MALLOC             0xA0820F98
-#define ADDR_MFREE              0xA0821000
-#define ADDR_SET_HEADER_ICON    0xA113D743
-#define ADDR_GET_HEADER_POINTER 0xA0C9724F
+#define ADDR_malloc (uint32_t*)0xA0820F98
+#define ADDR_mfree  (uint32_t*)0xA0821000
+#define ADDR_SetHeaderIcon     0xA113D743
+#define ADDR_GetHeaderPointer  0xA0C9724F
 
-#define ADDR_ON_CREATE_UNK (0xA0CB9230 | 1)
-#define ADDR_ON_CHANGE_UNK (0xA0D25240 | 1)
-#define ADDR_ON_CLOSE_UNK  (0xA0C975AE | 1)
+#define ADDR_OnCreate_unk (0xA0CB9230 | 1)
+#define ADDR_OnChange_unk (0xA0D25240 | 1)
+#define ADDR_OnClose_unk  (0xA0C975AE | 1)
 
-#define ADDR_NATIVEMENU_DEFINITION 0xA0941C4C
+#define ADDR_NATIVE_MENU_DEFINITION 0xA0941C4C
 
 #define ICONS_OFFSET 618
 const unsigned char ICONS_TABLE[] = {

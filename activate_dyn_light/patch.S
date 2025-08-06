@@ -16,9 +16,8 @@ nop
 .section .data.FixLgpID
 .int 0x2469
 
-.section .text.IsEnableFeature_Jump
-.thumb
-bl IsEnableFeature_Hook
+.section .data.EnableMenuItem
+.int 0x5A2
 
 
 .section .text.SetVLType_Jump

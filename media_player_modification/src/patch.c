@@ -45,7 +45,7 @@ void HideListProc(MP_GUI *gui) {
 
 __attribute__((always_inline))
 inline int IsDisableNavigation(MP_CSM *csm) {
-    return (csm->field110_0xcc != 0 || csm->play_status == MP_PLAY_STATUS_FAST_FORWARD || csm->play_status == MP_PLAY_STATUS_REWIND_BACKWARD);
+    return (csm->field101_0xcc != 0 || csm->play_status == MP_PLAY_STATUS_FAST_FORWARD || csm->play_status == MP_PLAY_STATUS_REWIND_BACKWARD);
 }
 
 __attribute__((always_inline))

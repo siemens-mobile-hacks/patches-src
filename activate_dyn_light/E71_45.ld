@@ -11,12 +11,8 @@ SECTIONS {
     .FixLgpID 0xA05AEA74 : {
         KEEP(*(.data.FixLgpID))
     }
-
-    .IsEnableFeature_Hook 0xA0936388 : {
-        KEEP(*(.text.IsEnableFeature_Hook))
-    }
-    .IsEnableFeature_Jump 0xA0932702 : {
-        KEEP(*(.text.IsEnableFeature_Jump))
+    .EnableMenuItem 0xA088A24C : {
+        KEEP(*(.data.EnableMenuItem))
     }
 
     .SetVLType_Hook 0xA1381000 : {
