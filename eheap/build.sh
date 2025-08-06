@@ -7,7 +7,7 @@ cd $(dirname $0)
 ACTION=$1
 IAR="/opt/IAR2/common/bin/iarbuild.exe"
 
-MODELS=( CX75sw25 )
+MODELS=( CX75sw25 S65sw58 )
 
 if [[ $ACTION = "clean" ]]
 then
