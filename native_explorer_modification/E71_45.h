@@ -1,20 +1,28 @@
 #pragma once
 
-#define ADDR_malloc             (void*)(0xA0092F51)
-#define ADDR_mfree              (void*)(0xA0092F93)
-#define ADDR_wstrlen            (0xA04FAC53)
-#define ADDR_wstrcmp            (0xA04FAC7F)
-#define ADDR_wsprintf           (0xA093EB4D)
-#define ADDR_isdir_ws           (0xA0568028)
-#define ADDR_BuildPath          (0xA05D0534)
-#define ADDR_GetPITaddr         (0xA094CE9B)
-#define ADDR_CreateLocalWS      (0xA04FB25B)
-#define ADDR_GBS_SendMessage    (0xA0091EAB)
-#define ADDR_GetFileAttrib_ws   (0xA0567EF8)
-#define ADDR_SetFileAttrib_ws   (0xA05681EC)
-#define ADDR_GetHeaderPointer   (0xA0954E3D)
-#define ADDR_GetMenuItemCount   (0xA0950F33)
-#define ADDR_MenuGetUserPointer (0xA095654F)
+#define ADDR_malloc                 (uint32_t*)(0xA0092F51)
+#define ADDR_mfree                  (uint32_t*)(0xA0092F93)
+#define ADDR_wstrlen                (0xA04FAC53)
+#define ADDR_wstrcmp                (0xA04FAC7F)
+#define ADDR_wsprintf               (0xA093EB4D)
+#define ADDR_isdir_ws               (0xA0568028)
+#define ADDR_BuildPath              (0xA05D0534)
+#define ADDR_GetPITaddr             (0xA094CE9B)
+#define ADDR_CreateLocalWS          (0xA04FB25B)
+#define ADDR_AllocMenuItem          (0xA0954585)
+#define ADDR_GetCurMenuItem         (0xA0952DBB)
+#define ADDR_SetMenuItemText        (0xA0953E97)
+#define ADDR_GBS_SendMessage        (0xA0091EAB)
+#define ADDR_GetFileAttrib_ws       (0xA0567EF8)
+#define ADDR_SetFileAttrib_ws       (0xA05681EC)
+#define ADDR_GetHeaderPointer       (0xA0954E3D)
+#define ADDR_GetMenuItemCount       (0xA0950F33)
+#define ADDR_MenuGetUserPointer     (0xA095654F)
+#define ADDR_SetMenuItemIconArray   (0xA09544F7)
+#define ADDR_SetMenuItemIconIMGHDR  (0xA09544FB)
+#define ADDR_GetExtUidByFileName_ws (0xA05026F8)
+
+#define ADDR_MENU_ICON_EMPTY (int*)(0xA0C3608C)
 
 #define ADDR_GetItemPath      (0xA0698C24)
 #define ADDR_GetCurrentDir    (0xA0699FF0)
@@ -52,3 +60,14 @@
 #define ADDR_IsRootDir (0xA0699D84)
 
 #define ADDR_CreateDir (0xA05D02E8)
+
+#define ADDR_Search_OnKey             (0xA0785628)
+#define ADDR_Search_OnMessage         (0xA071230C)
+#define ADDR_Search_ExecuteFile       (0xA0711790)
+#define ADDR_Search_IsFileExists      (0xA0710F00)
+#define ADDR_Search_CreateOptionsGUI  (0xA07859CC)
+#define ADDR_Search_CreateOptionsMenu (0xA0785BF8)
+
+#define ADDR_GetExtIconSmall (0xA05028C8)
+
+#define ICON_UNK 0x3EA

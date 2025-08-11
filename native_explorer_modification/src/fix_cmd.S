@@ -45,3 +45,7 @@ blx FixPaste_Hook
 .section .text.FixShowFileAttributes_Jump
 .arm
 blx FixShowFileAttributes_Hook
+
+// .section .text.FixShowSearch
+// .arm
+// b . + 0x08

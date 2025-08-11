@@ -215,6 +215,9 @@ SECTIONS {
     .FixShowFileAttributes_Jump 0xA069B860 : {
         KEEP(*(.text.FixShowFileAttributes_Jump))
     }
+    /*.FixShowSearch 0xA069B97C : {
+        KEEP(*(.text.FixShowSearch))
+    }*/
 
 
     .FixHeader 0xA071EEE8 : {
@@ -288,9 +291,9 @@ SECTIONS {
     .FixJavaDirs_Part1 0xA069AB04 : {
         KEEP(*(.text.FixJavaDirs_Part1))
     }
-    .FixJavaDirs_Part2 0xA0718F58 : {
+    /*.FixJavaDirs_Part2 0xA0718F58 : {
         KEEP(*(.text.FixJavaDirs_Part2))
-    }
+    }*/
     .FixJavaDirIcon_Part1 0xA071E56C : {
         KEEP(*(.text.FixJavaDirIcon_Part1))
     }
@@ -330,9 +333,9 @@ SECTIONS {
     .SkipApplicationError 0xA0698C70 : {
         KEEP(*(.text.SkipApplicationError))
     }
-    .DisableSearch 0xA069B950 : {
+    /*.DisableSearch 0xA069B950 : {
         KEEP(*(.text.DisableSearch))
-    }
+    }*/
 
 
     .ReplaceHelpMenuItem_Part1 0xA07168A8 : {
@@ -375,5 +378,85 @@ SECTIONS {
 
     .Rename_SkipFindChildren 0xA0714FB8 : {
         KEEP(*(.text.Rename_SkipFindChildren))
+    }
+
+
+    .Search_OnMessage_Hook 0xA1380D40 : {
+        KEEP(*(.text.Search_OnMessage_Hook))
+    }
+    .Search_OnMessage_Jump 0xA087002C : {
+        KEEP(*(.data.Search_OnMessage_Jump))
+    }
+
+    .Search_OnKey_Hook 0xA1380DD0 : {
+        KEEP(*(.text.Search_OnKey_Hook))
+    }
+    .Search_OnKey_Jump 0xA088B538 : {
+        KEEP(*(.data.Search_OnKey_Jump))
+    }
+
+    .Search_FixCSMState 0xA0711F90 : {
+        KEEP(*(.text.Search_FixCSMState))
+    }
+
+    .Search_FixHeaderIcon 0xA088B6CC : {
+        KEEP(*(.data.Search_FixHeaderIcon))
+    }
+    .Search_ChangeHeader_Part1 0xA088B52C : {
+        KEEP(*(.data.Search_ChangeHeader_Part1))
+    }
+    .Search_ChangeHeader_Part2 0xA07857DD : {
+        KEEP(*(.data.Search_ChangeHeader_Part2))
+    }
+    .Search_ChangeHeader_Part3 0xA07857B0 : {
+        KEEP(*(.text.Search_ChangeHeader_Part3))
+    }
+
+    .Search_Everywhere_Part1 0xA071245C : {
+        KEEP(*(.text.Search_Everywhere_Part1))
+    }
+    .Search_Everywhere_Part2 0xA071246C : {
+        KEEP(*(.text.Search_Everywhere_Part2))
+    }
+    .Search_Everywhere_Part3 0xA0710EF4 : {
+        KEEP(*(.text.Search_Everywhere_Part3))
+    }
+    .Search_Everywhere_Part4 0xA0710CFC : {
+        KEEP(*(.text.Search_Everywhere_Part4))
+    }
+
+    .Search_SetItemIcon_Hook 0xA1380EB0 : {
+        KEEP(*(.text.Search_SetItemIcon_Hook))
+    }
+    .Search_SetItemIcon_Jump 0xA0785770 : {
+        KEEP(*(.text.Search_SetItemIcon_Jump))
+    }
+
+    .Search_FixJavaAttributes 0xA0711680 : {
+        KEEP(*(.text.Search_FixJavaAttributes))
+    }
+
+    .Search_Options_FixMenu 0xA088B66C : {
+        KEEP(*(.data.Search_Options_FixMenu))
+    }
+    .Search_Options_FixMenu_Hook 0xA1380D50 : {
+        KEEP(*(.text.Search_Options_FixMenu_Hook))
+    }
+    .Search_Options_FixMenu_Jump 0xA0785E6C : {
+        KEEP(*(.text.Search_Options_FixMenu_Jump))
+    }
+
+    .Search_Options_HideItems_Hook 0xA1380E70 : {
+        KEEP(*(.text.Search_Options_HideItems_Hook))
+    }
+    .Search_Options_HideItems_Jump 0xA0785E48 : {
+        KEEP(*(.text.Search_Options_HideItems_Jump))
+    }
+
+    .Search_Options_FixItemOpen_Part1 0xA0785BC0 : {
+        KEEP(*(.text.Search_Options_FixItemOpen_Part1))
+    }
+    .Search_Options_FixItemOpen_Part2 0xA0785BD4 : {
+        KEEP(*(.text.Search_Options_FixItemOpen_Part2))
     }
 }

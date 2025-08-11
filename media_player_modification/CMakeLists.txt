@@ -8,7 +8,7 @@ project(patch_media_player_modification LANGUAGES C ASM)
 set(CMAKE_C_STANDARD 99)
 add_compile_options(-Os -DSWILIB_MODERN)
 
-file(GLOB_RECURSE SOURCES "src/*.c", "src/*.S")
+file(GLOB_RECURSE SOURCES "src/*.c" "src/*.S")
 
 # E71v45
 add_executable(E71v45 ${SOURCES})

@@ -259,9 +259,9 @@ nop
 .arm
 nop
 
-.section .text.FixJavaDirs_Part2
-.arm
-cmp r0, #0xFF
+// .section .text.FixJavaDirs_Part2
+// .arm
+// cmp r0, #0xFF
 
 .section .text.FixJavaDirIcon_Part1
 .arm
@@ -323,9 +323,9 @@ nop
 .arm
 b . + 0x10
 
-.section .text.DisableSearch
-.arm
-bx lr
+// .section .text.DisableSearch
+// .arm
+// bx lr
 
 
 .section .text.ReplaceHelpMenuItem_Part1

@@ -3,7 +3,7 @@
 #include "functions.h"
 
 #ifdef E71_45
-    #include "E71_45.h"
+    #include "../E71_45.h"
 #endif
 
 #define OnKey ((int (*)(GUI *gui, GUI_MSG *msg))(ADDR_OnKey))

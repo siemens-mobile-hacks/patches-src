@@ -115,7 +115,7 @@ void HideMenuItems_Hook(NATIVE_EXPLORER_CSM *csm, int *hide_list) {
             }
         }
     }
-    hide_list[count++] = 0x13; // Search
+    // hide_list[count++] = 0x13; // Search
     hide_list[count++] = 0x16; // Manage licence
     hide_list[count  ] = 0x17; // Format card
     hide_list[0] = count;
