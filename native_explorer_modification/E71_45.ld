@@ -79,23 +79,26 @@ SECTIONS {
         KEEP(*(.text.DisableAliases_2))
     }
 
-    .FixTabs_Part1 0xA04E57BC : {
+    .GetTotalDrives_Hook 0xA1380FBA : {
+        KEEP(*(.text.GetTotalDrives_Hook))
+    }
+    .GetTotalDrives_Jump 0xA06994EC : {
+        KEEP(*(.text.GetTotalDrives_Jump))
+    }
+    .FixTabs_Part1 0xA069966C : {
         KEEP(*(.text.FixTabs_Part1))
     }
-    .FixTabs_Part2 0xA069966C : {
+    .FixTabs_Part2 0xA0699554 : {
         KEEP(*(.text.FixTabs_Part2))
     }
-    .FixTabs_Part3 0xA0699554 : {
+    .FixTabs_Part3 0xA0699674 : {
         KEEP(*(.text.FixTabs_Part3))
     }
-    .FixTabs_Part4 0xA0699674 : {
-        KEEP(*(.text.FixTabs_Part4))
+    .SetSecondsTabPath 0xA1380700 : {
+        KEEP(*(.text.SetSecondTabPath))
     }
-    .Set2ndTabPath 0xA1380700 : {
-        KEEP(*(.text.Set2ndTabPath))
-    }
-    .Set2ndTabPath_Jump 0xA0699654 : {
-        KEEP(*(.text.Set2ndTabPath_Jump))
+    .SetSecondTabPath_Jump 0xA0699654 : {
+        KEEP(*(.text.SetSecondTabPath_Jump))
     }
     .FixInitTab_Hook 0xA13806D0 : {
         KEEP(*(.text.FixInitTab_Hook))
@@ -170,6 +173,9 @@ SECTIONS {
     .FixSendFile_Jump 0xA0716940 : {
         KEEP(*(.text.FixSendFile_Jump))
     }
+    .FixSendFile 0xA069B1B0 : {
+        KEEP(*(.text.FixSendFile))
+    }
     .FixSortFiles_Hook 0xA1380B5A : {
        KEEP(*(.text.FixSortFiles_Hook))
     }
@@ -215,9 +221,9 @@ SECTIONS {
     .FixShowFileAttributes_Jump 0xA069B860 : {
         KEEP(*(.text.FixShowFileAttributes_Jump))
     }
-    /*.FixShowSearch 0xA069B97C : {
+    .FixShowSearch 0xA069B97C : {
         KEEP(*(.text.FixShowSearch))
-    }*/
+    }
 
 
     .FixHeader 0xA071EEE8 : {
@@ -288,8 +294,8 @@ SECTIONS {
         KEEP(*(.text.HideMenuItems_Jump3))
     }
 
-    .FixJavaDirs_Part1 0xA069AB04 : {
-        KEEP(*(.text.FixJavaDirs_Part1))
+    .FixJavaDirs 0xA069AB04 : {
+        KEEP(*(.text.FixJavaDirs))
     }
     /*.FixJavaDirs_Part2 0xA0718F58 : {
         KEEP(*(.text.FixJavaDirs_Part2))
@@ -333,9 +339,6 @@ SECTIONS {
     .SkipApplicationError 0xA0698C70 : {
         KEEP(*(.text.SkipApplicationError))
     }
-    /*.DisableSearch 0xA069B950 : {
-        KEEP(*(.text.DisableSearch))
-    }*/
 
 
     .ReplaceHelpMenuItem_Part1 0xA07168A8 : {
@@ -395,6 +398,13 @@ SECTIONS {
         KEEP(*(.data.Search_OnKey_Jump))
     }
 
+    .Search_GHook_Hook 0xA1380F30 : {
+        KEEP(*(.text.Search_GHook_Hook))
+    }
+    .Search_GHook_Jump 0xA088B53C : {
+        KEEP(*(.data.Search_GHook_Jump))
+    }
+
     .Search_FixCSMState 0xA0711F90 : {
         KEEP(*(.text.Search_FixCSMState))
     }
@@ -434,6 +444,13 @@ SECTIONS {
 
     .Search_FixJavaAttributes 0xA0711680 : {
         KEEP(*(.text.Search_FixJavaAttributes))
+    }
+
+    .Search_FixGoTo_Part1 0xA071186C : {
+        KEEP(*(.text.Search_FixGoTo_Part1))
+    }
+    .Search_FixGoTo_Part2 0xA07118BC : {
+        KEEP(*(.text.Search_FixGoTo_Part2))
     }
 
     .Search_Options_FixMenu 0xA088B66C : {

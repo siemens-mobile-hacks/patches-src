@@ -2,6 +2,7 @@
 
 #define ADDR_malloc                 (uint32_t*)(0xA0092F51)
 #define ADDR_mfree                  (uint32_t*)(0xA0092F93)
+#define ADDR_AllocWS                (0xA093F611)
 #define ADDR_wstrlen                (0xA04FAC53)
 #define ADDR_wstrcmp                (0xA04FAC7F)
 #define ADDR_wsprintf               (0xA093EB4D)
@@ -17,7 +18,9 @@
 #define ADDR_SetFileAttrib_ws       (0xA05681EC)
 #define ADDR_GetHeaderPointer       (0xA0954E3D)
 #define ADDR_GetMenuItemCount       (0xA0950F33)
+#define ADDR_GetTotalFlexSpace      (0xA05686C0)
 #define ADDR_MenuGetUserPointer     (0xA095654F)
+#define ADDR_SetHeaderScrollText    (0xA0A285B9)
 #define ADDR_SetMenuItemIconArray   (0xA09544F7)
 #define ADDR_SetMenuItemIconIMGHDR  (0xA09544FB)
 #define ADDR_GetExtUidByFileName_ws (0xA05026F8)
@@ -62,7 +65,10 @@
 #define ADDR_CreateDir (0xA05D02E8)
 
 #define ADDR_Search_OnKey             (0xA0785628)
+#define ADDR_Search_GHook             (0xA0785698)
 #define ADDR_Search_OnMessage         (0xA071230C)
+
+#define ADDR_Search_SendFile          (0xA07111EC)
 #define ADDR_Search_ExecuteFile       (0xA0711790)
 #define ADDR_Search_IsFileExists      (0xA0710F00)
 #define ADDR_Search_CreateOptionsGUI  (0xA07859CC)
@@ -71,3 +77,4 @@
 #define ADDR_GetExtIconSmall (0xA05028C8)
 
 #define ICON_UNK 0x3EA
+#define LGP_ID_SEARCH 0xDAE

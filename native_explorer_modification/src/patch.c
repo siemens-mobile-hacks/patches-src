@@ -51,8 +51,21 @@ int IsAllowThumbnail(void *r0) {
     return *(int*)(r0 + 0x1A8) && !csm->disable_thumbnail && !csm->mark_mode;
 }
 
-__attribute__((section(".text.Set2ndTabPath")))
-void Set2ndTabPath(void *r0, WSHDR *ws) {
+/*
+ * Правильная инициализация количества вкладок в зависимости от доступности MMC.
+ */
+__attribute__((target("thumb")))
+__attribute__((section(".text.GetTotalDrives_Hook")))
+int GetTotalDrives_Hook() {
+    uint32_t err;
+    return (_GetTotalFlexSpace(4, &err) ? 4 : 3);
+}
+
+/*
+ * Фикс инициализация второй вкладки.
+ */
+__attribute__((section(".text.SetSecondTabPath")))
+void SetSecondTabPath(int dir_id, WSHDR *ws) {
     _wsprintf(ws, "1:\\");
 }
 

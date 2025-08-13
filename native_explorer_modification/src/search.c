@@ -12,6 +12,7 @@ int Search_OnMessage_Hook(NATIVE_EXPLORER_SEARCH_CSM *csm, GBS_MSG *msg) {
 }
 
 #define OnKey ((int (*)(void *gui, GUI_MSG *msg))(ADDR_Search_OnKey))
+#define SendFile ((void (*)(NATIVE_EXPLORER_SEARCH_CSM *))(ADDR_Search_SendFile))
 #define ExecuteFile ((void (*)(NATIVE_EXPLORER_SEARCH_CSM *))(ADDR_Search_ExecuteFile))
 #define IsFileExists ((int (*)(NATIVE_EXPLORER_SEARCH_CSM *))(ADDR_Search_IsFileExists))
 #define CreateOptionsMenu ((int (*)(NATIVE_EXPLORER_SEARCH_CSM *))(ADDR_Search_CreateOptionsMenu))
@@ -20,22 +21,43 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.Search_OnKey_Hook")))
 int Search_OnKey_Hook(void *gui, GUI_MSG *msg) {
     NATIVE_EXPLORER_SEARCH_CSM *csm = _MenuGetUserPointer(gui);
+    csm->cursor = _GetCurMenuItem(gui);
     if (msg->keys == 0x3D) { // ENTER_BUTTON
-        csm->cursor = _GetCurMenuItem(gui);
         if (IsFileExists(csm)) {
             ExecuteFile(csm);
             csm->csm.state = 3;
         }
         return -1;
     } else if (msg->keys == 0x36) { // LEFT_SOFT
-        csm->cursor = _GetCurMenuItem(gui);
         if (IsFileExists(csm)) {
             csm->gui_id = CreateOptionsMenu(csm);
             csm->csm.state = 4;
         }
         return -1;
+    } else if (msg->keys == 0x05) { // GREEN_BUTTON
+        if (IsFileExists(csm)) {
+            SendFile(csm);
+        }
+        return -1;
     }
     return OnKey(gui, msg);
+}
+
+#define GHook ((void (*)(void *gui, int cmd))(ADDR_Search_GHook))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.Search_GHook_Hook")))
+void Search_GHook_Hook(void *gui, enum UIDialogCmdID cmd) {
+    NATIVE_EXPLORER_SEARCH_CSM *csm = _MenuGetUserPointer(gui);
+    if (cmd == UI_CMD_CREATE) {
+        if (_wstrlen(csm->search_keyword)) {
+            WSHDR *ws = _AllocWS(128);
+            void *header = _GetHeaderPointer(gui);
+            _wsprintf(ws, "%t: \"%w\"", LGP_ID_SEARCH, csm->search_keyword);
+            _SetHeaderScrollText(header, ws, ADDR_malloc, ADDR_mfree);
+        }
+    }
+    GHook(gui, cmd);
 }
 
 #define GetExtIconSmall ((int *(*)(int uid, int *icon))(ADDR_GetExtIconSmall))

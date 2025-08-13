@@ -54,7 +54,7 @@ struct NATIVE_EXPLORER_SEARCH_CSM {
     undefined field45_0x5d;
     undefined field46_0x5e;
     undefined field47_0x5f;
-    struct WSHDR *field48_0x60;
+    struct WSHDR *search_keyword;
     struct WSHDR *field49_0x64;
     undefined field50_0x68;
     undefined field51_0x69;

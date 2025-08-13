@@ -102,26 +102,25 @@ b . + 0x3C
 .arm
 b . + 0x3C
 
+.section .text.GetTotalDrives_Jump
+.arm
+blx GetTotalDrives_Hook
 
 .section .text.FixTabs_Part1
 .arm
-cmp r1, #0x04
+cmp r0, #0xFF
 
 .section .text.FixTabs_Part2
 .arm
-cmp r0, #0xFF
+mov r7, #0x02
 
 .section .text.FixTabs_Part3
 .arm
-mov r7, #0x02
-
-.section .text.FixTabs_Part4
-.arm
 mov r6, #0x02
 
-.section .text.Set2ndTabPath_Jump
+.section .text.SetSecondTabPath_Jump
 .arm
-blne Set2ndTabPath
+blne SetSecondTabPath
 
 .section .text.FixInitTab
 .arm
@@ -255,7 +254,7 @@ blx HideMenuItems_Hook
 nop
 
 
-.section .text.FixJavaDirs_Part1
+.section .text.FixJavaDirs
 .arm
 nop
 
@@ -269,7 +268,7 @@ ldr r0, [pc, #0x848]
 add r0, r0, #0x04
 
 .section .data.FixJavaDirIcon_Part2
-.int 0x3FC
+.int 0x355
 
 .section .text.FixRunJava
 .thumb
@@ -322,10 +321,6 @@ nop
 .section .text.SkipApplicationError
 .arm
 b . + 0x10
-
-// .section .text.DisableSearch
-// .arm
-// bx lr
 
 
 .section .text.ReplaceHelpMenuItem_Part1

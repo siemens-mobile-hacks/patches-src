@@ -4,6 +4,7 @@
     #include "../E71_45.h"
 #endif
 
+#define _AllocWS ((WSHDR *(*)(size_t))(ADDR_AllocWS))
 #define _wstrlen ((int (*)(const WSHDR *))(ADDR_wstrlen))
 #define _wstrcmp ((int (*)(const WSHDR *, const WSHDR *))(ADDR_wstrcmp))
 #define _wsprintf ((void (*)(WSHDR *, const char *, ...))(ADDR_wsprintf))
@@ -19,7 +20,9 @@
 #define _GetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t *, unsigned int *))(ADDR_GetFileAttrib_ws))
 #define _SetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t, unsigned int *))(ADDR_SetFileAttrib_ws))
 #define _GetMenuItemCount ((int (*)(void *))(ADDR_GetMenuItemCount))
+#define _GetTotalFlexSpace ((int (*)(int, uint32_t *))(ADDR_GetTotalFlexSpace))
 #define _MenuGetUserPointer ((void *(*)(void *))(ADDR_MenuGetUserPointer))
+#define _SetHeaderScrollText ((void (*)(void *, const WSHDR *, const void *, const void *))(ADDR_SetHeaderScrollText))
 #define _SetMenuItemIconArray ((void (*)(void *, void *, int *))(ADDR_SetMenuItemIconArray))
 #define _SetMenuItemIconIMGHDR ((void (*)(void *, void *, const IMGHDR *))(ADDR_SetMenuItemIconIMGHDR))
 #define _GetExtUidByFileName_ws ((int (*)(const WSHDR *))(ADDR_GetExtUidByFileName_ws))

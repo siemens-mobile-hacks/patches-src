@@ -4,6 +4,9 @@
 .section .data.Search_OnKey_Jump
 .int Search_OnKey_Hook
 
+.section .data.Search_GHook_Jump
+.int Search_GHook_Hook
+
 .section .text.Search_FixCSMState
 .arm
 mov r7, #0x4
@@ -42,6 +45,14 @@ blx Search_SetItemIcon_Hook
 .section .text.Search_FixJavaAttributes
 .arm
 b . + 0x2C
+
+.section .text.Search_FixGoTo_Part1
+.arm
+b . + 0x20
+
+.section .text.Search_FixGoTo_Part2
+.arm
+b . + 0x24
 
 .section .data.Search_Options_FixMenu
 .int 0x9
