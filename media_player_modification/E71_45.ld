@@ -41,7 +41,7 @@ SECTIONS {
     .PlayProc 0xA13818EA : {
         KEEP(*(.text.PlayProc))
     }
-    .HideListProc 0xA1381950 : {
+    .HideListProc 0xA138193A : {
         KEEP(*(.text.HideListProc))
     }
 
@@ -58,7 +58,7 @@ SECTIONS {
         KEEP(*(.text.DestroyData_Jump))
     }
 
-    .OnKey 0xA1381970 : {
+    .OnKey 0xA138194C : {
         KEEP(*(.text.OnKey))
     }
     .OnKey_Jump 0xA088B8EC : {

@@ -49,9 +49,8 @@ inline int IsDisableNavigation(MP_CSM *csm) {
 }
 
 __attribute__((always_inline))
-inline void StartTimerHideList(MP_GUI *gui) {
-    MP_CSM *csm = _MenuGetUserPointer(gui);
-    _GUI_StartTimerProc(gui, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
+inline void StartTimerHideList(MP_CSM *csm) {
+    _GUI_StartTimerProc(csm, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
 }
 
 
@@ -63,11 +62,12 @@ int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
     MP_CSM *csm = _MenuGetUserPointer(gui);
     WIDGET *menu = *gui->menu;
 
-    if (gui->media_type == MP_MEDIA_TYPE_AUDIO) {
-        StartTimerHideList(gui);
+    int msg = gui_msg->gbsmsg->msg;
+    int submess = gui_msg->gbsmsg->submess;
 
-        int msg = gui_msg->gbsmsg->msg;
-        int submess = gui_msg->gbsmsg->submess;
+    if (gui->media_type == MP_MEDIA_TYPE_AUDIO) {
+        StartTimerHideList(csm);
+
         if (msg == KEY_DOWN) {
             if (submess == '#') {
                 return -1;
@@ -78,31 +78,33 @@ int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
                 return -1;
             }
         }
+
         if (gui->sound_view_mode == MP_SOUND_VIEW_MODE_ANIMATION) {
             if (gui_msg->keys == 0x26 || gui_msg->keys == 0x25) { // UP_BUTTON, DOWN_BUTTON => '#'
                 gui_msg->keys = 0x15;
-            } else if (msg == KEY_DOWN) {
-                if (submess == LEFT_BUTTON || submess == RIGHT_BUTTON) {
-                    data->flag = submess;
-                    return -1;
-                }
-            } else if (msg == LONG_PRESS) {
-                if (submess == LEFT_BUTTON || RIGHT_BUTTON) {
-                    data->flag = 0;
-                }
-            } else if (msg == KEY_UP) {
-                if (submess == data->flag) {
-                    if (submess == LEFT_BUTTON) {
-                        PREV:
-                            gui_msg->gbsmsg->submess = KEY_DOWN;
+                return MP_OnKey(gui, gui_msg);
+            }
+            SWAP_NAV_KEYS:
+                if (msg == KEY_DOWN) {
+                    if (submess == LEFT_BUTTON || submess == RIGHT_BUTTON) {
+                        data->flag = submess;
+                        return -1;
+                    }
+                } else if (msg == LONG_PRESS) {
+                    if (submess == LEFT_BUTTON || RIGHT_BUTTON) {
+                        data->flag = 0;
+                    }
+                } else if (msg == KEY_UP) {
+                    if (submess == data->flag) {
+                        if (submess == LEFT_BUTTON) {
+                            gui_msg->gbsmsg->submess = UP_BUTTON;
                             gui_msg->keys = 0x26; // UP_BUTTON
-                    } else if (submess == RIGHT_BUTTON) {
-                        NEXT:
-                            gui_msg->gbsmsg->submess = KEY_DOWN;
+                        } else if (submess == RIGHT_BUTTON) {
+                            gui_msg->gbsmsg->submess = DOWN_BUTTON;
                             gui_msg->keys = 0x25; // DOWN_BUTTON
+                        }
                     }
                 }
-            }
         } else {
             if (IsDisableNavigation(csm)) {
                 if (submess == UP_BUTTON || submess == DOWN_BUTTON) {
@@ -142,8 +144,15 @@ int OnKey(MP_GUI *gui, GUI_MSG *gui_msg) {
         if (gui_msg->keys == 0x28 || gui_msg->keys == 0x27 || gui_msg->keys == 0x2C || gui_msg->keys == 0x2D) { //LEFT_BUTTON, RIGHT_BUTTON like UP_BUTTON, DOWN_BUTTON
             gui_msg->keys -= 2;
         }
-        // if (gui_msg->keys == 0x2A || gui_msg->keys == 0x2B) { // LONG_PRESS
-        // }
+    } else if (gui->media_type == MP_MEDIA_TYPE_VIDEO) {
+        if (!csm->is_rotate) {
+            if (gui_msg->keys == 0x26 || gui_msg->keys == 0x25) { // UP_BUTTON, DOWN_BUTTON
+                return -1;
+            }
+            if (submess == LEFT_BUTTON || submess == RIGHT_BUTTON) {
+                goto SWAP_NAV_KEYS;
+            }
+        }
     }
     return MP_OnKey(gui, gui_msg);
 }
@@ -161,7 +170,7 @@ void GHook(MP_GUI *gui, int cmd) {
             _GUI_DeleteTimer(gui, data->timer_hide_list);
         }
         else if (cmd == 0xA) { //focus
-            StartTimerHideList(gui);
+            StartTimerHideList(csm);
         }
     }
     MP_GHook(gui, cmd);
