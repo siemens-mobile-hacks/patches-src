@@ -9,14 +9,17 @@ SECTIONS {
     .KbdUnlock_Part1 0xA0670BB4 : {
         KEEP(*(.text.KbdUnlock_Part1))
     }
-    .KbdUnlock_Part2 0xA0702C8A : {
+    .KbdUnlock_Part2 0xA0702C74 : {
         KEEP(*(.text.KbdUnlock_Part2))
     }
-    .KbdUnlock_Part3 0xA0669846 : {
+    .KbdUnlock_Part3 0xA0702C8A : {
         KEEP(*(.text.KbdUnlock_Part3))
     }
-    .KbdUnlock_Part4 0xA05C2BAC : {
+    .KbdUnlock_Part4 0xA0669846 : {
         KEEP(*(.text.KbdUnlock_Part4))
+    }
+    .KbdUnlock_Part5 0xA05C2BAC : {
+        KEEP(*(.text.KbdUnlock_Part5))
     }
     .KeypadLock_DisableText 0xA0669AA0 : {
         KEEP(*(.text.KeypadLock_DisableText))

@@ -13,14 +13,19 @@ b . + 0x12
 
 .section .text.KbdUnlock_Part2
 .thumb
-beq . + 0x12
-b . + 0x34
+b . + 0x8
+nop
 
 .section .text.KbdUnlock_Part3
 .thumb
-sub r0, #0x94
+beq . + 0x12
+b . + 0x34
 
 .section .text.KbdUnlock_Part4
+.thumb
+sub r0, #0x94
+
+.section .text.KbdUnlock_Part5
 .thumb
 cmp r1, #0x23
 beq . + 0x1A
