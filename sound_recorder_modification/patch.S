@@ -7,6 +7,9 @@
 .section .data.List_OnClose_Jump
 .int List_OnClose_Hook
 
+.section .data.List_GHook_Jump
+.int List_GHook_Hook
+
 
 .section .data.Recording_FixPBarPosition
 .short 0x5A
@@ -44,7 +47,11 @@ nop
 .arm
 moveq r0, #0x01
 
-.section .text.Recording_SaveOnClose
+.section .text.Recording_SaveOnClose_Part1
+.arm
+bl SendCMD_Save
+
+.section .text.Recording_SaveOnClose_Part2
 .arm
 bl SendCMD_Save
 
@@ -56,3 +63,11 @@ mov r0, #0x80
 .arm
 mov r0, r4
 blx Recording_ChangeText_Hook
+
+.section .text.Options_ReplaceRename_Part1
+.arm
+blx Options_GoTo
+
+.section .data.Options_ReplaceRename_Part2
+.int 0x81B
+.int 0x81B

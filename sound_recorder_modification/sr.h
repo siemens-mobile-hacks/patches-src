@@ -16,7 +16,7 @@ struct SR_CSM {
     int list_csm_id;
     int recording_csm_id;
     int device_check_csm_id;
-    uint field8_0x38;
+    int error_csm_id;
     undefined1 type;
     undefined field10_0x3d;
     undefined field11_0x3e;
@@ -78,7 +78,7 @@ struct SR_LIST_CSM {
     int field5_0x2c;
     int gui_id;
     void *field7_0x34;
-    void *recording_csm_id;
+    int recording_csm_id;
     undefined field9_0x3c;
     undefined field10_0x3d;
     undefined field11_0x3e;
@@ -158,6 +158,6 @@ struct SR_RECORDING_CSM {
     undefined field21_0x5d;
     undefined field22_0x5e;
     undefined field23_0x5f;
-    struct WSHDR *field24_0x60;
+    struct WSHDR *base_file_name;
     struct TTime field25_0x64;
 };

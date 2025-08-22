@@ -5,6 +5,12 @@ SECTIONS {
     .List_OnClose_Jump 0xA088ED14 : {
         KEEP(*(.data.List_OnClose_Jump))
     }
+    .List_GHook_Hook 0xA13821A0 : {
+        KEEP(*(.text.List_GHook_Hook))
+    }
+    .List_GHook_Jump 0xA08AA9EC : {
+        KEEP(*(.data.List_GHook_Jump))
+    }
 
     .Recording_FixPBarPosition 0xA08AAC1C : {
         KEEP(*(.data.Recording_FixPBarPosition))
@@ -45,8 +51,11 @@ SECTIONS {
     .Recording_FixClose 0xA07AAF2C : {
         KEEP(*(.text.Recording_FixClose))
     }
-    .Recording_SaveOnClose 0xA07AABFC : {
-        KEEP(*(.text.Recording_SaveOnClose))
+    .Recording_SaveOnClose_Part1 0xA07AABFC : {
+        KEEP(*(.text.Recording_SaveOnClose_Part1))
+    }
+    .Recording_SaveOnClose_Part2 0xA07AB45C : {
+        KEEP(*(.text.Recording_SaveOnClose_Part2))
     }
 
     .Recording_ChangeText_Part1 0xA07D18F8 : {
@@ -57,5 +66,15 @@ SECTIONS {
     }
     .Recording_ChangeText_Jump 0xA07AA5A0 : {
         KEEP(*(.text.Recording_ChangeText_Jump))
+    }
+
+    .Options_GoTo 0xA1382150 : {
+        KEEP(*(.text.Options_GoTo))
+    }
+    .Options_ReplaceRename_Part1 0xA07D09A8 : {
+        KEEP(*(.text.Options_ReplaceRename_Part1))
+    }
+    .Options_ReplaceRename_Part2 0xA08AF6B8 : {
+        KEEP(*(.data.Options_ReplaceRename_Part2))
     }
 }
