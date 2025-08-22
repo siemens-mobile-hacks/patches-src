@@ -452,6 +452,12 @@ SECTIONS {
     .Search_FixGoTo_Part2 0xA07118BC : {
         KEEP(*(.text.Search_FixGoTo_Part2))
     }
+    .Search_FixGoTo_Hook 0xA1381080 : {
+        KEEP(*(.text.Search_FixGoTo_Hook))
+    }
+    .Search_FixGoTo_Jump 0xA07118A8 : {
+        KEEP(*(.text.Search_FixGoTo_Jump))
+    }
 
     .Search_Options_FixMenu 0xA088B66C : {
         KEEP(*(.data.Search_Options_FixMenu))

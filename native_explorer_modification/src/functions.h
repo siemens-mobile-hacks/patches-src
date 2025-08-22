@@ -4,6 +4,7 @@
     #include "../E71_45.h"
 #endif
 
+#define _zeromem ((void (*)(void *, size_t))(ADDR_zeromem))
 #define _AllocWS ((WSHDR *(*)(size_t))(ADDR_AllocWS))
 #define _wstrlen ((int (*)(const WSHDR *))(ADDR_wstrlen))
 #define _wstrcmp ((int (*)(const WSHDR *, const WSHDR *))(ADDR_wstrcmp))

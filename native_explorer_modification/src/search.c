@@ -82,6 +82,14 @@ void Search_SetItemIcon_Hook(void *gui, void *item, WSHDR *file_name, int item_n
 }
 
 __attribute__((target("thumb")))
+__attribute__((section(".text.Search_FixGoTo_Hook")))
+void Search_FixGoTo_Hook(NativeExplorerData *data) {
+    _zeromem(data, sizeof(NativeExplorerData));
+    data->dir_enum = 0x26;
+    data->is_exact_dir = 1;
+}
+
+__attribute__((target("thumb")))
 __attribute__((section(".text.Search_Options_FixMenu_Hook")))
 void *Search_Options_FixMenu_Hook(void *gui) {
     void *item = _AllocMenuItem(gui);

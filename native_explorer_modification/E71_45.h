@@ -2,6 +2,7 @@
 
 #define ADDR_malloc                 (uint32_t*)(0xA0092F51)
 #define ADDR_mfree                  (uint32_t*)(0xA0092F93)
+#define ADDR_zeromem                (0xA0FAFC00)
 #define ADDR_AllocWS                (0xA093F611)
 #define ADDR_wstrlen                (0xA04FAC53)
 #define ADDR_wstrcmp                (0xA04FAC7F)

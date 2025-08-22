@@ -54,6 +54,10 @@ b . + 0x20
 .arm
 b . + 0x24
 
+.section .text.Search_FixGoTo_Jump
+.arm
+blx Search_FixGoTo_Hook
+
 .section .data.Search_Options_FixMenu
 .int 0x9
 
