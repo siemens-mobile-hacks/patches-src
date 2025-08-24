@@ -50,7 +50,7 @@ inline int IsDisableNavigation(MP_CSM *csm) {
 
 __attribute__((always_inline))
 inline void StartTimerHideList(MP_CSM *csm) {
-    _GUI_StartTimerProc(csm, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
+    _GUI_StartTimerProc(csm->gui, data->timer_hide_list, 1000 * 5, (void (*)(void *))HideListProc);
 }
 
 

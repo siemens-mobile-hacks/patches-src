@@ -9,8 +9,10 @@ __attribute__((section(".text.SetHeaderToListView")))
 void SetHeaderToListView(MP_GUI *gui) {
     WSHDR *ws = _AllocWS(64);
     void *header = _GetDataOfItemByID(gui, 2);
-    GetInfoLineText(gui, ws);
-    _SetHeaderScrollText(header, ws, ADDR_malloc, ADDR_mfree);
+    if (header) {
+        GetInfoLineText(gui, ws);
+        _SetHeaderScrollText(header, ws, ADDR_malloc, ADDR_mfree);
+    }
 }
 
 __attribute__((target("thumb")))
@@ -18,8 +20,10 @@ __attribute__((section(".text.SetHeaderToAnimationView")))
 void SetHeaderToAnimationView(MP_GUI *gui) {
     WSHDR *ws = _AllocWS(64);
     void *header = _GetDataOfItemByID(gui, 2);
-    _GetLangMesIntoWS(0xD07, ws);
-    _SetHeaderScrollText(header, ws, ADDR_malloc, ADDR_mfree);
+    if (header) {
+        _GetLangMesIntoWS(0xD07, ws);
+        _SetHeaderScrollText(header, ws, ADDR_malloc, ADDR_mfree);
+    }
 }
 
 __attribute__((target("thumb")))
