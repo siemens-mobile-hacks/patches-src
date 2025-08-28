@@ -5,7 +5,7 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
 project(patch_date_instead_of_provider_name_in_screensaver LANGUAGES C ASM)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 add_compile_options(-Os)
 
 # E71v45
@@ -15,3 +15,7 @@ define_patch(E71v45 ELKA E71 45)
 # CX70v56
 add_executable(CX70v56 patch.c patch.S)
 define_patch(CX70v56 SG CX70 56)
+
+# S65_58
+add_executable(S65v58 patch.c patch.S)
+define_patch(S65v58 SG S65 58)

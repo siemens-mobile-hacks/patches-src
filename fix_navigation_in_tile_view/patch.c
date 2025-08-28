@@ -4,6 +4,9 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef S65_58
+        #include "S65_58.h"
+    #endif
 #endif
 
 #define _GBS_SendMessage ((void (*)(int cepid_to, int msg, int submess))(ADDR_GBS_SendMessage))

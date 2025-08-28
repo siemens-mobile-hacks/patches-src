@@ -8,6 +8,9 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef S65_58
+        #include "S65_58.h"
+    #endif
 #endif
 
 #ifdef NEWSGOLD
