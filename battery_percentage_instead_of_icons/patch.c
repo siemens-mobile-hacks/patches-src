@@ -1,12 +1,10 @@
 #include <swilib.h>
 
 #ifdef NEWSGOLD
-    #ifdef ELKA
-        #ifdef E71_45
-            #include "E71_45.h"
-        #endif
-    #define HEADER_H 24
+    #ifdef E71_45
+        #include "E71_45.h"
     #endif
+    #define HEADER_H 24
 #else
     #ifdef S65_58
         #include "S65_58.h"

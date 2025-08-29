@@ -7,4 +7,4 @@
 #define ADDR_GetFontYSIZE              (0xA0A32378)
 #define ADDR_DrawCanvas                (0xA05C0B9F)
 #define ADDR_DrawString                (0xA094A3AB)
-#define ADDR_RamCap    (unsigned char*)(0xA8D8378C)
+#define ADDR_RamCap          (uint8_t*)(0xA8D8378C)

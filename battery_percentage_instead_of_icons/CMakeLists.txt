@@ -5,7 +5,7 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
 project(patch_battery_percentage_instead_of_icons LANGUAGES C ASM)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 add_compile_options(-Os)
 
 # E71_45
