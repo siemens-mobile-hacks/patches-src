@@ -6,6 +6,14 @@ sub r12, r5, #0xFE
 .arm
 b . + 0x20
 
+.section .text.FixSelectPlaylist
+.arm
+nop
+
+.section .text.DisableMessage_AddTracksToPlaylist
+.arm
+nop
+
 .section .text.InitData_Jump
 .arm
 mov r0, r4

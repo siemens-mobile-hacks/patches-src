@@ -38,6 +38,14 @@ SECTIONS {
         KEEP(*(.text.DisableHideWhenKbdIsLocked))
     }
 
+    .FixSelectPlaylist 0xA07CDA58 : {
+        KEEP(*(.text.FixSelectPlaylist))
+    }
+
+    .DisableMessage_AddTracksToPlaylist 0xA07EE598 : {
+        KEEP(*(.text.DisableMessage_AddTracksToPlaylist))
+    }
+
     .PlayProc 0xA13818EA : {
         KEEP(*(.text.PlayProc))
     }
