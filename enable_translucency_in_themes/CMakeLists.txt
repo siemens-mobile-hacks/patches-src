@@ -15,3 +15,8 @@ define_patch(E71v45 ELKA E71 45)
 # EL71v45
 add_executable(EL71v45 patch.c patch.S)
 define_patch(EL71v45 ELKA EL71 45)
+
+# S75_52
+add_executable(S75v52 patch.c patch.S)
+define_patch(S75v52 NSG S75 52)
+target_compile_definitions(S75v52 PUBLIC -DTHUMB_VARIANT)

@@ -1,28 +1,27 @@
 #include <swilib.h>
 
-#ifdef E71_45
-    #include "E71_45.h"
-#endif
-#ifdef EL71_45
-    #include "EL71_45.h"
-#endif
-#ifdef S75_52
-    #include "S75_52.h"
-#endif
-#ifdef S68_52
-    #include "S68_52.h"
-#endif
-#ifdef C81_51
-    #include "C81_51.h"
+#ifdef NEWSGOLD
+    #ifdef E71_45
+        #include "E71_45.h"
+    #endif
+    #ifdef EL71_45
+        #include "EL71_45.h"
+    #endif
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
+    #ifdef S68_52
+        #include "S68_52.h"
+    #endif
+    #ifdef C81_51
+        #include "C81_51.h"
+    #endif
 #endif
 
-#define _CreateLocalWS ((WSHDR *(*)(WSHDR *header, uint16_t *body, int size))(ADDR_CreateLocalWS))
-#define _wsprintf ((void (*)(WSHDR *ws, const char *, ...))(ADDR_wsprintf))
 #define _wstrcmp ((int (*)(WSHDR *ws1, WSHDR *ws2))(ADDR_wstrcmp))
-#define _FreeWS ((void (*)(WSHDR *ws))(ADDR_FreeWS))
+#define _wsprintf ((void (*)(WSHDR *ws, const char *, ...))(ADDR_wsprintf))
+#define _CreateLocalWS ((WSHDR *(*)(WSHDR *header, uint16_t *body, int size))(ADDR_CreateLocalWS))
 #define _Registry_SetResourcePath ((unsigned int (*)(int hmi_key_id, int prio, WSHDR *path))(ADDR_Registry_SetResourcePath))
-
-#define PphAE_Fs_Remove ((int (*)(WSHDR *path, unsigned int recursive))(ADDR_PphAE_Fs_Remove))
 
 #define DIR "1:\\ThemeResources"
 
@@ -43,6 +42,8 @@ void FixThemeResourcesPath(WSHDR *ws, const char *format, WSHDR *dir, WSHDR *fil
         _wsprintf(ws, "%w\\%w", dir, file_name);
     }
 }
+
+#define PphAE_Fs_Remove ((int (*)(WSHDR *path, unsigned int recursive))(ADDR_PphAE_Fs_Remove))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.RemoveResources")))
