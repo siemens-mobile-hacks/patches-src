@@ -2,13 +2,12 @@
 .thumb
 bl OPWV_Launch_Hook
 
-
 .section .text.Trampoline_1
 .arm
 Trampoline_1:
-push {lr}
-blx Hook_1
-pop {pc}
+    push {lr}
+    blx Hook_1
+    pop {pc}
 
 .section .text.Jump_1
 .thumb
@@ -19,9 +18,9 @@ pop {r4, pc}
 .section .text.Trampoline_2
 .arm
 Trampoline_2:
-push {lr}
-blx Hook_2
-pop {pc}
+    push {lr}
+    blx Hook_2
+    pop {pc}
 
 .section .text.Jump_2
 .thumb
@@ -29,8 +28,12 @@ blx Trampoline_2
 
 .section .text.SkipStateCheck
 .thumb
-mov r0, #0x01
-nop
+#if defined(ELKA)
+    mov r0, #0x01
+    nop
+#else
+    cmp r0, #0xFF
+#endif
 
 .section .text.DisableErrorMessage
 .thumb

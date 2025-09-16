@@ -17,7 +17,7 @@ set(CMAKE_CXX_COMPILER ${ARM_CXX_COMPILER} CACHE INTERNAL "CMAKE_CXX_COMPILER")
 
 add_compile_options(-mcpu=arm926ej-s -mthumb-interwork -msoft-float -mlittle-endian -nostdlib -nostdinc)
 include_directories(../../sdk/dietlibc/include ../../sdk/swilib/include/)
-add_link_options(-Wl,-z,max-page-size=1)
+add_link_options(-Wl,-z,max-page-size=1,--use-blx)
 
 set(CMAKE_C_FLAGS "-nostdlib -nostdinc")
 set(CMAKE_CXX_FLAGS "-nostdlib -nostdinc")
@@ -30,7 +30,7 @@ function(define_patch target platform phone svn)
 	target_compile_definitions(${target} PUBLIC -D${phone}_${svn})
 	target_link_options(${target} PUBLIC -Wl,-T,${CMAKE_CURRENT_SOURCE_DIR}/${phone}_${svn}.ld)
 	add_custom_command(TARGET ${target} POST_BUILD
-		COMMAND elf2vkp  --section-names --chunk-size 1024 -f "${FULLFLASHES_PATH}/${phone}sw${svn}.bin" -i "${target}.elf" -o "${target}.vkp"
+		COMMAND elf2vkp --section-names --chunk-size 1024 -f "${FULLFLASHES_PATH}/${phone}sw${svn}.bin" -i "${target}.elf" -o "${target}.vkp"
 	)
 
 	if (platform STREQUAL "SG" OR platform STREQUAL "SGOLD")

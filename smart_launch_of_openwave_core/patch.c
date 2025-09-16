@@ -4,6 +4,14 @@
     #ifdef E71_45
         #include "E71_45.h"
     #endif
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
+    #ifdef ELKA
+        #define RAP_SUBMESS 0x6418
+    #else
+        #define RAP_SUBMESS 0x6417
+    #endif
     #define HELPER_CEPID 0x440A
 #endif
 
@@ -21,15 +29,15 @@
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.OPWV_Launch_Hook")))
-void OPWV_Launch_Hook(int r0, int r1, int r2, int r3) {
-    if (r0 != 1) {
-        RAP_GBS_SendMessage(r0, r1, r2, r3);
+void OPWV_Launch_Hook(int msg, int r1, int r2, int r3) {
+    if (msg != 1) {
+        RAP_GBS_SendMessage(msg, r1, r2, r3);
     }
 }
 
 
-#define OPWV_StartMessenger_Init ((void (*)(const char *))(ADDR_OPWV_StartMessenger_Init))
-#define OPWV_StartMessenger_SendMessage ((void (*)(const char *))(ADDR_OPWV_StartMessenger_SendMessage))
+#define OPWV_Messenger_Init ((void (*)(const char *))(ADDR_OPWV_Messenger_Init))
+#define OPWV_Messenger_SendMessage ((void (*)(const char *))(ADDR_OPWV_Messenger_SendMessage))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.Proc_1")))
@@ -40,8 +48,8 @@ void Proc_1(char *cmd) {
         }
         _NU_Sleep(100);
     }
-    OPWV_StartMessenger_Init(cmd);
-    OPWV_StartMessenger_SendMessage(cmd);
+    OPWV_Messenger_Init(cmd);
+    OPWV_Messenger_SendMessage(cmd);
     _mfree(cmd);
 }
 
@@ -51,11 +59,11 @@ void Hook_1(const char *command) {
     if (OPWV_GetState() == 0) {
         char *cmd = _malloc(128);
         _strcpy(cmd, command);
-        RAP_GBS_SendMessage(1, 0x6418, 0, 0);
+        RAP_GBS_SendMessage(1, RAP_SUBMESS, 0, 0);
         _SUBPROC(Proc_1, cmd);
     } else {
-        OPWV_StartMessenger_Init(command);
-        OPWV_StartMessenger_SendMessage(command);
+        OPWV_Messenger_Init(command);
+        OPWV_Messenger_SendMessage(command);
     }
 }
 
@@ -82,7 +90,7 @@ int Hook_2(const char *command) {
     if (state == 0) {
         char *cmd = _malloc(128);
         _strcpy(cmd, command);
-        RAP_GBS_SendMessage(1, 0x6418, 0, 0);
+        RAP_GBS_SendMessage(1, RAP_SUBMESS, 0, 0);
         _SUBPROC(Proc_2, cmd);
     }
     return state;
