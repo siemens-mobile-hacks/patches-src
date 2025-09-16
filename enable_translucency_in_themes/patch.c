@@ -10,6 +10,9 @@
     #ifdef S75_52
         #include "S75_52.h"
     #endif
+    #ifdef C81_51
+        #include "C81_51.h"
+    #endif
 #endif
 
 #define _Obs_SetInput_File ((int (*)(HObj, int *r8, WSHDR *path))(ADDR_Obs_SetInput_File))

@@ -20,3 +20,8 @@ define_patch(EL71v45 ELKA EL71 45)
 add_executable(S75v52 patch.c patch.S)
 define_patch(S75v52 NSG S75 52)
 target_compile_definitions(S75v52 PUBLIC -DTHUMB_VARIANT)
+
+# C81_51
+add_executable(C81v51 patch.c patch.S)
+define_patch(C81v51 NSG C81 51)
+target_compile_definitions(C81v51 PUBLIC -DTHUMB_VARIANT)
