@@ -13,6 +13,9 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
     #define GetNetworkState() (*ADDR_RamNetworkState)
 #endif
 
@@ -27,3 +30,15 @@ int GetNetworkIcon() {
         return (GetNetworkState() == 4) ? NETWORK_ICON : _GetNetworkIcon();
     #endif
 }
+
+#ifdef SECONDARY_DISPLAY
+
+#define _GetNetworkIcon_2 ((int (*)())(ADDR_GetNetworkIcon_2))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.GetNetworkIcon_2")))
+int GetNetworkIcon_2() {
+    return (GetNetworkState() == 4) ? NETWORK_ICON : _GetNetworkIcon_2();
+}
+
+#endif

@@ -19,3 +19,8 @@ define_patch(S65v58 SG S65 58)
 # CX70v56
 add_executable(CX70v56 patch.c patch.S)
 define_patch(CX70v56 SG CX70 56)
+
+# CF75v23
+add_executable(CF75v23 patch.c patch.S)
+define_patch(CF75v23 SG CF75 23)
+target_compile_definitions(CF75v23 PUBLIC -DSECONDARY_DISPLAY)

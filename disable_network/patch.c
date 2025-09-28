@@ -7,9 +7,13 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
 #endif
 
 #define _GBS_SendMessage ((void (*)(int cepid_to, int msg, ...))(ADDR_GBS_SendMessage))
+
 #define _DisableNetwork ((void (*)())(ADDR_DisableNetwork))
 
 __attribute__((section(".text.DisableNetwork")))
