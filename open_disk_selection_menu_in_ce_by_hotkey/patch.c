@@ -7,6 +7,9 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
 #endif
 
 #define _MenuGetUserPointer ((void* (*)(void *gui))(ADDR_MenuGetUserPointer))

@@ -1,9 +1,9 @@
 SECTIONS {
-    .OpenDisksMenu 0xA17E03A0 : {
+    .OpenDisksMenu 0xA01E096A : {
         KEEP(*(.rodata*))
         KEEP(*(.text.OpenDisksMenu))
     }
-    .OpenDisksMenu_Jump 0xA0985080 : {
+    .OpenDisksMenu_Jump 0xA03568F0 : {
         KEEP(*(.text.OpenDisksMenu_Jump))
     }
 }

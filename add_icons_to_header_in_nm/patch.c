@@ -25,6 +25,9 @@
     #ifdef S65_58
         #include "S65_58.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
 #endif
 
 #define _malloc ((void *(*)(size_t))(ADDR_malloc))
@@ -69,7 +72,7 @@ void NativeMenu_OnChange(GUI *gui) {
         }
     #endif
 #else
-    if (gui->definition == (void*)ADDR_NATIVE_MENU_DEFINITION) {
+    if (gui->definition == ADDR_NATIVE_MENU_DEFINITION) {
         int *icons = (int*)(gui->color1);
         icons[0] = ICONS_TABLE[cursor] + ICONS_OFFSET;
         _SetHeaderIcon(_GetHeaderPointer(gui), icons, ADDR_malloc, ADDR_mfree);
