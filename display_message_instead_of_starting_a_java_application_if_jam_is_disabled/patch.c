@@ -9,11 +9,14 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
 #endif
 
-#define _GetGBSProcAddress ((void *(*)(short cepid))(ADDR_GetGBSProcAddress))
-#define _MsgBoxError ((int (*)(int flag, int lgp_id))(ADDR_MsgBoxError))
 #define _ws_2str ((void (*)(const WSHDR *ws, char *str, size_t size))(ADDR_ws_2str))
+#define _MsgBoxError ((int (*)(int flag, int lgp_id))(ADDR_MsgBoxError))
+#define _GetGBSProcAddress ((void *(*)(short cepid))(ADDR_GetGBSProcAddress))
 
 #define Alloc ((void *(*)(void *, void *))(ADDR_Alloc))
 
