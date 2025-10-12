@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
-project(patch_display_message_instead_of_starting_a_java_application_if_jam_is_disabled LANGUAGES C ASM)
+project(patch_display_a_message_instead_of_starting_a_java_application_if_java_is_disabled LANGUAGES C ASM)
 
 set(CMAKE_C_STANDARD 99)
 add_compile_options(-Os)
