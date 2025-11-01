@@ -1,6 +1,10 @@
-.section .text.DrawRoundedFrame_Jump_Part1
+.section .text.FixArg
 .thumb
 mov r2, #0xFF
+
+.section .text.DrawRoundedFrame_Jump_Part1
+.thumb
+b . + 0x56
 
 .section .text.DrawRoundedFrame_Jump_Part2
 .thumb
