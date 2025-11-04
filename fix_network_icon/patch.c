@@ -16,6 +16,9 @@
     #ifdef CF75_23
         #include "CF75_23.h"
     #endif
+    #ifdef C72_22
+        #include "C72_22.h"
+    #endif
     #define GetNetworkState() (*ADDR_RamNetworkState)
 #endif
 
