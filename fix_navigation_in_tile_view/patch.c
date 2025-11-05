@@ -10,6 +10,9 @@
     #ifdef CF75_23
         #include "CF75_23.h"
     #endif
+    #ifdef C72_22
+        #include "C72_22.h"
+    #endif
 #endif
 
 #define _GBS_SendMessage ((void (*)(int cepid_to, int msg, int submess))(ADDR_GBS_SendMessage))
