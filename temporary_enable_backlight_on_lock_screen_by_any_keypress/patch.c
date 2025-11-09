@@ -15,14 +15,14 @@
     #endif
 #endif
 
-#define LockUI_Create ((int (*)())(ADDR_LockUI_Create))
+#define _PrepareEditControl ((EDITCONTROL *(*)(EDITCONTROL *))(ADDR_PrepareEditControl))
 #define TemporaryLightOn ((void (*)(int, int))(ADDR_TemporaryLightOn))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.Hook")))
-int Hook() {
+EDITCONTROL *Hook(EDITCONTROL *ec) {
     TemporaryLightOn(SET_LIGHT_DISPLAY | SET_LIGHT_KEYBOARD, 0x7FFF);
-    return LockUI_Create();
+    return _PrepareEditControl(ec);
 }
 
 #ifdef SECONDARY_DISPLAY

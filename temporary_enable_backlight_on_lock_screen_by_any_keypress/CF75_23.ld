@@ -1,8 +1,8 @@
 SECTIONS {
-    .Hook 0xA02FA2AC : {
+    .Hook 0xA0330D24 : {
         KEEP(*(.text.Hook))
     }
-    .Jump 0xA02D2898 : {
+    .Jump 0xA034554A : {
         KEEP(*(.text.Jump))
     }
     
