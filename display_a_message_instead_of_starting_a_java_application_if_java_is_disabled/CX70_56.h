@@ -5,4 +5,3 @@
 #define ADDR_GetGBSProcAddress (0xA0824144)
 
 #define ADDR_Alloc (0xA0CA69AC)
-

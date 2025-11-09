@@ -8,6 +8,9 @@
     #ifdef CF75_23
         #include "CF75_23.h"
     #endif
+    #ifdef C72_22
+        #include "C72_22.h"
+    #endif
 #endif
 
 #define _MsgBoxError ((int (*)(int flag, int lgp_id))(ADDR_MsgBoxError))
