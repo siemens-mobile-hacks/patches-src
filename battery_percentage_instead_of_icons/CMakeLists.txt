@@ -15,3 +15,7 @@ define_patch(E71v45 ELKA E71 45)
 # S65v58
 add_executable(S65v58 patch.c patch.S)
 define_patch(S65v58 SG S65 58)
+
+# C72v22
+add_executable(C72v22 patch.c patch.S)
+define_patch(C72v22 SG C72 22)
