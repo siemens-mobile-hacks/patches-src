@@ -30,7 +30,7 @@ function(define_patch target platform phone svn)
 	target_compile_definitions(${target} PUBLIC -D${phone}_${svn})
 	target_link_options(${target} PUBLIC -Wl,-T,${CMAKE_CURRENT_SOURCE_DIR}/${phone}_${svn}.ld)
 	add_custom_command(TARGET ${target} POST_BUILD
-		COMMAND elf2vkp --no-pragma --section-names --chunk-size 1024 -f "${FULLFLASHES_PATH}/${phone}sw${svn}.bin" -i "${target}.elf" -o "${target}.vkp"
+		COMMAND elf2vkp --section-names --chunk-size 1024 -f "${FULLFLASHES_PATH}/${phone}sw${svn}.bin" -i "${target}.elf" -o "${target}.vkp"
 	)
 
 	if (platform STREQUAL "SG" OR platform STREQUAL "SGOLD")

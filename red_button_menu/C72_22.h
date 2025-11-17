@@ -20,6 +20,8 @@
 #define ADDR_DisableNetwork (0xA0FA0300)
 #define ADDR_IsSIMAvailable (0xA08CB3C0 | 1)
 
+#define ADDR_MENU_DESC (MENU_DESC*)(0xA17B2080)
+
 #define LGP_ID_SHUTDOWN 0xFD2
 #define LGP_ID_REBOOT   0x592
 #define LGP_ID_ONLINE   0x1238

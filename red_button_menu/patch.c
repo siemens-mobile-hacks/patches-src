@@ -2,7 +2,9 @@
 
 #ifdef C72_22
     #include "C72_22.h"
-    #define GetNetworkState() (*ADDR_RamNetworkState)
+#endif
+#ifdef CX70_56
+    #include "CX70_56.h"
 #endif
 
 #define _IsUnlocked ((int (*)())(ADDR_IsUnlocked))
@@ -20,6 +22,7 @@
 
 #define IDLE_OnKey ((int (*)(void *, GUI_MSG *))(ADDR_IDLE_OnKey))
 #define IsSIMAvailable ((int (*)())(ADDR_IsSIMAvailable))
+#define GetNetworkState() (*ADDR_RamNetworkState)
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.IDLE_OnKey_Hook")))
@@ -27,7 +30,7 @@ int IDLE_OnKey_Hook(void *gui, GUI_MSG *msg) {
     if (!_IsDirectCallActive() && _IsUnlocked()) {
         if (msg->gbsmsg->submess == RED_BUTTON) {
             int items = IsSIMAvailable() ? 3 : 2;
-            _CreateMenu(1, 0, (MENU_DESC*)0xA17B2080, 0, 0, items, 0, 0);
+            _CreateMenu(1, 0, ADDR_MENU_DESC, 0, 0, items, 0, 0);
             return -1;
         }
     }
