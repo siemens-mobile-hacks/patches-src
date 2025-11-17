@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.15)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
+
+project(patch_red_button_menu LANGUAGES C ASM)
+
+set(CMAKE_C_STANDARD 99)
+add_compile_options(-Os)
+
+# C72v22
+add_executable(C72v22 patch.c patch.S)
+define_patch(C72v22 SG C72 22)
