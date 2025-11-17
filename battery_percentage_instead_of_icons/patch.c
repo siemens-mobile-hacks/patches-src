@@ -12,6 +12,9 @@
     #ifdef C72_22
         #include "C72_22.h"
     #endif
+    #ifdef CX70_56
+        #include "CX70_56.h"
+    #endif
     #define HEADER_H 18
 #endif
 
