@@ -15,6 +15,9 @@
     #ifdef CX70_56
         #include "CX70_56.h"
     #endif
+    #ifdef CF75_23
+        #include "CF75_23.h"
+    #endif
     #define HEADER_H 18
 #endif
 
@@ -27,6 +30,12 @@
 #define _GetPaletteAdrByColorIndex ((void* (*)(int index))(ADDR_GetPaletteAdrByColorIndex))
 
 #define GetCap() (*ADDR_RamCap)
+
+#ifdef SECONDARY_DISPLAY
+    #define _DrawCanvas_2 ((void (*)(void *data, int x1, int y1, int x2, int y2))(ADDR_DrawCanvas_2))
+
+    #define HEADER_2_H 14
+#endif
 
 #ifdef ELKA
     #define FONT FONT_SMALL
@@ -45,10 +54,22 @@ void DrawPercentage(void *canvas_data, int x1, int y1, int x2, int y2, int flag_
     const int h = _GetFontYSIZE(FONT);
     const int _x1 = x2 - _Get_WS_width(&ws, FONT);
     const int _x2 = x2;
-    const int _y1 = (HEADER_H - h) / 2;
-    const int _y2 = _y1 + h;
 
+#ifndef SECONDARY_DISPLAY
+    const int _y1 = (HEADER_H - h) / 2;
     _DrawCanvas(canvas_data, x1, y1, x2, y2, flag_one);
+#else
+    int _y1;
+    if (y1 != 0) {
+        _y1 = (HEADER_H - h) / 2;
+        _DrawCanvas(canvas_data, x1, y1, x2, y2, flag_one);
+    } else {
+        _y1 = (HEADER_2_H - h) / 2;
+        _DrawCanvas_2(canvas_data, x1, y1, x2, y2);
+    }
+#endif
+
+    const int _y2 = _y1 + h;
     _DrawString(&ws, _x1, _y1, _x2, _y2, FONT, 0,
                 _GetPaletteAdrByColorIndex(PC_HEADERFOREGROUND), _GetPaletteAdrByColorIndex(23));
 }

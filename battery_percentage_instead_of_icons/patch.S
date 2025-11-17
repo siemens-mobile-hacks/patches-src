@@ -25,4 +25,18 @@
 
 .section .text.SkipDrawIMG
 .thumb
-cmp r6,r6
+cmp r6, r6
+
+#if defined (SECONDARY_DISPLAY)
+    .section .text.SkipCheck_2
+    .thumb
+    nop
+
+    .section .text.DrawPercentage_2_Jump
+    .thumb
+    bl DrawPercentage
+
+    .section .text.SkipDrawIMG_2
+    .thumb
+    cmp r6, r6
+#endif
