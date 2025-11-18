@@ -27,14 +27,14 @@ void EnableNetwork(void) {
     _GBS_SendMessage(0x4058, 8, 0, 0, 0);
 }
 
-#define GetUnk ((int (*)())(ADDR_GetUnk))
+#define GetUnk ((int (*)(void *, void *))(ADDR_GetUnk))
 #define IsSIMAvailable ((int (*)())(ADDR_IsSIMAvailable))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.AutoDisableNetwork")))
-int AutoDisableNetwork() {
+int AutoDisableNetwork(void *r0, void *r1) {
     if (!IsSIMAvailable()) {
         _DisableNetwork();
     }
-    return GetUnk();
+    return GetUnk(r0, r1);;
 }

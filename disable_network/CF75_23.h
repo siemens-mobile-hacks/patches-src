@@ -4,5 +4,5 @@
 
 #define ADDR_DisableNetwork (0xA0F60300)
 
-#define ADDR_GetUnk         (0xA07F21A0)
+#define ADDR_GetUnk         (0xA02A8906 | 1)
 #define ADDR_IsSIMAvailable (0xA02B9A64 | 1)

@@ -9,7 +9,7 @@ SECTIONS {
         KEEP(*(.rodata*))
         KEEP(*(.text.AutoDisableNetwork))
     }
-    .AutoDisableNetwork_Jump 0xA1714902 : {
+    .AutoDisableNetwork_Jump 0xA1714A9C : {
         KEEP(*(.text.AutoDisableNetwork_Jump))
     }
 }
