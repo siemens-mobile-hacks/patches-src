@@ -6,6 +6,9 @@
 #ifdef CX70_56
     #include "CX70_56.h"
 #endif
+#ifdef S65_58
+    #include "S65_58.h"
+#endif
 
 #define _IsUnlocked ((int (*)())(ADDR_IsUnlocked))
 #define _CreateMenu ((int (*)(int, int, MENU_DESC *, HEADER_DESC *, int, int, int, int))(ADDR_CreateMenu))

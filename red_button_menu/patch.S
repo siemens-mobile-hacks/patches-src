@@ -1,6 +1,3 @@
-.section .data.IDLE_OnKey_Jump
-.int IDLE_OnKey_Hook
-
 #if defined(C72_22)
     .equ SOFTKEYS, 0xA0A62578
     .equ SOFTKEYS_TAB, 0xA12241E4
@@ -9,12 +6,13 @@
     .equ SOFTKEYS, 0xA0A56C40
     .equ SOFTKEYS_TAB, 0xA1227DF4
 #endif
+#if defined(S65_58)
+    .equ SOFTKEYS, 0xA0A2D300
+    .equ SOFTKEYS_TAB, 0xA12135D4
+#endif
 
-.section .data.HEADER_DESC
-.short 0x03
-.short 0x18
-.short 0x7E
-.short 0x29
+.section .data.IDLE_OnKey_Jump
+.int IDLE_OnKey_Hook
 
 .section .data.MENU_DESC
 .int 0 // flag
