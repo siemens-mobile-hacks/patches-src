@@ -10,6 +10,10 @@
     .equ SOFTKEYS, 0xA0A2D300
     .equ SOFTKEYS_TAB, 0xA12135D4
 #endif
+#if defined(CF75_23)
+    .equ SOFTKEYS, 0xA04B76C0
+    .equ SOFTKEYS_TAB, 0xA09D7D84
+#endif
 
 .section .data.IDLE_OnKey_Jump
 .int IDLE_OnKey_Hook
