@@ -10,9 +10,9 @@
     .section .text.DrawPercentage_Trampoline
     .arm
     DrawPercentage_Trampoline:
-    push {lr}
+    push {r2, r3, r4, r5, r6, lr}
     blx DrawPercentage
-    pop {pc}
+    pop {r2, r3, r4, r5, r6, pc}
 #endif
 
 .section .text.DrawPercentage_Jump
