@@ -6,12 +6,16 @@
             #include "E71_45.h"
         #endif
         #define Y_OFFSET (-(24 + 32))
+    #else
+        #ifdef S75_52
+            #include "S75_52.h"
+        #endif
+        #define Y_OFFSET (-22)
     #endif
 #endif
 
-
-#define _GetIMGHDRFromThemeCache ((IMGHDR *(*)(int))(ADDR_GetIMGHDRFromThemeCache))
 #define _DrawCroppedIMGHDR ((void (*)(int, int, int, int, int, int, int, const IMGHDR *))(ADDR_DrawCroppedIMGHDR))
+#define _GetIMGHDRFromThemeCache ((IMGHDR *(*)(int))(ADDR_GetIMGHDRFromThemeCache))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.DrawIconBG")))
