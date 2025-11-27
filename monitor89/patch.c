@@ -25,11 +25,11 @@
 #define _SetSoftKey ((void (*)(void *, SOFTKEY_DESC *, int))(ADDR_SetSoftKey))
 #define _TViewSetText ((void (*)(void *, const WSHDR *, void *, void *))(ADDR_TViewSetText))
 #define _wstrcatprintf ((void (*)(WSHDR *, const char *, ...))(ADDR_wstrcatprintf))
+#define _GeneralFuncF1 ((void (*)(int))(ADDR_GeneralFuncF1))
 #define _SetHeaderText ((void (*)(void *, WSHDR *, void *, void *))(ADDR_SetHeaderText))
 #define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
 
 #define flag gui->unk2
-
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.GetBoolean")))
@@ -183,18 +183,15 @@ inline void SetDiagnosisText(WSHDR *ws) {
 }
 
 #define OnKey ((int (*)(void *, GUI_MSG *))(ADDR_OnKey))
-#define GetCCMon_ws ((WSHDR *(*)())(ADDR_GetCCMon_ws))
+#define PhoneStatus_CreateUI ((int (*)(int))(ADDR_PhoneStatus_CreateUI))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.OnKey_Hook")))
 int OnKey_Hook(GUI *gui, GUI_MSG *msg) {
     if (msg->keys == 0x3D || msg->keys == 0x1) {
         if (flag) {
-            GBS_RecActDstMessage()
-            WSHDR *text = GetCCMon_ws();
-            _TViewSetText(gui, text, ADDR_malloc, ADDR_mfree);
-            flag = 0;
-            _RefreshGUI();
+            _GeneralFuncF1(1);
+            PhoneStatus_CreateUI(2);
             return -1;
         }
     } else if (msg->gbsmsg->msg == KEY_DOWN) {
@@ -259,8 +256,6 @@ void GHook(GUI *gui, enum UIDialogCmdID cmd) {
             _SetSoftKey(gui, ADDR_SOFTKEY_LEFT, SET_RIGHT_SOFTKEY); // LEFT!
         } else {
             _wsprintf(title, "Monitor89");
-            _SetSoftKey(gui, ADDR_SOFTKEY_DEFAULT_LEFT, SET_RIGHT_SOFTKEY); // LEFT!
-            _SetSoftKey(gui, ADDR_SOFTKEY_DEFAULT_RIGHT, SET_LEFT_SOFTKEY); // RIGHT!
         }
         _SetHeaderText(header, title, ADDR_malloc, ADDR_mfree);
     }

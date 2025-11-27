@@ -13,16 +13,17 @@
 #define ADDR_SetSoftKey        (0xA0C97B2B)
 #define ADDR_TViewSetText      (0xA0CBC2C3)
 #define ADDR_wstrcatprintf     (0xA0C8C81D)
+#define ADDR_GeneralFuncF1     (0xA0C92C71)
 #define ADDR_SetHeaderText     (0xA113D489)
 #define ADDR_GetHeaderPointer  (0xA0C9724F)
 
 #define ADDR_RamCap (uint16_t*)(0xA86C0D30)
 
-#define ADDR_OnKey       (0xA08FC126 | 1)
-#define ADDR_GetCCMon_ws (0xA08FC14A | 1)
-#define ADDR_GetExStat   (0xA114CFB8)
-#define ADDR_GetOpTime   (0xA116329C)
-#define ADDR_GetTalkTime (0xA11632BC)
+#define ADDR_OnKey                (0xA08FC126 | 1)
+#define ADDR_GetExStat            (0xA114CFB8)
+#define ADDR_GetOpTime            (0xA116329C)
+#define ADDR_GetTalkTime          (0xA11632BC)
+#define ADDR_PhoneStatus_CreateUI (0xA08FC44C | 1)
 
 #define ADDR_RamCCMon           (char*)(0xA8776ED4)
 #define ADDR_RamChargeCount  (int16_t*)(0xA86C0E04)
@@ -30,5 +31,3 @@
 #define ADDR_RamChargeFast   (int16_t*)(0xA86C0E08)
 
 #define ADDR_SOFTKEY_LEFT          (SOFTKEY_DESC*)(0xA094D66C)
-#define ADDR_SOFTKEY_DEFAULT_LEFT  (SOFTKEY_DESC*)(0xA0948BC0)
-#define ADDR_SOFTKEY_DEFAULT_RIGHT (SOFTKEY_DESC*)(0xA0948BC8)
