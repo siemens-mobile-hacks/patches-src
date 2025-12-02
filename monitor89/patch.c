@@ -234,7 +234,7 @@ int OnKey_Hook(GUI *gui, GUI_MSG *msg) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.GHook")))
 void GHook(GUI *gui, enum UIDialogCmdID cmd) {
-    if (cmd == TI_CMD_REDRAW) {
+    if (cmd == UI_CMD_REDRAW) {
         WSHDR *title = _AllocWS(64);
         void *header = _GetHeaderPointer(gui);
         if (flag) {

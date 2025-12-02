@@ -1,20 +1,19 @@
 #include <swilib.h>
 
-#ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "E71_45.h"
-    #endif
-    #ifdef S75_52
-        #include "S75_52.h"
-    #endif
-    #ifdef ELKA
-        #define RAP_SUBMESS 0x6418
-    #else
-        #define RAP_SUBMESS 0x6417
-    #endif
-    #define HELPER_CEPID 0x440A
+#ifdef E71_45
+    #include "E71_45.h"
+#endif
+#ifdef S75_52
+    #include "S75_52.h"
 #endif
 
+#ifdef ELKA
+    #define RAP_SUBMESS 0x6418
+#else
+    #define RAP_SUBMESS 0x6417
+#endif
+
+#define HELPER_CEPID 0x440A
 #define MSG_HELPER_RUN 0x0001
 
 #define _mfree ((void (*)(void *))(ADDR_mfree))
