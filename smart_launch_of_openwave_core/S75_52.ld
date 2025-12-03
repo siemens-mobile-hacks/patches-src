@@ -6,10 +6,13 @@ SECTIONS {
         KEEP(*(.text.OPWV_Launch_Jump))
     }
 
-    .Proc_1 0xA1930000 : {
+    .rodata 0xA1930000 : {
+        KEEP(*(.rodata*))
+    }
+    .Proc_1 0xA193002A : {
         KEEP(*(.text.Proc_1))
     }
-    .Hook_1 0xA1930050 : {
+    .Hook_1 0xA1930070 : {
         KEEP(*(.text.Hook_1))
     }
     .Jump_1 0xA0D09D9E : {
@@ -19,10 +22,10 @@ SECTIONS {
         KEEP(*(.text.Trampoline_1))
     }
 
-    .Proc_2 0xA19300D0 : {
+    .Proc_2 0xA1930100 : {
         KEEP(*(.text.Proc_2))
     }
-    .Hook_2 0xA1930110 : {
+    .Hook_2 0xA1930140 : {
         KEEP(*(.text.Hook_2))
     }
     .Trampoline_2 0xA04F6368 : {

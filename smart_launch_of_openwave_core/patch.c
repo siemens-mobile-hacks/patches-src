@@ -7,6 +7,14 @@
     #include "S75_52.h"
 #endif
 
+#define _mfree ((void (*)(void *))(ADDR_mfree))
+#define _malloc ((void *(*)(size_t))(ADDR_malloc))
+#define _strcpy ((char *(*)(char *, const char*))(ADDR_strcpy))
+#define _SUBPROC(f, p2) _GBS_SendMessage(HELPER_CEPID, MSG_HELPER_RUN, p2, f, 0);
+#define _NU_Sleep ((void (*)(int))(ADDR_NU_Sleep))
+#define _MsgBoxErorr ((int (*)(int, int))(ADDR_MsgBoxError))
+#define _GBS_SendMessage ((void (*)(int, int, ...))(ADDR_GBS_SendMessage))
+
 #ifdef ELKA
     #define RAP_SUBMESS 0x6418
 #else
@@ -15,13 +23,7 @@
 
 #define HELPER_CEPID 0x440A
 #define MSG_HELPER_RUN 0x0001
-
-#define _mfree ((void (*)(void *))(ADDR_mfree))
-#define _malloc ((void *(*)(size_t))(ADDR_malloc))
-#define _strcpy ((char *(*)(char *, const char*))(ADDR_strcpy))
-#define _SUBPROC(f, p2) _GBS_SendMessage(HELPER_CEPID, MSG_HELPER_RUN, p2, f, 0);
-#define _NU_Sleep ((void (*)(int))(ADDR_NU_Sleep))
-#define _GBS_SendMessage ((void (*)(int, int, ...))(ADDR_GBS_SendMessage))
+#define MSG_ALREADY_RUNNING "OPWV client is already running!"
 
 #define OPWV_GetState ((int (*)())(ADDR_OPWV_GetState))
 #define RAP_GBS_SendMessage ((void (*)(int, int, int, int))(ADDR_RAP_GBS_SendMessage))
@@ -55,12 +57,16 @@ void Proc_1(char *cmd) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.Hook_1")))
 void Hook_1(const char *command) {
-    if (OPWV_GetState() == 0) {
+    int state = OPWV_GetState();
+    if (state == 0) {
         char *cmd = _malloc(128);
         _strcpy(cmd, command);
         RAP_GBS_SendMessage(1, RAP_SUBMESS, 0, 0);
         _SUBPROC(Proc_1, cmd);
-    } else {
+    } else if (state == 2) {
+        _MsgBoxErorr(1, (int)MSG_ALREADY_RUNNING);
+    }
+    else {
         OPWV_Messenger_Init(command);
         OPWV_Messenger_SendMessage(command);
     }
@@ -91,6 +97,8 @@ int Hook_2(const char *command) {
         _strcpy(cmd, command);
         RAP_GBS_SendMessage(1, RAP_SUBMESS, 0, 0);
         _SUBPROC(Proc_2, cmd);
+    } else if (state == 2) {
+        _MsgBoxErorr(1, (int)MSG_ALREADY_RUNNING);
     }
     return state;
 }

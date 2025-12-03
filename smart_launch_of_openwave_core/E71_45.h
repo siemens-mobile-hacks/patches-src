@@ -1,10 +1,10 @@
 #pragma once
 
-#define ADDR_malloc            (0xA0092F51)
-#define ADDR_mfree             (0xA0092F93)
-#define ADDR_strcpy            (0xA122AF05)
-#define ADDR_NU_Sleep          (0xA009CD50)
-#define ADDR_GBS_SendMessage   (0xA0091EAB)
+#define ADDR_malloc          (0xA0092F51)
+#define ADDR_mfree           (0xA0092F93)
+#define ADDR_strcpy          (0xA122AF05)
+#define ADDR_NU_Sleep        (0xA009CD50)
+#define ADDR_GBS_SendMessage (0xA0091EAB)
 
 #define ADDR_RAP_GBS_SendMessage (0xA09460EE | 1)
 
