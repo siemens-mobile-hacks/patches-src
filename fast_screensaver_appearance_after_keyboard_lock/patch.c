@@ -4,6 +4,9 @@
     #ifdef E71_45
         #include "E71_45.h"
     #endif
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
 #else
     #ifdef CX70_56
         #include "CX70_56.h"
