@@ -8,7 +8,13 @@ bl KbdLock_Hook
 
 .section .text.KbdUnlock_Part1
 .thumb
-bne . + 0xA4
+#if defined(NEWSGOLD)
+    #if defined(ELKA)
+        bne . + 0xA4
+    #else
+        bne . + 0x9C
+    #endif
+#endif
 b . + 0x12
 
 .section .text.KbdUnlock_Part2
@@ -34,17 +40,34 @@ beq . + 0x1A
 .thumb
 b . + 0x44
 
-.equ Y_OFFSET, 0x20
+#if defined(NEWSGOLD)
+    #if defined(ELKA)
+        .equ Y_OFFSET, 0x20
 
-.section .data.KeypadLock_FixIconPosition
-.short 0x02
-.short 0x2D + Y_OFFSET
+        .section .data.KeypadLock_FixIconPosition
+        .short 0x02
+        .short 0x2D + Y_OFFSET
 
-.section .data.KeypadLock_FixTextPosition
-.short 0x30
-.short 0x50 + Y_OFFSET + 0x20
-.short 0xEF
-.short 0x8F + Y_OFFSET + 0x20
+        .section .data.KeypadLock_FixTextPosition
+        .short 0x30
+        .short 0x50 + Y_OFFSET + 0x20
+        .short 0xEF
+        .short 0x8F + Y_OFFSET + 0x20
+    #else
+        .equ Y_OFFSET, 10
+        .section .data.KeypadLock_FixIconPosition
+        .short 0x0C
+        .short 0x19 + Y_OFFSET
+
+        .section .data.KeypadLock_FixTextPosition
+        .short 0x1A
+        .short 0x2D + Y_OFFSET + 0xC
+        .short 0x83
+        .short 0x4B + Y_OFFSET + 0xC
+    #endif
+#else
+    nop
+#endif
 
 .section .text.KeypadLock_DisableInput_Part1
 .thumb

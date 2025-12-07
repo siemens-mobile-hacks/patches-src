@@ -17,7 +17,7 @@ set(CMAKE_CXX_COMPILER ${ARM_CXX_COMPILER} CACHE INTERNAL "CMAKE_CXX_COMPILER")
 
 add_compile_options(-mcpu=arm926ej-s -mthumb-interwork -msoft-float -mlittle-endian -nostdlib -nostdinc)
 include_directories(../../sdk/dietlibc/include ../../sdk/swilib/include/)
-add_link_options(-Wl,-z,max-page-size=1)
+add_link_options(-Wl,-z,max-page-size=1,--use-blx)
 
 set(CMAKE_C_FLAGS "-nostdlib -nostdinc")
 set(CMAKE_CXX_FLAGS "-nostdlib -nostdinc")

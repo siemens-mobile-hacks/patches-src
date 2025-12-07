@@ -1,18 +1,13 @@
 .section .text.SkipCheck
 .thumb
 #if defined(NEWSGOLD)
-    b . + 0x2C
+    #if defined(ELKA)
+        b . + 0x2C
+    #else
+        b . + 0x18
+    #endif
 #else
     nop
-#endif
-
-#if defined (NEWSGOLD)
-    .section .text.DrawPercentage_Trampoline
-    .arm
-    DrawPercentage_Trampoline:
-    push {r2, r3, r4, r5, r6, lr}
-    blx DrawPercentage
-    pop {r2, r3, r4, r5, r6, pc}
 #endif
 
 .section .text.DrawPercentage_Jump

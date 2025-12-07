@@ -4,6 +4,9 @@
     #ifdef E71_45
         #include "E71_45.h"
     #endif
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
 #endif
 
 #define _strncmp ((int (*)(const char *, const char *, size_t))(ADDR_strncmp))

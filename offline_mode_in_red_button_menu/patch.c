@@ -1,16 +1,16 @@
 #include <swilib.h>
 
-#ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "E71_45.h"
-    #endif
+#ifdef E71_45
+    #include "E71_45.h"
+#endif
+#ifdef S75_52
+    #include "S75_52.h"
 #endif
 
-
-#define SimIsPresent() (*ADDR_RamSimIsPresent)
 #define _GeneralFuncF1 ((void (*)(int))(ADDR_GeneralFuncF1))
 
 int GetNetworkState();
+#define SimIsPresent() (*ADDR_RamSimIsPresent)
 #define EnableNetwork ((void (*)())(ADDR_EnableNetwork))
 #define DisableNetwork ((void (*)())(ADDR_DisableNetwork))
 #define EnableMenuItem ((void (*)(void *, int, int flag, int refresh))(ADDR_EnableMenuItem))

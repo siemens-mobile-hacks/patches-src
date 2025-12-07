@@ -1,10 +1,17 @@
 #include <swilib.h>
 
 #ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "E71_45.h"
+    #ifdef ELKA
+        #ifdef E71_45
+            #include "E71_45.h"
+        #endif
+        #define ICONBAR_H 24
+    #else
+        #ifdef S75_52
+            #include "S75_52.h"
+        #endif
+        #define ICONBAR_H 20
     #endif
-    #define HEADER_H 24
 #else
     #ifdef S65_58
         #include "S65_58.h"
@@ -18,7 +25,7 @@
     #ifdef CF75_23
         #include "CF75_23.h"
     #endif
-    #define HEADER_H 18
+    #define ICONBAR_H 18
 #endif
 
 #define _wsprintf ((void (*)(WSHDR *ws, const char *format, ...))(ADDR_wsprintf))
@@ -34,7 +41,7 @@
 #ifdef SECONDARY_DISPLAY
     #define _DrawCanvas_2 ((void (*)(void *data, int x1, int y1, int x2, int y2))(ADDR_DrawCanvas_2))
 
-    #define HEADER_2_H 14
+    #define ICONBAR_2_H 14
 #endif
 
 #ifdef ELKA
@@ -56,15 +63,15 @@ void DrawPercentage(void *canvas_data, int x1, int y1, int x2, int y2, int flag_
     const int _x2 = x2;
 
 #ifndef SECONDARY_DISPLAY
-    const int _y1 = (HEADER_H - h) / 2;
+    const int _y1 = (ICONBAR_H - h) / 2;
     _DrawCanvas(canvas_data, x1, y1, x2, y2, flag_one);
 #else
     int _y1;
     if (y1 != 0) {
-        _y1 = (HEADER_H - h) / 2;
+        _y1 = (ICONBAR_H - h) / 2;
         _DrawCanvas(canvas_data, x1, y1, x2, y2, flag_one);
     } else {
-        _y1 = (HEADER_2_H - h) / 2;
+        _y1 = (ICONBAR_2_H - h) / 2;
         _DrawCanvas_2(canvas_data, x1, y1, x2, y2);
     }
 #endif
@@ -73,3 +80,10 @@ void DrawPercentage(void *canvas_data, int x1, int y1, int x2, int y2, int flag_
     _DrawString(&ws, _x1, _y1, _x2, _y2, FONT, 0,
                 _GetPaletteAdrByColorIndex(PC_HEADERFOREGROUND), _GetPaletteAdrByColorIndex(23));
 }
+
+#ifdef NEWSGOLD
+__attribute__((section(".text.DrawPercentage_Trampoline")))
+void DrawPercentage_Trampoline(void *canvas_data, int x1, int y1, int x2, int y2, int flag_one) {
+    DrawPercentage(canvas_data, x1, y1, x2, y2, flag_one);
+}
+#endif
