@@ -66,7 +66,9 @@ typedef struct {
     int field4_0x10;
     int field5_0x14;
     int font_id;
+#ifdef ELKA
     int field7_0x1c;
+#endif
     int field8_0x20;
     int field9_0x24;
     int field10_0x28;
