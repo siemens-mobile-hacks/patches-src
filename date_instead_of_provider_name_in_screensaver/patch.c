@@ -4,6 +4,10 @@
     #ifdef E71_45
         #include "E71_45.h"
     #endif
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
+    #define PutDateIntoWS ((void (*)(WSHDR *))(ADDR_PutDateIntoWS))
 #else
     #ifdef CX70_56
         #include "CX70_56.h"
@@ -14,11 +18,6 @@
     #ifdef C72_22
         #include "C72_22.h"
     #endif
-#endif
-
-#ifdef NEWSGOLD
-    #define PutDateIntoWS ((void (*)(WSHDR *))(ADDR_PutDateIntoWS))
-#else
     #define _GetDateTime ((void (*)(TDate *, TTime *))(ADDR_GetDateTime))
     #define _GetDate_ws ((void (*)(WSHDR *, const TDate *, int))(ADDR_GetDate_ws))
 #endif

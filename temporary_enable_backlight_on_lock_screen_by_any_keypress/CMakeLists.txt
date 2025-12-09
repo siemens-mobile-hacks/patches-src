@@ -5,7 +5,7 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
 project(patch_temporary_enable_backlight_on_lock_screen_by_any_keypress LANGUAGES C ASM)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 add_compile_options(-Os)
 
 # CF75v23
@@ -24,3 +24,7 @@ define_patch(S65v58 SG S65 58)
 # C72v22
 add_executable(C72v22 patch.c patch.S)
 define_patch(C72v22 SG C72 22)
+
+# S75v52
+add_executable(S75v52 patch.c patch.S)
+define_patch(S75v52 NSG S75 52)

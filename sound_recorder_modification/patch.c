@@ -1,10 +1,16 @@
 #include <swilib.h>
 #include "sr.h"
 
-#ifdef NEWSGOLD
+#ifdef ELKA
     #ifdef E71_45
         #include "E71_45.h"
     #endif
+    #define HEADER_H 32
+#else
+    #ifdef S75_52
+        #include "S75_52.h"
+    #endif
+    #define HEADER_H 22
 #endif
 
 #define _malloc ((void *(*)(size_t))(ADDR_malloc))
@@ -14,6 +20,7 @@
 #define _CloseCSM ((void (*)(int))(ADDR_CloseCSM))
 #define _FindCSMbyID ((void *(*)(int))(ADDR_FindCSMbyID))
 #define _MsgBoxError ((int (*)(int, int))(ADDR_MsgBoxError))
+#define _DisableIDLETMR ((void (*)())(ADDR_DisableIDLETMR))
 #define _GetDataOfItemById ((void *(*)(void *, int))(ADDR_GetDataOfItemById))
 #define _DrawCroppedIMGHDR ((void (*)(int, int, int, int, int, int, int, const IMGHDR *))(ADDR_DrawCroppedIMGHDR))
 #define _StartNativeExplorer ((int (*)(NativeExplorerData *))(ADDR_StartNativeExplorer))
@@ -59,8 +66,9 @@ void Recording_DrawWidgetWithBG(WIDGET *widget) {
         RECT *canvas = widget->canvas;
         int x = canvas->x, y = canvas->y;
         int x2 = canvas->x2, y2 = canvas->y2;
-        int height = canvas->y2 - canvas->y;
-        _DrawCroppedIMGHDR(x, y, 0, y2 - YDISP - 32 - height, x2 - x, height, 0, bg);
+        int width = x2 - x;
+        int height = y2 - y;
+        _DrawCroppedIMGHDR(x, y, x2 - width, y2 - height - YDISP - HEADER_H, width + 1, height, 0, bg);
         widget->methods->onRedraw(widget);
     }
 }
@@ -87,6 +95,9 @@ void Recording_FixRedraw_Hook(void *gui, void *unk) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.Recording_ChangeText_Hook")))
 void Recording_ChangeText_Hook(SR_RECORDING_CSM *csm_recording) {
+#ifndef ELKA
+    _DisableIDLETMR();
+#endif
     SR_CSM *csm = GetSRCSM();
     Recording_SetText(csm_recording->gui, csm->file_name);
     csm_recording->csm.state = 2;

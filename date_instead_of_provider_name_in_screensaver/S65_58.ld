@@ -2,7 +2,6 @@ SECTIONS {
     .Insert_Hook 0xA17E09B0 : {
         KEEP(*(.text.Insert_Hook))
     }
-
     .Insert_Jump_1 0xA16A8C80 : {
         KEEP(*(.text.Insert_Jump_1))
     }

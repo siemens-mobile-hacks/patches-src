@@ -24,6 +24,7 @@
 .short 0x9E
 
 .section .text.Recording_ChangeAnimationSpeed
+.arm
 mov r1, #0x80
 
 .section .text.Recording_FixRedraw_Jump
