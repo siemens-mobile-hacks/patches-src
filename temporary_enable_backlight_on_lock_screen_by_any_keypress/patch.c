@@ -18,6 +18,9 @@
     #ifdef S75_52
         #include "S75_52.h"
     #endif
+    #ifdef E71_45
+        #include "E71_45.h"
+    #endif
 #endif
 
 #define _TempLightOn ((void (*)(int, int))(ADDR_TempLightOn))
