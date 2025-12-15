@@ -70,8 +70,7 @@ void DrawIconBar_Hook(int icons_n, void *data) {
         }
         max_icons++;
     }
-
-    w -= 4;
+    // w -= 4;
     x = 239 - w;
     for (int i = 0; i < max_icons; i++) {
         picture = GetIconBarIcon(i);

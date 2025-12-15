@@ -6,6 +6,9 @@ SECTIONS {
         KEEP(*(.text.OPWV_Launch_Jump))
     }
 
+    .rodata 0xA13803E0 : {
+        KEEP(*(.rodata*))
+    }
     .Proc_1 0xA1380400 : {
         KEEP(*(.text.Proc_1))
     }
