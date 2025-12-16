@@ -7,6 +7,10 @@ SECTIONS {
         KEEP(*(.text.DisableBacklightFadeHandler))
     }
 
+    .StoreLastPlayMelodyOnChangeTrack 0xA0792A04 : {
+        KEEP(*(.text.StoreLastPlayMelodyOnChangeTrack))
+    }
+
     .DisableAutoPlayInMenu_Part1 0xA079D584 : {
         KEEP(*(.text.DisableAutoPlayInMenu_Part1))
     }

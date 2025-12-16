@@ -1,3 +1,13 @@
+.equ MP_StoreLastPlayedMelody, 0xA079647C
+
+.section .text.StoreLastPlayMelodyOnChangeTrack
+.arm
+ldrsb r0, [r4, #0x7c]
+cmp r0, #0x01
+moveq r0, r4
+bleq MP_StoreLastPlayedMelody
+b . + 0xC
+
 .section .text.DisableAutoPlayInMenu_Part1
 .arm
 movne r0, r0
