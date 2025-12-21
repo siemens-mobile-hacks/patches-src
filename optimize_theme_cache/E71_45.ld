@@ -1,11 +1,11 @@
 SECTIONS {
-    .Hook_1 0xA1380D00 : {
+    .Hook_1 0xA1381500 : {
         KEEP(*(.text.Hook_1))
     }
     .Jump_1 0xA073D2AC : {
         KEEP(*(.text.Jump_1))
     }
-    .Hook_2 0xA1380D60 : {
+    .Hook_2 0xA1381560 : {
         KEEP(*(.text.Hook_2))
     }
     .Jump_2 0xA073D2C8 : {

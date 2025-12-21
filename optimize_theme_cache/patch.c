@@ -1,9 +1,7 @@
 #include <swilib.h>
 
-#ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "E71_45.h"
-    #endif
+#ifdef E71_45
+    #include "E71_45.h"
 #endif
 
 
@@ -29,6 +27,5 @@ IMGHDR *Hook_2(int index) {
         index == BOTTOM_FULLSCREEN || index == STATUSBAR_FULLSCREEN) {
         return NULL;
     }
-    MENUITEM_DESC
     return _GetIMGHDRFromThemeCache(index);
 }
