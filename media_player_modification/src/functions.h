@@ -2,10 +2,8 @@
 
 #include "mp.h"
 
-#ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "../E71_45.h"
-#endif
+#ifdef E71_45
+    #include "../E71_45.h"
 #endif
 
 #define malloc ((void *(*)(size_t))(ADDR_malloc))
@@ -22,6 +20,7 @@
 #define _wstrinsert ((void (*)(WSHDR *, const WSHDR *, int))(ADDR_wstrinsert))
 #define _GetFontYSIZE ((int (*)(int))(ADDR_GetFontYSIZE))
 #define _wsInsertChar ((void (*)(WSHDR *, uint16_t, int))(ADDR_wsInsertChar))
+#define _SetMenuToGUI ((void (*)(void *, void *))(ADDR_SetMenuToGUI))
 #define _CreateLocalWS ((WSHDR *(*)(WSHDR *, uint16_t *, size_t))(ADDR_CreateLocalWS))
 #define _DrawRectangle ((void (*)(int, int, int, int, int, const char *, const char *))(ADDR_DrawRectangle))
 #define _GetCurMenuItem ((int (*)(void *))(ADDR_GetCurMenuItem))

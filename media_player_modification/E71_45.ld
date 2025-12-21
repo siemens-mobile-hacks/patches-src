@@ -165,17 +165,29 @@ SECTIONS {
         KEEP(*(.data.Zoom_DisableSoftKeys_Part_3))
     }
 
-    .MediaDB_IsAllowFile 0xA1382750 : {
-        KEEP(*(.text.MediaDB_IsAllowFile))
-    }
-    .MediaDB_IsAllowFile_Jump 0xA0725C30 : {
-        KEEP(*(.text.MediaDB_IsAllowFile_Jump))
-    }
-
     .Menu_RemoveHelpItem_1 0xA08AF394 : {
         KEEP(*(.data.Menu_RemoveHelpItem_1))
     }
     .Menu_RemoveHelpItem_2 0xA08AA7C0 : {
         KEEP(*(.data.Menu_RemoveHelpItem_2))
+    }
+
+    .MDB_IsAllowFile 0xA1382750 : {
+        KEEP(*(.text.MDB_IsAllowFile))
+    }
+    .MDB_IsAllowFile_Jump 0xA0725C30 : {
+        KEEP(*(.text.MDB_IsAllowFile_Jump))
+    }
+    .MDB_FixUI_Hook 0xA1382B90 : {
+        KEEP(*(.text.MDB_FixUI_Hook))
+    }
+    .MDB_FixUI_Jump 0xA079A930 : {
+        KEEP(*(.text.MDB_FixUI_Jump))
+    }
+    .MDB_UseSmallIcons 0xA0730928 : {
+        KEEP(*(.text.MDB_UseSmallIcons))
+    }
+    .MDB_FixPreviewSize 0xA079A030 : {
+        KEEP(*(.text.MDB_FixPreviewSize))
     }
 }

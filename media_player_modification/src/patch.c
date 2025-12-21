@@ -210,20 +210,3 @@ void BaseOnRedraw_Hook(MP_GUI *gui) {
         BaseOnRedraw(gui);
     }
 }
-
-#define MediaDB_GetFileState ((int (*)(const WSHDR *))(ADDR_MediaDB_GetFileState))
-
-__attribute__((target("thumb")))
-__attribute__((section(".text.MediaDB_IsAllowFile")))
-int MediaDB_IsAllowFile(const WSHDR *path) {
-    WSHDR ws;
-    uint16_t wsbody[32];
-    _CreateLocalWS(&ws, wsbody, 31);
-    _str_2ws(&ws, "zbin\\", 31);
-    int uid = _GetExtUidByFileName_ws(path);
-    if (uid == 0x27 && _wstriwstr(path, &ws, 3) == 4) { // ignore all png files in X:\\zbin
-        return -1;
-    }
-    return MediaDB_GetFileState(path);
-}
-

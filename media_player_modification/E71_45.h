@@ -14,6 +14,7 @@
 #define ADDR_wstrinsert                (0xA04FB61F)
 #define ADDR_GetFontYSIZE              (0xA0A32378)
 #define ADDR_wsInsertChar              (0xA04FB48D)
+#define ADDR_SetMenuToGUI              (0xA09540DB)
 #define ADDR_CreateLocalWS             (0xA04FB25B)
 #define ADDR_DrawRectangle             (0xA0A0C193)
 #define ADDR_GetCurMenuItem            (0xA0952DBB)
@@ -78,4 +79,4 @@
 
 #define ADDR_Zoom_OnKey (0xA07EE8DC)
 
-#define ADDR_MediaDB_GetFileState (0xA0725BD0)
+#define ADDR_MDB_GetFileState (0xA0725BD0)

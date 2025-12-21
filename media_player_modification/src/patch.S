@@ -33,10 +33,6 @@ blx DestroyData
 .section .text.BaseOnRedraw_Jump
 blx BaseOnRedraw_Hook
 
-.section .text.MediaDB_IsAllowFile_Jump
-.arm
-blx MediaDB_IsAllowFile
-
 .section .data.Menu_RemoveHelpItem_1
 .int 0x55C
 
