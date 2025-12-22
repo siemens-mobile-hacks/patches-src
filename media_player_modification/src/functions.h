@@ -32,6 +32,7 @@
 #define _MenuGetUserPointer ((void *(*)(void *))(ADDR_MenuGetUserPointer))
 #define _SetCursorToMenuItem ((void (*)(void *, int))(ADDR_SetCursorToMenuItem))
 #define _SetHeaderScrollText ((void (*)(void *, const WSHDR *, const void *, const void *))(ADDR_SetHeaderScrollText))
+#define _StartNativeExplorer ((int (*)(NativeExplorerData *))(ADDR_StartNativeExplorer))
 #define _GetIMGHDRFromThemeCache ((IMGHDR *(*)(int))(ADDR_GetIMGHDRFromThemeCache))
 #define _GetPaletteAdrByColorIndex ((const char *(*)(int))(ADDR_GetPaletteAdrByColorIndex))
 

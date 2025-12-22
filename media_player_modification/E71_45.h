@@ -26,6 +26,7 @@
 #define ADDR_MenuGetUserPointer        (0xA095654F)
 #define ADDR_SetCursorToMenuItem       (0xA0950C99)
 #define ADDR_SetHeaderScrollText       (0xA0A285B9)
+#define ADDR_StartNativeExplorer       (0xA0699924)
 #define ADDR_GetIMGHDRFromThemeCache   (0xA0A26A95)
 #define ADDR_GetPaletteAdrByColorIndex (0xA0948031)
 

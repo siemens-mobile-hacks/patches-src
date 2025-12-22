@@ -33,8 +33,12 @@ blx DestroyData
 .section .text.BaseOnRedraw_Jump
 blx BaseOnRedraw_Hook
 
-.section .data.Menu_RemoveHelpItem_1
-.int 0x55C
+.section .data.Options_ReplaceAttributes_Part1
+.int 0x81B
 
-.section .data.Menu_RemoveHelpItem_2
+.section .text.Options_ReplaceAttributes_Part2
+.arm
+blx Options_GoTo
+
+.section .data.Options_RemoveHelpItem
 .int 0x55C

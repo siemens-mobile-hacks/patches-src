@@ -165,11 +165,17 @@ SECTIONS {
         KEEP(*(.data.Zoom_DisableSoftKeys_Part_3))
     }
 
-    .Menu_RemoveHelpItem_1 0xA08AF394 : {
-        KEEP(*(.data.Menu_RemoveHelpItem_1))
+    .Options_GoTo 0xA1382BB0 : {
+        KEEP(*(.text.Options_GoTo))
     }
-    .Menu_RemoveHelpItem_2 0xA08AA7C0 : {
-        KEEP(*(.data.Menu_RemoveHelpItem_2))
+    .Options_ReplaceAttributes_Part1 0xA08AF24C : {
+        KEEP(*(.data.Options_ReplaceAttributes_Part1))
+    }
+    .Options_ReplaceAttributes_Part2 0xA07CC398 : {
+        KEEP(*(.text.Options_ReplaceAttributes_Part2))
+     }
+    .Options_RemoveHelpItem 0xA08AF394 : {
+        KEEP(*(.data.Options_RemoveHelpItem))
     }
 
     .MDB_IsAllowFile 0xA1382750 : {
@@ -189,5 +195,15 @@ SECTIONS {
     }
     .MDB_FixPreviewSize 0xA079A030 : {
         KEEP(*(.text.MDB_FixPreviewSize))
+    }
+
+    .MDB_Options_ReplaceAttributes_Part1 0xA08AA774 : {
+        KEEP(*(.data.MDB_Options_ReplaceAttributes_Part1))
+    }
+    .MDB_Options_ReplaceAttributes_Part2 0xA0799908 : {
+        KEEP(*(.text.MDB_Options_ReplaceAttributes_Part2))
+    }
+    .MDB_Options_RemoveHelpItem 0xA08AA7C0 : {
+        KEEP(*(.data.MDB_Options_RemoveHelpItem))
     }
 }

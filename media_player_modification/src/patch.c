@@ -210,3 +210,17 @@ void BaseOnRedraw_Hook(MP_GUI *gui) {
         BaseOnRedraw(gui);
     }
 }
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.Options_GoTo")))
+int Options_GoTo(WSHDR *dir, WSHDR *file_name) {
+    NativeExplorerData *ne_data = malloc(sizeof(NativeExplorerData));
+    _zeromem(ne_data, sizeof(NativeExplorerData));
+    ne_data->dir_enum = 0x26;
+    ne_data->file_name = file_name;
+    ne_data->path_to_file = dir;
+    ne_data->is_exact_dir = 1;
+    int csm_id = _StartNativeExplorer(ne_data);
+    mfree(ne_data);
+    return csm_id;
+}
