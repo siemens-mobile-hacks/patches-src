@@ -15,6 +15,17 @@ mov r3, #0x0
 mov r1, #0x1A
 mov r2, #0x1A
 
+.section .text.MDB_FixSetUserPointer
+.arm
+mov r1, r4
+
+.section .text.MDB_FixGetUserPointer_Jump
+.arm
+blx MDB_FixGetUserPointer_Hook
+
+.section .data.MDB_GHook_Jump
+.int MDB_GHook_Hook
+
 .section .data.MDB_Options_ReplaceAttributes_Part1
 .int 0x81B
 

@@ -18,6 +18,8 @@
 #define _DrawString ((void (*)(const WSHDR *, int, int, int, int, int, int, const char *, const char *))(ADDR_DrawString))
 #define _DrawIMGHDR ((void (*)(int x, int y, const IMGHDR *))(ADDR_DrawIMGHDR))
 #define _wstrinsert ((void (*)(WSHDR *, const WSHDR *, int))(ADDR_wstrinsert))
+#define _FindCSMbyID ((CSM_RAM *(*)(int))(ADDR_FindCSMbyID))
+#define _MsgBoxError ((int (*)(int, int))(ADDR_MsgBoxError))
 #define _GetFontYSIZE ((int (*)(int))(ADDR_GetFontYSIZE))
 #define _wsInsertChar ((void (*)(WSHDR *, uint16_t, int))(ADDR_wsInsertChar))
 #define _SetMenuToGUI ((void (*)(void *, void *))(ADDR_SetMenuToGUI))

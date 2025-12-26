@@ -12,6 +12,8 @@
 #define ADDR_DrawString                (0xA094A3AB)
 #define ADDR_DrawIMGHDR                (0xA0A0CA97)
 #define ADDR_wstrinsert                (0xA04FB61F)
+#define ADDR_FindCSMbyID               (0xA0946971)
+#define ADDR_MsgBoxError               (0xA094EA89)
 #define ADDR_GetFontYSIZE              (0xA0A32378)
 #define ADDR_wsInsertChar              (0xA04FB48D)
 #define ADDR_SetMenuToGUI              (0xA09540DB)
@@ -63,6 +65,9 @@
 
 #define ADDR_NU_Sleep (0xA009CD50)
 
+#define ADDR_MDB_GHook        (0xA079AFCC)
+#define ADDR_MDB_GetFileState (0xA0725BD0)
+
 #define ADDR_KeyLock                  (0xA06E8372 | 1)
 #define ADDR_BaseOnRedraw             (0xA0955BEE | 1)
 #define ADDR_ShowKeypadLockedPopup    (0xA0700346 | 1)
@@ -80,4 +85,4 @@
 
 #define ADDR_Zoom_OnKey (0xA07EE8DC)
 
-#define ADDR_MDB_GetFileState (0xA0725BD0)
+#define LGP_ID_NOT_POSSIBLE_AT_PRESENT 0x2C4

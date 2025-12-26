@@ -196,6 +196,21 @@ SECTIONS {
     .MDB_FixPreviewSize 0xA079A030 : {
         KEEP(*(.text.MDB_FixPreviewSize))
     }
+    .MDB_FixSetUserPointer 0xA079A8A4 : {
+        KEEP(*(.text.MDB_FixSetUserPointer))
+    }
+    .MDB_FixGetUserPointer_Hook 0xA1382C10 : {
+        KEEP(*(.text.MDB_FixGetUserPointer_Hook))
+    }
+    .MDB_FixGetUserPointer_Jump 0xA079AFD4 : {
+        KEEP(*(.text.MDB_FixGetUserPointer_Jump))
+    }
+    .MDB_GHook_Hook 0xA1382C40 : {
+        KEEP(*(.text.MDB_GHook_Hook))
+    }
+    .MDB_GHook_Jump 0xA088DCC4 : {
+        KEEP(*(.data.MDB_GHook_Jump))
+    }
 
     .MDB_Options_ReplaceAttributes_Part1 0xA08AA774 : {
         KEEP(*(.data.MDB_Options_ReplaceAttributes_Part1))
