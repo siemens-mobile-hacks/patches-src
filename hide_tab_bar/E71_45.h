@@ -1,8 +1,14 @@
 #pragma once
 
-#define ADDR_malloc (uint32_t*)  (0xA0092F51)
-#define ADDR_mfree  (uint32_t*)  (0xA0092F93)
-#define ADDR_SetHeaderIcon       (0xA0A283F7)
-#define ADDR_GetHeaderPointer    (0xA0954E3D)
+#define ADDR_malloc       (uint32_t*)(0xA0092F51)
+#define ADDR_mfree        (uint32_t*)(0xA0092F93)
+#define ADDR_SetWidgetRect           (0xA0956675)
+#define ADDR_SetHeaderIcon           (0xA0A283F7)
+#define ADDR_GetHeaderPointer        (0xA0954E3D)
+#define ADDR_GetIMGHDRFromThemeCache (0xA0A26A95)
 
+#define ADDR_GUI_IsFlagEnable (0xA0954CC6 | 1)
+
+#define ADDR_OnFocus              (0xA0A2531A | 1)
+#define ADDR_DrawTabs             (0xA0AF84D8 | 1)
 #define ADDR_CallOnCreateHandlers (0xA0A25484 | 1)
