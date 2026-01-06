@@ -1,5 +1,6 @@
+#include <stdlib.h>
 #include <swilib.h>
-
+#include "data.h"
 #include "camera.h"
 
 #ifdef NEWSGOLD
@@ -9,7 +10,10 @@
 #endif
 
 #define _udiv ((uint32_t (*)(uint32_t, uint32_t))(ADDR_udiv))
+#define _malloc ((void *(*)(size_t))(ADDR_malloc))
+#define _mfree ((void (*)(void *))(ADDR_mfree))
 #define _memcpy ((void *(*)(void *, void *, size_t))(ADDR_memcpy))
+#define _zeromem ((void (*)(void *, size_t))(ADDR_zeromem))
 #define _AllocWS ((WSHDR *(*)(size_t))(ADDR_AllocWS))
 #define _FreeWS ((void (*)(WSHDR *))(ADDR_FreeWS))
 #define _wstrcat ((void (*)(WSHDR *, WSHDR *))(ADDR_wstrcat))
@@ -19,11 +23,14 @@
 #define _SetHeaderIcon ((void (*)(void *, int *, const void *, const void *))(ADDR_SetHeaderIcon))
 #define _GetDataOfItemByID ((WIDGET *(*)(void *, int))(ADDR_GetDataOfItemByID))
 #define _SetHeaderExtraText ((void (*)(void *, WSHDR *, const void *, const void *))(ADDR_SetHeaderExtraText))
+#define _GUI_GetUserPointer ((void *(*)(void *))(ADDR_GUI_GetUserPointer))
 
 #define BaseOnRedraw ((void (*)(void *))(ADDR_BaseOnRedraw))
 #define SetHeaderLgp ((void (*)(void *, int, const void *, const void *))(ADDR_SetHeaderLgp))
 
+#define RefreshIcons ((void (*)(CAMERA_CSM *, enum Property, int))(ADDR_RefreshIcons))
 #define GetCurrentGUI ((CAMERA_GUI *(*)(CAMERA_CSM *))(ADDR_GetCurrentGUI))
+#define SetPropertyTemporary ((void (*)(uint32_t, int, int))(ADDR_SetPropertyTemporary))
 
 #define PHOTO_RESOLUTION_0 (ADDR_PhotoResolution_0)
 #define PHOTO_RESOLUTION_1 (ADDR_PhotoResolution_1)
@@ -73,7 +80,7 @@ void SetResolutionString_Hook(CAMERA_CSM *csm, int id) {
     }
 }
 
-#define StartViewFinderWithSize ((void (*)(void *, int, int, int, int, int))(ADDR_StartViewFinderWithSize))
+#define StartViewFinderWithSize ((void (*)(uint32_t, int, int, int, int, int))(ADDR_StartViewFinderWithSize))
 
 __attribute__((__always_inline__))
 inline void GetViewFinderRECT(RECT *rc, int w, int h, int new_w, int new_h) {
@@ -109,7 +116,7 @@ void StartViewFinder_Hook(CAMERA_CSM *csm, int is_photo, int x, int y, int x2, i
     }
     RECT rc;
     GetViewFinderRECT(&rc, x2 - x, y2 - y, new_w, new_h);
-    StartViewFinderWithSize(csm->field53_0x74, is_photo, rc.x, rc.y, rc.x2, rc.y2);
+    StartViewFinderWithSize(csm->instance_id, is_photo, rc.x, rc.y, rc.x2, rc.y2);
     CAMERA_GUI *gui = GetCurrentGUI(csm);
     if (gui) {
         _memcpy(&(gui->rect_region), &rc, sizeof(RECT));
@@ -160,6 +167,86 @@ void OnRedraw_Hook(CAMERA_GUI *gui) {
         _SetHeaderExtraText(header, ws, ADDR_malloc, ADDR_mfree);
     }
     BaseOnRedraw(gui);
+}
+
+#define OnKey ((int (*)(CAMERA_GUI *, GUI_MSG *))(ADDR_OnKey))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.OnKey_Hook")))
+int OnKey_Hook(CAMERA_GUI *gui, GUI_MSG *msg) {
+    if (msg->gbsmsg->msg == KEY_DOWN || msg->gbsmsg->msg == LONG_PRESS) {
+        const int key = msg->gbsmsg->submess;
+        CAMERA_CSM *csm = _GUI_GetUserPointer(gui);
+        if (key == VOL_UP_BUTTON) {
+            msg->keys = 0x26;
+        } else if (key == VOL_DOWN_BUTTON) {
+            msg->keys = 0x25;
+        } else if (key == '1' || key == '3') {
+            if (key == '1') {
+                if (data->brightness < 6) {
+                    data->brightness++;
+                }
+            }
+            if (key == '3') {
+                if (data->brightness > 0) {
+                    data->brightness--;
+                }
+            }
+            SetPropertyTemporary(csm->instance_id, PropertyBrightness, data->brightness);
+            return -1;
+        } else if (key == '#') {
+            data->white_balance++;
+            if (data->white_balance > 2) {
+                data->white_balance = 0;
+            }
+            SetPropertyTemporary(csm->instance_id, PropertyWhiteBalance, data->white_balance);
+            RefreshIcons(csm, PropertyWhiteBalance, data->white_balance);
+            return -1;
+        } else if (key == '*') {
+            data->color_mode++;
+            if (data->color_mode > 5) {
+                data->color_mode = 0;
+            }
+            SetPropertyTemporary(csm->instance_id, PropertyColorMode, data->color_mode);
+            return -1;
+        }
+    }
+    return OnKey(gui, msg);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.GHook")))
+void GHook(CAMERA_GUI *gui, enum UIDialogCmdID cmd) {
+    if (cmd == UI_CMD_CREATE) {
+        malloc_data();
+    } else if (cmd == UI_CMD_DESTROY) {
+        if (data) {
+            free_data();
+        }
+    }
+}
+
+#define Free ((void (*)(CAMERA_CSM *))(ADDR_Free))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.SetSettings_Hook")))
+void SetSettings_Hook(CAMERA_CSM *csm) { //
+    CAMERA_GUI *gui = GetCurrentGUI(csm);
+    if (gui && csm->settings) {
+        data->brightness = csm->settings->brightness;
+        data->color_mode = csm->settings->color_mode;
+    }
+    Free(csm);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.SetWhiteBalance_Hook")))
+void SetWhiteBalance_Hook(CAMERA_CSM *csm, int property_id, uint8_t value) {
+    CAMERA_GUI *gui = GetCurrentGUI(csm);
+    if (gui) {
+        data->white_balance = value;
+    }
+    RefreshIcons(csm, property_id, value);
 }
 
 __attribute__((target("thumb")))

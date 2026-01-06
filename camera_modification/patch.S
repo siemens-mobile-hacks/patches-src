@@ -39,6 +39,14 @@ b . + 0x38
 .short 1280
 .short 720
 
+.section .text.ChangeJPEGQuality
+.arm
+mov r1, #95
+
+.section .text.SpeedUpViewFinder
+.arm
+mov r0, #0x00
+
 .section .data.FixHeaderText
 .int 0x1C60
 
@@ -71,9 +79,29 @@ mov r0, #0x00
 .arm
 mov r0, #0x00
 
+.section .data.OnKey_Jump
+.int OnKey_Hook
+
+.section .data.GHook_Jump
+.int GHook
+
+.section .text.SetSettings_Jump
+.arm
+blx SetSettings_Hook
+
+.section .text.SetWhiteBalance_Jump
+.arm
+ldrb r2, [r0, #0x10]
+mov r0, r4
+blx SetWhiteBalance_Hook
+
 .section .text.DisableMessageSavedTo
 .arm
 b . + 0x2C8
+
+.section .text.DisableMessageInsufficientMemoryAvailable
+.arm
+b . + 0x2D4
 
 .section .text.ChangeFileName_Jump
 .arm

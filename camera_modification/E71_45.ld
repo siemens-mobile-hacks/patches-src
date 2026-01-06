@@ -41,6 +41,12 @@ SECTIONS {
     .ChangePhotoResolution_3 0xA084BFB4 : {
         KEEP(*(.data.ChangePhotoResolution_3))
     }
+    .ChangeJPEGQuality 0xA0D0C4B4 : {
+        KEEP(*(.text.ChangeJPEGQuality))
+    }
+    .SpeedUpViewFinder 0xA0A05E1C : {
+        KEEP(*(.text.SpeedUpViewFinder))
+    }
 
     .FixHeaderText 0xA07086A8 : {
         KEEP(*(.data.FixHeaderText))
@@ -73,9 +79,34 @@ SECTIONS {
     .DisableSelfTimer 0xA0784540 : {
         KEEP(*(.text.DisableSelfTimer))
     }
+    .OnKey_Hook 0xA1383510 : {
+        KEEP(*(.text.OnKey_Hook))
+    }
+    .OnKey_Jump 0xA086F230 : {
+        KEEP(*(.data.OnKey_Jump))
+    }
+    .GHook 0xA1383700 : {
+        KEEP(*(.text.GHook))
+    }
+    .GHook_Jump 0xA086F234 : {
+        KEEP(*(.data.GHook_Jump))
+    }
+    .SyncSettings 0xA1383740 : {
+        KEEP(*(.text.SetSettings_Hook))
+        KEEP(*(.text.SetWhiteBalance_Hook))
+    }
+    .SetSettings_Jump 0xA0706278 : {
+        KEEP(*(.text.SetSettings_Jump))
+    }
+    .SetWhiteBalance_Jump 0xA0706C34 : {
+        KEEP(*(.text.SetWhiteBalance_Jump))
+    }
 
     .DisableMessageSavedTo 0xA070818C : {
         KEEP(*(.text.DisableMessageSavedTo))
+    }
+    .DisableMessageInsufficientMemoryAvailable 0xA0708180 : {
+        KEEP(*(.text.DisableMessageInsufficientMemoryAvailable))
     }
 
     .ChangeFileName_Hook 0xA138349A : {
