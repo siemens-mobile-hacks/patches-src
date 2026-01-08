@@ -95,6 +95,20 @@ ldrb r2, [r0, #0x10]
 mov r0, r4
 blx SetWhiteBalance_Hook
 
+.section .data.SetNativeExplorerLgpIcon
+.int 0x3B7
+
+.section .data.ChangeMemoryAssistantLgpID
+.int 0x7FFFC0D6
+
+.section .text.OpenNativeExplorer_Jump
+.arm
+mov r0, r5
+mov r1, r4
+blx OpenNativeExplorer
+add sp, sp, #0x11C
+ldmia sp!, {r4, r5, pc}
+
 .section .text.DisableMessageSavedTo
 .arm
 b . + 0x2C8
@@ -112,6 +126,9 @@ blx ChangeFileName_Hook
 mov r0, #0x1
 bl GeneralFuncF1
 mov r0, #0x00
+
+.section .data.Options_Active_RenameItemMemoryAssistant
+.int 0xD63
 
 .section .text.Options_Active_RemoveItemHelp_Part1
 .arm

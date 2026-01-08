@@ -4,6 +4,7 @@ SECTIONS {
     }
     .Functions 0xA13830D0 : {
         KEEP(*(.text.SetResolution_ws))
+        KEEP(*(.text.OpenNativeExplorer))
     }
 
     .SetResolutionString_Hook 0xA13831A0 : {
@@ -102,6 +103,17 @@ SECTIONS {
         KEEP(*(.text.SetWhiteBalance_Jump))
     }
 
+    /* Замена Memory Assistant на Native Explorer */
+    .SetNativeExplorerLgpIcon 0xA0C37034 : {
+        KEEP(*(.data.SetNativeExplorerLgpIcon))
+    }
+    .ChangeMemoryAssistantLgpID 0xA086F1A8 : {
+        KEEP(*(.data.ChangeMemoryAssistantLgpID))
+    }
+    .OpenNativeExplorer_Jump 0xA0705B0C : {
+        KEEP(*(.text.OpenNativeExplorer_Jump))
+    }
+
     .DisableMessageSavedTo 0xA070818C : {
         KEEP(*(.text.DisableMessageSavedTo))
     }
@@ -118,6 +130,9 @@ SECTIONS {
 
     .Options_DisableMessages 0xA0706964 : {
         KEEP(*(.text.Options_DisableMessages))
+    }
+    .Options_Active_RenameItemMemoryAssistant 0xA086F134 : {
+        KEEP(*(.data.Options_Active_RenameItemMemoryAssistant))
     }
     .Options_Active_RemoveItemHelp_Part1 0xA07089D4 : {
         KEEP(*(.text.Options_Active_RemoveItemHelp_Part1))

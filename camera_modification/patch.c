@@ -24,6 +24,7 @@
 #define _GetDataOfItemByID ((WIDGET *(*)(void *, int))(ADDR_GetDataOfItemByID))
 #define _SetHeaderExtraText ((void (*)(void *, WSHDR *, const void *, const void *))(ADDR_SetHeaderExtraText))
 #define _GUI_GetUserPointer ((void *(*)(void *))(ADDR_GUI_GetUserPointer))
+#define _StartNativeExplorer ((int (*)(NativeExplorerData *))(ADDR_StartNativeExplorer))
 
 #define BaseOnRedraw ((void (*)(void *))(ADDR_BaseOnRedraw))
 #define SetHeaderLgp ((void (*)(void *, int, const void *, const void *))(ADDR_SetHeaderLgp))
@@ -65,6 +66,24 @@ void SetResolution_ws(uint32_t is_video, WSHDR *ws, int id) {
         }
     }
     _wsprintf(ws, "%dx%d", w, h);
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.OpenNativeExplorer")))
+void OpenNativeExplorer(CAMERA_CSM *csm, WSHDR *dir) {
+    NativeExplorerData *ne_data = _malloc(sizeof(NativeExplorerData));
+    _zeromem(ne_data, sizeof(NativeExplorerData));
+    if (dir->wsbody[1] == '0') {
+        ne_data->dir_enum = 0x28;  // "0:\"
+    } else {
+        ne_data->dir_enum = 0x62;; // "4:\"
+    }
+    ne_data->is_exact_dir = 1;
+    csm->native_explorer_csm_id = _StartNativeExplorer(ne_data);
+    csm->csm.state = 2;
+    csm->execute_proc = 2;
+    csm->executed_proc_id = 2;
+    _mfree(ne_data);
 }
 
 __attribute__((target("thumb")))
