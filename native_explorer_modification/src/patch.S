@@ -8,7 +8,6 @@
     .equ wsAppendChar, 0xA07F9F00
 
     .equ Send806D, 0xA0698794
-    .equ Show5461, 0xA0698968
     .equ RefreshTab, 0xA069A57C
     .equ GetTabByCSM, 0xA071D770
     .equ GetExtIconSmall, 0xA05028C8
@@ -337,31 +336,6 @@ nop
 .section .text.SkipApplicationError
 .arm
 b . + 0x10
-
-
-.section .text.ReplaceHelpMenuItem_Part1
-.arm
-bl Show5461
-
-.section .data.ReplaceHelpMenuItem_Part2
-.arm
-.int 0xB60
-
-.section .text.Fix5461MenuHeader
-.arm
-.int 0xB60
-
-.section .text.RemoveDrivesItemFrom5461Menu_Part1
-.arm
-mov r1, #0x01
-
-.section .text.RemoveDrivesItemFrom5461Menu_Part2
-.arm
-mov r1, #0x01
-
-.section .text.Remove5461Combination
-.arm
-mov r0, #0x00
 
 .section .text.Rename_SkipFindChildren
 .arm

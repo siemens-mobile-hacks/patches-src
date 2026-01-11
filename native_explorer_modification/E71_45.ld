@@ -339,26 +339,6 @@ SECTIONS {
         KEEP(*(.text.SkipApplicationError))
     }
 
-
-    .ReplaceHelpMenuItem_Part1 0xA07168A8 : {
-        KEEP(*(.text.ReplaceHelpMenuItem_Part1))
-    }
-    .ReplaceHelpMenuItem_Part2 0xA08704F4 : {
-        KEEP(*(.data.ReplaceHelpMenuItem_Part2))
-    }
-    .Fix5461MenuHeader 0xA084CB7C : {
-        KEEP(*(.text.Fix5461MenuHeader))
-    }
-    .RemoveDrivesItemFrom5461Menu_Part1 0xA0698978 : {
-        KEEP(*(.text.RemoveDrivesItemFrom5461Menu_Part1))
-    }
-    .RemoveDrivesItemFrom5461Menu_Part2 0xA0698954 : {
-        KEEP(*(.text.RemoveDrivesItemFrom5461Menu_Part2))
-    }
-    .Remove5461Combination 0xA071DCC0 : {
-        KEEP(*(.text.Remove5461Combination))
-    }
-
     .ChangeOnKey 0xA088B6FC : {
         KEEP(*(.data.ChangeOnKey))
     }
@@ -379,6 +359,36 @@ SECTIONS {
         KEEP(*(.text.Rename_SkipFindChildren))
     }
 
+    .ReplaceHelpMenuItem 0xA07168A8 : {
+        KEEP(*(.text.ReplaceHelpMenuItem))
+    }
+    .RenameHelpMenuItem 0xA08704F4 : {
+        KEEP(*(.data.RenameHelpMenuItem))
+    }
+    .5461_FixHeader 0xA084CB7C : {
+        KEEP(*(.text.5461_FixHeader))
+    }
+    .5461_ChangeItemsCount 0xA0698978 : {
+        KEEP(*(.text.5461_ChangeItemsCount))
+    }
+    .5461_RemoveCombination 0xA071DCC0 : {
+        KEEP(*(.text.5461_RemoveCombination))
+    }
+    .5461_SetUserPointer 0xA0698974 : {
+        KEEP(*(.text.5461_SetUserPointer))
+    }
+    .5461_OnKey 0xA1380200 : {
+        KEEP(*(.text.5461_OnKey))
+    }
+    .5461_OnKey_Jump 0xA084CB88 : {
+        KEEP(*(.data.5461_OnKey_Jump))
+    }
+    .5461_GHook 0xA13802A0 : {
+        KEEP(*(.text.5461_GHook))
+    }
+    .5461_GHook_Jump 0xA084CB8C : {
+        KEEP(*(.data.5461_GHook_Jump))
+    }
 
     .Search_OnMessage_Hook 0xA1380D40 : {
         KEEP(*(.text.Search_OnMessage_Hook))

@@ -20,7 +20,7 @@ int Search_OnMessage_Hook(NATIVE_EXPLORER_SEARCH_CSM *csm, GBS_MSG *msg) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.Search_OnKey_Hook")))
 int Search_OnKey_Hook(void *gui, GUI_MSG *msg) {
-    NATIVE_EXPLORER_SEARCH_CSM *csm = _MenuGetUserPointer(gui);
+    NATIVE_EXPLORER_SEARCH_CSM *csm = _GUI_GetUserPointer(gui);
     csm->cursor = _GetCurMenuItem(gui);
     if (msg->keys == 0x3D) { // ENTER_BUTTON
         if (IsFileExists(csm)) {
@@ -48,7 +48,7 @@ int Search_OnKey_Hook(void *gui, GUI_MSG *msg) {
 __attribute__((target("thumb")))
 __attribute__((section(".text.Search_GHook_Hook")))
 void Search_GHook_Hook(void *gui, enum UIDialogCmdID cmd) {
-    NATIVE_EXPLORER_SEARCH_CSM *csm = _MenuGetUserPointer(gui);
+    NATIVE_EXPLORER_SEARCH_CSM *csm = _GUI_GetUserPointer(gui);
     if (cmd == UI_CMD_CREATE) {
         if (_wstrlen(csm->search_keyword)) {
             WSHDR *ws = _AllocWS(128);

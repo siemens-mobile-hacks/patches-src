@@ -10,6 +10,7 @@
 #define ADDR_wsprintf               (0xA093EB4D)
 #define ADDR_isdir_ws               (0xA0568028)
 #define ADDR_BuildPath              (0xA05D0534)
+#define ADDR_RefreshGUI             (0xA094F6E5)
 #define ADDR_GetPITaddr             (0xA094CE9B)
 #define ADDR_wsAppendChar           (0xA04FB4D9)
 #define ADDR_CreateLocalWS          (0xA04FB25B)
@@ -22,7 +23,7 @@
 #define ADDR_GetHeaderPointer       (0xA0954E3D)
 #define ADDR_GetMenuItemCount       (0xA0950F33)
 #define ADDR_GetTotalFlexSpace      (0xA05686C0)
-#define ADDR_MenuGetUserPointer     (0xA095654F)
+#define ADDR_GUI_GetUserPointer     (0xA095654F)
 #define ADDR_SetHeaderScrollText    (0xA0A285B9)
 #define ADDR_SetMenuItemIconArray   (0xA09544F7)
 #define ADDR_SetMenuItemIconIMGHDR  (0xA09544FB)
@@ -30,6 +31,8 @@
 
 #define ADDR_MENU_ICON_EMPTY (int*)(0xA0C3608C)
 
+#define ADDR_RefreshTab       (0xA069A57C)
+#define ADDR_GetTabByCSM      (0xA071D770)
 #define ADDR_GetItemPath      (0xA0698C24)
 #define ADDR_GetCurrentDir    (0xA0699FF0)
 #define ADDR_GetTabItemsCount (0xA0699970)
@@ -64,6 +67,9 @@
 #define ADDR_IsRootDir (0xA0699D84)
 
 #define ADDR_CreateDir (0xA05D02E8)
+
+#define ADDR_SetThumbnailEnable (0xA0698ADC)
+#define ADDR_IsThumbnailEnabled (0xA0698ABC)
 
 #define ADDR_Search_OnKey             (0xA0785628)
 #define ADDR_Search_GHook             (0xA0785698)
