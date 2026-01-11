@@ -161,7 +161,7 @@ struct CAMERA_CSM {
     void *field137_0xec;
     void *field138_0xf0;
     int8_t executed_proc_id;
-    int8_t execute_proc;
+    int8_t execute_proc_id;
     undefined field141_0xf6;
     undefined field142_0xf7;
     undefined4 field143_0xf8;

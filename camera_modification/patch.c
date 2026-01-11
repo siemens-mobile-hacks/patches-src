@@ -81,7 +81,7 @@ void OpenNativeExplorer(CAMERA_CSM *csm, WSHDR *dir) {
     ne_data->is_exact_dir = 1;
     csm->native_explorer_csm_id = _StartNativeExplorer(ne_data);
     csm->csm.state = 2;
-    csm->execute_proc = 2;
+    csm->execute_proc_id = 2;
     csm->executed_proc_id = 2;
     _mfree(ne_data);
 }
