@@ -4,10 +4,8 @@
 #ifdef E71_45
     .equ wstrlen, 0xA0C0CF84
     .equ wstrcmp, 0xA0FB3D74
-    .equ GetMenuGUI, 0xA0950125
     .equ SetCursorTab, 0xA07FA3F8
     .equ wsAppendChar, 0xA07F9F00
-    .equ AllocMenuItem, 0xA0954585
 
     .equ Send806D, 0xA0698794
     .equ Show5461, 0xA0698968
@@ -16,17 +14,8 @@
     .equ GetExtIconSmall, 0xA05028C8
 #endif
 
-.section .text.Replace_GetMultiLinesMenuGUI
-.arm
-blx GetMenuGUI
-
-.section .text.Replace_AllocMLMenuItem
-.arm
-blx AllocMenuItem
-
-.section .text.FixMemoryLeak_1
-.arm
-cmp r6,r6
+.section .data.FixFlags2
+.int 0x92
 
 .section .text.Replace_GetExtIconLarge
 .arm
@@ -78,6 +67,19 @@ blx MergeIcons_Hook
 .section .text.IsAllowThumbnail_Jump
 .arm
 blx IsAllowThumbnail
+
+
+.section .text.SetItemsText_Jump
+.arm
+blx SetItemsText_Hook
+
+.section .text.HideEntriesCount
+.arm
+b . - 0x138
+
+.section .text.HideDateTime
+.arm
+b . - 0x54
 
 
 .section .text.ShowHiddenFiles
@@ -182,6 +184,16 @@ stmdb sp!, {r4, r5, lr}
 blx IsAllowPaste
 ldmia sp!, {r4, r5, pc}
 
+
+.section .text.FixHeader
+.arm
+mov r0, r4
+bl wstrlen
+cmp r0, #0x03
+movne r0, r4
+movne r1, #0x5C
+blne wsAppendChar
+b . + 0x138
 
 .section .text.FixSoftkeys_Jump
 .arm

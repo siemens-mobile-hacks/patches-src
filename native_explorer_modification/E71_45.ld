@@ -3,14 +3,8 @@ SECTIONS {
         KEEP(*(.rodata*))
     }
 
-    .Replace_GetMultiLinesMenuGUI 0xA0785F60 : {
-        KEEP(*(.text.Replace_GetMultiLinesMenuGUI))
-    }
-    .Replace_AllocMLMenuItem 0xA071E17C : {
-        KEEP(*(.text.Replace_AllocMLMenuItem))
-    }
-    .FixMemoryLeak_1 0xA071E1D8 : {
-        KEEP(*(.text.FixMemoryLeak_1))
+    .FixFlags2 0xA088B710 : {
+        KEEP(*(.data.FixFlags2))
     }
     .Replace_GetExtIconLarge 0xA071E5B4 : {
         KEEP(*(.text.Replace_GetExtIconLarge))
@@ -60,6 +54,19 @@ SECTIONS {
     }
     .IsAllowThumbnail_Jump 0xA0718E50 : {
         KEEP(*(.text.IsAllowThumbnail_Jump))
+    }
+
+    .SetItemsText_Hook 0xA1380720 : {
+        KEEP(*(.text.SetItemsText_Hook))
+    }
+    .SetItemsText_Jump 0xA071EE70 : {
+        KEEP(*(.text.SetItemsText_Jump))
+    }
+    .HideEntriesCount 0xA071EBAC : {
+        KEEP(*(.text.HideEntriesCount))
+    }
+    .HideDateTime 0xA071EAAC : {
+        KEEP(*(.text.HideDateTime))
     }
 
     .ShowHiddenFiles 0xA06982FC : {
@@ -229,17 +236,6 @@ SECTIONS {
     .FixHeader 0xA071EEE8 : {
         KEEP(*(.text.FixHeader))
     }
-    .SetHeaderExtraLgpID 0xA088B784 : {
-        KEEP(*(.text.SetHeaderExtraLgpID))
-    }
-    .SetHeaderExtra_Hook 0xA1380720 : {
-        KEEP(*(.text.SetHeaderExtra_Hook))
-    }
-    .SetHeaderExtra_Jump 0xA06987EC : {
-        KEEP(*(.text.SetHeaderExtra_Jump))
-    }
-
-
     .FixSoftkeys_Hook 0xA13809F0: {
         KEEP(*(.text.FixSoftkeys_Hook))
     }
@@ -363,9 +359,6 @@ SECTIONS {
         KEEP(*(.text.Remove5461Combination))
     }
 
-    .DisableFastSearch 0xA088B710 : {
-        KEEP(*(.data.DisableFastSearch))
-    }
     .ChangeOnKey 0xA088B6FC : {
         KEEP(*(.data.ChangeOnKey))
     }

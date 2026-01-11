@@ -2,6 +2,37 @@
 #include "csm.h"
 #include "functions.h"
 
+#define SetItemsText ((void (*)(NATIVE_EXPLORER_CSM *, int, int *, WSHDR *, WSHDR *))(ADDR_SetItemsText))
+
+inline uint8_t GetFileAttr(uint8_t file_attr, uint8_t attr, uint8_t c) {
+    return (file_attr & attr) ? c : '-';
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.SetItemsText_Hook")))
+void SetItemsText_Hook(NATIVE_EXPLORER_CSM *csm, int item_n, int *icon, WSHDR *ws1, WSHDR *ws2) {
+    SetItemsText(csm, item_n, icon, ws1, ws2);
+
+    WSHDR ws_path;
+    uint16_t wsbody_path[128];
+    _CreateLocalWS(&ws_path, wsbody_path, 127);
+    GetItemPath(csm, item_n, &ws_path);
+
+    uint32_t err;
+    uint8_t attr = 0;
+    _GetFileAttrib_ws(&ws_path, &attr, &err);
+
+    WSHDR ws;
+    uint16_t wsbody[16];
+    _CreateLocalWS(&ws, wsbody, 16);
+    _wsprintf(&ws, "[%c%c%c%c]",
+        GetFileAttr(attr, FA_READONLY, 'r'), GetFileAttr(attr, FA_HIDDEN, 'h'),
+        GetFileAttr(attr, FA_SYSTEM, 's'), GetFileAttr(attr, FA_DIRECTORY, 'd'));
+    _wsAppendChar(ws2, UTF16_ALIGN_RIGHT);
+    _wstrcat(ws2, &ws);
+    _wsAppendChar(ws2, UTF16_ALIGN_NONE);
+}
+
 __attribute__((target("thumb")))
 __attribute__((section(".text.IsAllowPaste")))
 int IsAllowPaste(NATIVE_EXPLORER_CSM *csm, WSHDR *ws) {

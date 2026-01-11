@@ -1,15 +1,17 @@
 #pragma once
 
-#define ADDR_malloc                 (uint32_t*)(0xA0092F51)
-#define ADDR_mfree                  (uint32_t*)(0xA0092F93)
+#define ADDR_malloc      (uint32_t*)(0xA0092F51)
+#define ADDR_mfree       (uint32_t*)(0xA0092F93)
 #define ADDR_zeromem                (0xA0FAFC00)
 #define ADDR_AllocWS                (0xA093F611)
 #define ADDR_wstrlen                (0xA04FAC53)
 #define ADDR_wstrcmp                (0xA04FAC7F)
+#define ADDR_wstrcat                (0xA04FB411)
 #define ADDR_wsprintf               (0xA093EB4D)
 #define ADDR_isdir_ws               (0xA0568028)
 #define ADDR_BuildPath              (0xA05D0534)
 #define ADDR_GetPITaddr             (0xA094CE9B)
+#define ADDR_wsAppendChar           (0xA04FB4D9)
 #define ADDR_CreateLocalWS          (0xA04FB25B)
 #define ADDR_AllocMenuItem          (0xA0954585)
 #define ADDR_GetCurMenuItem         (0xA0952DBB)
@@ -32,13 +34,11 @@
 #define ADDR_GetCurrentDir    (0xA0699FF0)
 #define ADDR_GetTabItemsCount (0xA0699970)
 
+#define ADDR_SetItemsText (0xA071E948)
+
 #define ADDR_MergeIcons  (0xA0718A70)
 #define ADDR_MergeIMGHDR (0xA094D0DC | 1)
 #define ADDR_IsDirectory (0xA071D7DC)
-
-#define ADDR_ClearLgp           (0xA095D6FC)
-#define ADDR_SetLgpText         (0xA095D468)
-#define ADDR_SetHeaderExtraLgp  (0xA0A281EA | 1)
 
 #define KEYMAP               (uint8_t*)(0xA1380850)
 #define DISABLED_CMD_DEFAULT (uint8_t*)(0xA1380A50)
