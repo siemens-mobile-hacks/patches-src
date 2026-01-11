@@ -329,6 +329,9 @@ SECTIONS {
     .DisableCopyMoveMessage 0xA0715EBC : {
         KEEP(*(.text.DisableCopyMoveMessage))
     }
+    .DisableMemoryAssistantSoftkey 0xA0870318 : {
+        KEEP(*(.data.DisableMemoryAssistantSoftkey))
+    }
 
     .FixMemoryLeak_2 0xA0786408 : {
         KEEP(*(.text.FixMemoryLeak_2))

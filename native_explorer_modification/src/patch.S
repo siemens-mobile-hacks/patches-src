@@ -304,6 +304,10 @@ mov r0, r4
 bl RefreshTab
 nop
 
+.section .data.DisableMemoryAssistantSoftkey
+.short 0x0
+.short 0x0
+.int 0x7FFFFFFE
 
 .section .text.FixMemoryLeak_2
 .arm
