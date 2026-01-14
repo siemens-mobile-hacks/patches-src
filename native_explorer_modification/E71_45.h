@@ -3,6 +3,7 @@
 #define ADDR_malloc      (uint32_t*)(0xA0092F51)
 #define ADDR_mfree       (uint32_t*)(0xA0092F93)
 #define ADDR_zeromem                (0xA0FAFC00)
+#define ADDR_sprintf                (0xA0FAEA01)
 #define ADDR_AllocWS                (0xA093F611)
 #define ADDR_wstrlen                (0xA04FAC53)
 #define ADDR_wstrcmp                (0xA04FAC7F)
@@ -36,6 +37,12 @@
 #define ADDR_GetItemPath      (0xA0698C24)
 #define ADDR_GetCurrentDir    (0xA0699FF0)
 #define ADDR_GetTabItemsCount (0xA0699970)
+
+// Header
+#define ADDR_SetUserText       (0xA095D314)
+#define ADDR_ClearUserText     (0xA095D6FC)
+#define ADDR_GetMarkedCount    (0xA06999AC)
+#define ADDR_SetHeaderExtraLgp (0xA0A281EA | 1)
 
 #define ADDR_SetItemsText (0xA071E948)
 

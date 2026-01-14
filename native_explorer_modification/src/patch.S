@@ -184,16 +184,6 @@ blx IsAllowPaste
 ldmia sp!, {r4, r5, pc}
 
 
-.section .text.FixHeader
-.arm
-mov r0, r4
-bl wstrlen
-cmp r0, #0x03
-movne r0, r4
-movne r1, #0x5C
-blne wsAppendChar
-b . + 0x138
-
 .section .text.FixSoftkeys_Jump
 .arm
 blx FixSoftkeys_Hook

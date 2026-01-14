@@ -4,7 +4,10 @@
     #include "../E71_45.h"
 #endif
 
+#define _malloc ((void *(*)(size_t))(ADDR_malloc))
+#define _mfree  ((void (*)(void *))(ADDR_mfree))
 #define _zeromem ((void (*)(void *, size_t))(ADDR_zeromem))
+#define _sprintf ((void (*)(char *, const char *, ...))(ADDR_sprintf))
 #define _AllocWS ((WSHDR *(*)(size_t))(ADDR_AllocWS))
 #define _wstrlen ((int (*)(const WSHDR *))(ADDR_wstrlen))
 #define _wstrcmp ((int (*)(const WSHDR *, const WSHDR *))(ADDR_wstrcmp))
@@ -36,7 +39,6 @@
 #define GetItemPath ((void (*)(NATIVE_EXPLORER_CSM *, int, WSHDR *))(ADDR_GetItemPath))
 #define GetCurrentDir ((void (*)(NATIVE_EXPLORER_CSM *, WSHDR *ws))(ADDR_GetCurrentDir))
 #define GetTabItemsCount ((int (*)(NATIVE_EXPLORER_CSM *))(ADDR_GetTabItemsCount))
-
 
 __attribute__((always_inline))
 inline void *GetCSM(void *gui) {

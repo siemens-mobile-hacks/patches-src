@@ -236,6 +236,15 @@ SECTIONS {
     .FixHeader 0xA071EEE8 : {
         KEEP(*(.text.FixHeader))
     }
+    .SetHeaderExtraLgpID 0xA088B784 : {
+        KEEP(*(.text.SetHeaderExtraLgpID))
+    }
+    .SetHeaderExtra_Hook 0xA1380300 : {
+        KEEP(*(.text.SetHeaderExtra_Hook))
+    }
+    .SetHeaderExtra_Jump 0xA06987EC : {
+        KEEP(*(.text.SetHeaderExtra_Jump))
+    }
     .FixSoftkeys_Hook 0xA13809F0: {
         KEEP(*(.text.FixSoftkeys_Hook))
     }
