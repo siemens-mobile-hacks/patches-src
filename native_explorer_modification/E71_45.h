@@ -22,7 +22,6 @@
 #define ADDR_GetFileAttrib_ws       (0xA0567EF8)
 #define ADDR_SetFileAttrib_ws       (0xA05681EC)
 #define ADDR_GetHeaderPointer       (0xA0954E3D)
-#define ADDR_GetMenuItemCount       (0xA0950F33)
 #define ADDR_GetTotalFlexSpace      (0xA05686C0)
 #define ADDR_GUI_GetUserPointer     (0xA095654F)
 #define ADDR_SetHeaderScrollText    (0xA0A285B9)

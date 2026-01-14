@@ -26,7 +26,6 @@
 #define _GetHeaderPointer ((void *(*)(void *))(ADDR_GetHeaderPointer))
 #define _GetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t *, unsigned int *))(ADDR_GetFileAttrib_ws))
 #define _SetFileAttrib_ws ((int (*)(const WSHDR *, uint8_t, unsigned int *))(ADDR_SetFileAttrib_ws))
-#define _GetMenuItemCount ((int (*)(void *))(ADDR_GetMenuItemCount))
 #define _GetTotalFlexSpace ((int (*)(int, uint32_t *))(ADDR_GetTotalFlexSpace))
 #define _GUI_GetUserPointer ((void *(*)(void *))(ADDR_GUI_GetUserPointer))
 #define _SetHeaderScrollText ((void (*)(void *, const WSHDR *, const void *, const void *))(ADDR_SetHeaderScrollText))
