@@ -22,21 +22,31 @@ SECTIONS {
         KEEP(*(.text.ShowFullPath_Part6))
     }
 
-    .SetCursor 0xA1381120 : {
+    .Functions 0xA1381120 : {
         KEEP(*(.text.SetCursor))
+        KEEP(*(.text.Update))
     }
 
-    .Init_Hook 0xA13811E0 : {
+    .Init_Hook 0xA1381320 : {
         KEEP(*(.text.Init_Hook))
     }
     .Init_Jump 0xA0713944 : {
         KEEP(*(.text.Init_Jump))
     }
-
-    .Update 0xA13812C0 : {
-        KEEP(*(.text.Update))
+    .AddUID_Hook 0xA13813F0 : {
+        KEEP(*(.text.AddUID_Hook))
     }
-    .OnKey_Hook 0xA1381450 : {
+    .AddUID_Jump 0xA071481C : {
+        KEEP(*(.text.AddUID_Jump))
+    }
+    .AllocWS_Hook 0xA1381460 : {
+        KEEP(*(.text.AllocWS_Hook))
+    }
+    .AllocWS_Jump 0xA0714790 : {
+        KEEP(*(.text.AllocWS_Jump))
+    }
+
+    .OnKey_Hook 0xA1381470 : {
         KEEP(*(.text.OnKey_Hook))
     }
     .OnKey_Jump_Part1 0xA0714D58 : {

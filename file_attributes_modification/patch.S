@@ -27,6 +27,13 @@ b . + 0x3C
 .arm
 blx Init_Hook
 
+.section .text.AddUID_Jump
+.arm
+blx AddUID_Hook
+
+.section .text.AllocWS_Jump
+.arm
+blx AllocWS_Hook
 
 .section .text.OnKey_Jump_Part1
 .arm

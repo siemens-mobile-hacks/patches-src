@@ -61,32 +61,6 @@ void SetCursor(WSHDR *ws, int cursor, int switch_attribute) {
     }
 }
 
-#define TViewAddElement ((void (*)(WSHDR *, int, const WSHDR *))(ADDR_TViewAddElement))
-#define TViewAddElementWithColon ((void (*)(WSHDR *, int, const WSHDR *))(ADDR_TViewAddElementWithColon))
-
-__attribute__((target("thumb")))
-__attribute__((section(".text.Init_Hook")))
-void Init_Hook(WSHDR *text, int lgp_id, WSHDR *path) {
-    uint32_t err;
-    if (_isdir_ws(path, &err)) {
-        _wsAppendChar(path, '\\');
-    }
-    TViewAddElement(text, lgp_id, path);
-
-    uint8_t attr;
-    if (_GetFileAttrib_ws(path, &attr, &err)) {
-        WSHDR attr_text, attr_data;
-        uint16_t wsbody_attr_text[32], wsbody_attr_data[32];
-        _CreateLocalWS(&attr_text, wsbody_attr_text, 32);
-        _CreateLocalWS(&attr_data, wsbody_attr_data, 32);
-        _wsprintf(&attr_data, "RO:%cH:%cS:%c",
-        GetAttrIcon(attr & FA_READONLY), GetAttrIcon(attr & FA_HIDDEN), GetAttrIcon(attr & FA_SYSTEM));
-        SetCursor(&attr_data, 0, 0);
-        TViewAddElementWithColon(&attr_text, 0x78F, &attr_data);
-        _wstrcat(text, &attr_text);
-    }
-}
-
 __attribute__((always_inline))
 inline uint8_t GetAttr(const WSHDR *ws, int cursor) {
     int offset = 0;
@@ -106,18 +80,18 @@ inline uint8_t GetAttr(const WSHDR *ws, int cursor) {
     return attr;
 }
 
-#define cursor gui->unk2
+#define cursor (gui->unk2)
 #define TViewClear ((WSHDR *(*)(void *, void *))(ADDR_TViewClear))
 
 __attribute__((target("thumb")))
 __attribute__((section(".text.Update")))
 void Update(GUI *gui, int switch_attribute) {
-    WSHDR *text = TViewClear((void*)gui, (uint32_t*)ADDR_mfree);
+    WSHDR *text = TViewClear(gui, ADDR_mfree);
 
     WSHDR search_s;
     uint16_t wsbody_search_s[16];
     _CreateLocalWS(&search_s, wsbody_search_s, 16);
-    _wsprintf(&search_s, "%c%c", 0xE01E, 0xE015);
+    _wsprintf(&search_s, "%c%c", UTF16_ALIGN_LEFT, UTF16_FONT_MEDIUM_BOLD);
     int p_s = _wstrwstr(text, &search_s, 1);
     if (p_s == -1) {
         goto EXIT;
@@ -127,7 +101,7 @@ void Update(GUI *gui, int switch_attribute) {
     WSHDR search_e;
     uint16_t wsbody_search_e[16];
     _CreateLocalWS(&search_e, wsbody_search_e, 16);
-    _wsprintf(&search_e, "%c%c", 0xE012, 0xE01E);
+    _wsprintf(&search_e, "%c%c", UTF16_FONT_SMALL, UTF16_ALIGN_LEFT);
     int p_e = _wstrwstr(text, &search_e, p_s);
     if (p_e == -1) {
         goto EXIT;
@@ -160,8 +134,56 @@ void Update(GUI *gui, int switch_attribute) {
         _SetFileAttrib_ws(&path, GetAttr(&attr, cursor), &err);
     }
     EXIT:
-    _TViewSetText((void*)gui, text, (uint32_t*)ADDR_malloc, (uint32_t*)ADDR_mfree);
+    _TViewSetText(gui, text, ADDR_malloc, ADDR_mfree);
     _RefreshGUI();
+}
+
+#define TViewFormatMessage ((void (*)(WSHDR *, int, const WSHDR *))(ADDR_TViewFormatMessage))
+#define TViewFormatMessageWithColon ((void (*)(WSHDR *, int, const WSHDR *))(ADDR_TViewFormatMessageWithColon))
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.Init_Hook")))
+void Init_Hook(WSHDR *text, int lgp_id, WSHDR *path) {
+    uint32_t err;
+    if (_isdir_ws(path, &err)) {
+        _wsAppendChar(path, '\\');
+    }
+    TViewFormatMessage(text, lgp_id, path);
+
+    uint8_t attr;
+    if (_GetFileAttrib_ws(path, &attr, &err)) {
+        WSHDR attr_text, attr_data;
+        uint16_t wsbody_attr_text[32], wsbody_attr_data[32];
+        _CreateLocalWS(&attr_text, wsbody_attr_text, 32);
+        _CreateLocalWS(&attr_data, wsbody_attr_data, 32);
+        _wsprintf(&attr_data, "RO:%cH:%cS:%c",
+        GetAttrIcon(attr & FA_READONLY), GetAttrIcon(attr & FA_HIDDEN), GetAttrIcon(attr & FA_SYSTEM));
+        SetCursor(&attr_data, 0, 0);
+        TViewFormatMessageWithColon(&attr_text, 0x78F, &attr_data);
+        _wstrcat(text, &attr_text);
+    }
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.AddUID_Hook")))
+void AddUID_Hook(WSHDR *text, const WSHDR *file_type) {
+    _wstrcat(text, file_type);
+    register int uid asm ("r10");
+    if (uid > 0) {
+        WSHDR msg_ws, uid_ws;
+        uint16_t wsbody_msg[16], wsbody_uid[8];
+        _CreateLocalWS(&msg_ws, wsbody_msg, 16);
+        _CreateLocalWS(&uid_ws, wsbody_uid, 8);
+        _wsprintf(&uid_ws, "0x%X", uid);
+        TViewFormatMessageWithColon(&msg_ws, (int)"UID", &uid_ws);
+        _wstrcat(text, &msg_ws);
+    }
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.AllocWS_Hook")))
+WSHDR *AllocWS_Hook(size_t size) {
+    return _AllocWS(size + 64);
 }
 
 __attribute__((target("thumb")))

@@ -1,7 +1,7 @@
 #pragma once
 
-#define ADDR_mfree            (0xA0092F93)
-#define ADDR_malloc           (0xA0092F51)
+#define ADDR_mfree  (uint32_t*)(0xA0092F93)
+#define ADDR_malloc (uint32_t*)(0xA0092F51)
 #define ADDR_AllocWS          (0xA093F611)
 #define ADDR_wstrcat          (0xA04FB411)
 #define ADDR_wstrchr          (0xA04FAD4F)
@@ -21,6 +21,6 @@
 #define ADDR_GetFileAttrib_ws (0xA0567EF8)
 #define ADDR_SetFileAttrib_ws (0xA05681EC)
 
-#define ADDR_TViewClear               (0xA0958330 | 1)
-#define ADDR_TViewAddElement          (0xA0713320)
-#define ADDR_TViewAddElementWithColon (0xA0713374)
+#define ADDR_TViewClear                  (0xA0958330 | 1)
+#define ADDR_TViewFormatMessage          (0xA0713320)
+#define ADDR_TViewFormatMessageWithColon (0xA0713374)
