@@ -1,6 +1,6 @@
 #pragma once
 
-#define ADDR_IsAnyAccessoryConnected (0xA053E95C)
+#define ADDR_IsAnyOfAccessoriesConnected (0xA053E95C)
 
 #define ADDR_Set      (0xA04CB7A4)
 #define ADDR_GetState (0xA00945A0 | 1)
