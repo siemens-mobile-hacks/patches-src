@@ -1,5 +1,5 @@
-.section .text.DrawSimpleBar
+.section .text.Jump
 .thumb
-bl DrawSimpleBarHook
+bl Hook
 nop
 nop
