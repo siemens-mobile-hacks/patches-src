@@ -13,6 +13,9 @@
 #ifdef CF75_23
     #include "CF75_23.h"
 #endif
+#ifdef C75_24
+    #include "C75_24.h"
+#endif
 
 #define _udiv ((uint32_t (*)(uint32_t, uint32_t))(ADDR_udiv))
 #define _malloc ((void *(*)(size_t))(ADDR_malloc))

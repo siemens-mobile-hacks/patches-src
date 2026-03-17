@@ -12,6 +12,9 @@
 #ifdef CF75_23
     #include "CF75_23.h"
 #endif
+#ifdef C75_24
+    #include "C75_24.h"
+#endif
 
 #define CEPID_MMS 0x4220
 #define MESSAGE "MMS client is disabled!"

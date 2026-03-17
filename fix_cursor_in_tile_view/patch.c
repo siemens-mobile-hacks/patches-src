@@ -10,6 +10,9 @@
     #ifdef C72_22
         #include "C72_22.h"
     #endif
+    #ifdef C75_24
+        #include "C75_24.h"
+    #endif
 #endif
 
 #define _DrawRoundedFrame ((void (*)(int x1, int y1, int x2, int y2, int x_round, int y_round, int flags, const char *pen, const char *brush))(ADDR_DrawRoundedFrame))

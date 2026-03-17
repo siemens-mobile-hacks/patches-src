@@ -28,3 +28,7 @@ target_compile_definitions(CF75v23 PUBLIC -DSECONDARY_DISPLAY)
 # C72v22
 add_executable(C72v22 patch.c patch.S)
 define_patch(C72v22 SG C72 22)
+
+# C75v24
+add_executable(C75v24 patch.c patch.S)
+define_patch(C75v24 SG C75 24)

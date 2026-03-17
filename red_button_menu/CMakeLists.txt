@@ -23,3 +23,7 @@ define_patch(S65v58 SG S65 58)
 # CF75v23
 add_executable(CF75v23 patch.c patch.S)
 define_patch(CF75v23 SG CF75 23)
+
+# C75v24
+add_executable(C75v24 patch.c patch.S)
+define_patch(C75v24 SG C75 24)

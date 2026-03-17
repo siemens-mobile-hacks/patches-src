@@ -5,7 +5,7 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake)
 
 project(patch_handle_disabled_mms_client_by_showing_a_message LANGUAGES C ASM)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 add_compile_options(-Os)
 
 # C72v22
@@ -23,3 +23,7 @@ define_patch(S65v58 SG S65 58)
 # CF75v23
 add_executable(CF75v23 patch.c patch.S)
 define_patch(CF75v23 SG CF75 23)
+
+# C75v24
+add_executable(C75v24 patch.c patch.S)
+define_patch(C75v24 SG C75 24)

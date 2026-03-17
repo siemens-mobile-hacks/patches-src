@@ -30,4 +30,4 @@
 #define ADDR_RamChargeBroken (int16_t*)(0xA86C0E02)
 #define ADDR_RamChargeFast   (int16_t*)(0xA86C0E08)
 
-#define ADDR_SOFTKEY_LEFT          (SOFTKEY_DESC*)(0xA094D66C)
+#define ADDR_SOFTKEY_LEFT (SOFTKEY_DESC*)(0xA094D66C)

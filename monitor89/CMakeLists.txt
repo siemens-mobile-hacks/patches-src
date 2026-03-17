@@ -24,3 +24,7 @@ target_compile_definitions(S65_58 PUBLIC -DHAS_BT)
 # CF75_23
 add_executable(CF75_23 patch.c patch.S)
 define_patch(CF75_23 SG CF75 23)
+
+# C75_24
+add_executable(C75_24 patch.c patch.S)
+define_patch(C75_24 SG C75 24)

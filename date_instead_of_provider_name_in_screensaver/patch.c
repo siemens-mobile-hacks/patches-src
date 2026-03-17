@@ -18,6 +18,9 @@
     #ifdef C72_22
         #include "C72_22.h"
     #endif
+    #ifdef C75_24
+        #include "C75_24.h"
+    #endif
     #define _GetDateTime ((void (*)(TDate *, TTime *))(ADDR_GetDateTime))
     #define _GetDate_ws ((void (*)(WSHDR *, const TDate *, int))(ADDR_GetDate_ws))
 #endif

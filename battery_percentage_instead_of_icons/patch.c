@@ -25,6 +25,9 @@
     #ifdef CF75_23
         #include "CF75_23.h"
     #endif
+    #ifdef C75_24
+        #include "C75_24.h"
+    #endif
     #define ICONBAR_H 18
 #endif
 
