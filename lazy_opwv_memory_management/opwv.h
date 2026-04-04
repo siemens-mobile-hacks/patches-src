@@ -1,0 +1,84 @@
+#pragma once
+
+typedef unsigned char undefined;
+typedef unsigned int  uint;
+typedef unsigned int  undefined4;
+typedef struct NU_MEMORY_POOL_STRUCT NU_MEMORY_POOL;
+
+typedef struct OPWV_HEAP_DATA OPWV_HEAP_DATA;
+
+struct HEAP_POOL {
+    uint field0_0x0;
+    uint *field1_0x4;
+    uint field2_0x8;
+    NU_MEMORY_POOL *nu_pool;
+    void *start_addr;
+    size_t field5_0x14;
+    size_t field6_0x18;
+    undefined4 field7_0x1c;
+    char *name;
+    undefined field9_0x24;
+    undefined field10_0x25;
+    undefined field11_0x26;
+    undefined field12_0x27;
+    undefined field13_0x28;
+    undefined field14_0x29;
+    undefined field15_0x2a;
+    undefined field16_0x2b;
+    undefined field17_0x2c;
+    undefined field18_0x2d;
+    undefined field19_0x2e;
+    undefined field20_0x2f;
+    undefined field21_0x30;
+    undefined field22_0x31;
+    undefined field23_0x32;
+    undefined field24_0x33;
+    undefined field25_0x34;
+    undefined field26_0x35;
+    undefined field27_0x36;
+    undefined field28_0x37;
+    undefined field29_0x38;
+    undefined field30_0x39;
+    undefined field31_0x3a;
+    undefined field32_0x3b;
+    undefined field33_0x3c;
+    undefined field34_0x3d;
+    undefined field35_0x3e;
+    undefined field36_0x3f;
+    undefined field37_0x40;
+    undefined field38_0x41;
+    undefined field39_0x42;
+    undefined field40_0x43;
+    uint field41_0x44;
+};
+
+struct OPWV_HEAP_DATA {
+    size_t field0_0x0;
+    undefined field1_0x4;
+    undefined field2_0x5;
+    undefined field3_0x6;
+    undefined field4_0x7;
+    undefined field5_0x8;
+    undefined field6_0x9;
+    undefined field7_0xa;
+    undefined field8_0xb;
+    int opwv_framework_heap_allocated;
+    struct HEAP_POOL opwv_framework_heap;
+    void *opwv_framework_heap_addr;
+    size_t opwv_framework_heap_size;
+    int opwv_browser_heap_allocated;
+    struct HEAP_POOL opwv_browser_heap;
+    void *opwv_browser_heap_addr;
+    int opwv_browser_heap_size;
+    int browser_device_layer_heap_allocated;
+    struct HEAP_POOL browser_device_layer_heap;
+    void *browser_device_layer_heap_addr;
+    int browser_device_layer_heap_counter;
+    int field21_0x108;
+    undefined field22_0x10c;
+    undefined field23_0x10d;
+    undefined field24_0x10e;
+    undefined field25_0x10f;
+    void *opwv_framework_heap_mem;
+    size_t field27_0x114;
+};
