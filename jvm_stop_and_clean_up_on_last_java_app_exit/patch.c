@@ -6,7 +6,7 @@
 
 #define _mfree ((void (*)(void *))(ADDR_mfree))
 
-#define MSG_STOP_JVM 0x6201
+#define MSG_JVM_END 0x6202
 
 #define MM_EnableJavaBoost ((void (*)(int))(ADDR_MM_EnableJavaBoost))
 #define RAP_GBS_SendMessage ((void (*)(int, int))(ADDR_RAP_GBS_SendMessage))
@@ -16,7 +16,7 @@ __attribute__((section(".text.JVM_Stop_Hook")))
 void JVM_Stop_Hook(int disable) {
     MM_EnableJavaBoost(disable);
     if (*RamIsRunJava == 0) {
-        RAP_GBS_SendMessage(3, MSG_STOP_JVM);
+        RAP_GBS_SendMessage(3, MSG_JVM_END);
     }
 }
 
@@ -26,7 +26,7 @@ __attribute__((target("thumb")))
 __attribute__((section(".text.JVM_Free_Hook")))
 int JVM_Free_Hook(const GBS_MSG *msg) {
     int result = HandleMsg(msg);
-    if (msg->msg == MSG_STOP_JVM) {
+    if (msg->msg == MSG_JVM_END) {
         if (JVM_Heap->slot1) {
             if (JVM_Heap->slot1_heap) {
                 _mfree(JVM_Heap->slot1_heap);
