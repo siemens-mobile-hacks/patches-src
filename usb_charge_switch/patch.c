@@ -1,8 +1,16 @@
 #include <swilib.h>
 
 #ifdef NEWSGOLD
-    #ifdef E71_45
-        #include "E71_45.h"
+    #ifdef ELKA
+        #ifdef E71_45
+            #include "E71_45.h"
+        #endif
+    #define ACCESSORIES_COUNT 6
+    #else
+        #ifdef S75_52
+            #include "S75_52.h"
+        #endif
+    #define ACCESSORIES_COUNT 4
     #endif
 #endif
 
@@ -33,7 +41,7 @@ int Hook_2(void *r0) {
         if (state == 1) {
             state = 0;
         } else if (state == 2) {
-            if (_IsAnyOfAccessoriesConnected(ACCESSORIES, 6)) {
+            if (_IsAnyOfAccessoriesConnected(ACCESSORIES, ACCESSORIES_COUNT)) {
                 state = 0;
             }
         }
