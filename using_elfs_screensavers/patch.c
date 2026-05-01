@@ -18,47 +18,72 @@
     #define SCREEN_H 176
 #endif
 
+#define _str_2ws ((void (*)(WSHDR *ws, const char *str, unsigned int size))(ADDR_str_2ws))
 #define _CreateGUI ((int (*)(GUI *gui))(ADDR_CreateGUI))
 #define _GBS_SendMessage ((void (*)(int cepid, int msg, ...))(ADDR_GBS_SendMessage))
 #define _GetLangMessIntoWS ((void (*)(int lgp_id, WSHDR *ws))(ADDR_GetLangMessIntoWS))
-#define _str_2ws ((void (*)(WSHDR *ws, const char *str, unsigned int size))(ADDR_str_2ws))
 
-#ifndef NEWSGOLD
+#ifdef NEWSGOLD
+    #define _IsScreenSaver ((int (*)())(ADDR_IsScreenSaver))
+
+    #define BaseOnRedraw ((void (*)(void *))(ADDR_BaseOnRedraw))
+    #define GetScreenSaverType ((uint8_t (*)())(ADDR_GetScreenSaverType))
+    #define GetScreenSaverTypeFromSettings ((uint8_t (*)())(ADDR_GetScreenSaverTypeFromSettings))
+#else
     #define _DrawRectangle ((void (*)(int, int, int, int, int, const char *, const char *))(ADDR_DrawRectangle))
     #define _GetPaletteAdrByColorIndex ((char* (*)(int index))(ADDR_GetPaletteAdrByColorIndex))
 #endif
 
 __attribute__((target("thumb")))
-__attribute__((section(".text.CreateGUI")))
-int CreateGUI_SS(GUI *gui) {
-    int gui_id = _CreateGUI(gui);
+__attribute__((section(".text.FixName_Hook")))
+void FixName_Hook(WSHDR *ws, int lgp_id) {
 #ifdef NEWSGOLD
-    if ((unsigned int)gui->definition >= 0xA8000000) {
-        _GBS_SendMessage(MMI_CEPID, 0x3FA, gui_id, gui);
-    }
+    if (lgp_id == LGP_ID_REF1 || lgp_id == LGP_ID_REF2) {
 #else
-    if (gui->definition == DEFINITON_ENERGY_SAVER) {
-        _GBS_SendMessage(MMI_CEPID, 0x3FA, gui_id, gui);
-    }
+    if (lgp_id == LGP_ID_REF) {
 #endif
-    return gui_id;
+        _str_2ws(ws, "Third-party", 12);
+    } else {
+        _GetLangMessIntoWS(lgp_id, ws);
+    }
 }
 
-#ifndef NEWSGOLD
+#ifdef NEWSGOLD
+
 __attribute__((target("thumb")))
-__attribute__((section(".text.OnRedraw")))
-void OnRedraw() {
+__attribute__((section(".text.GetType")))
+int GetType() {
+    return (_IsScreenSaver()) ? GetScreenSaverType() : GetScreenSaverTypeFromSettings();
+}
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.BaseOnRedraw_Hook")))
+void BaseOnRedraw_Hook(void *gui) {
+    if (GetType() != 2) {
+        BaseOnRedraw(gui);
+    }
+}
+
+#else
+
+__attribute__((target("thumb")))
+__attribute__((section(".text.OnRedraw_Hook")))
+void OnRedraw_Hook() {
     _DrawRectangle(0, 0, SCREEN_W - 1, SCREEN_H - 1, 0,
         _GetPaletteAdrByColorIndex(1), _GetPaletteAdrByColorIndex(1));
 }
 #endif
 
 __attribute__((target("thumb")))
-__attribute__((section(".text.GetLangMessageIntoWS")))
-void GetLangMessageIntoWS(int lgp_id, WSHDR *ws) {
-     if (lgp_id == LGP_ID_ENERGY_SAVER) {
-         _str_2ws(ws, "ELF", 3);
-     } else {
-         _GetLangMessIntoWS(lgp_id, ws);
-     }
+__attribute__((section(".text.CreateGUI_Hook")))
+int CreateGUI_Hook(GUI *gui) {
+    const int gui_id = _CreateGUI(gui);
+#ifdef NEWSGOLD
+    if (gui->definition == DEFINITION_REF1 || gui->definition == DEFINITION_REF2) {
+#else
+    if (gui->definition == DEFINITION_REF) {
+#endif
+        _GBS_SendMessage(MMI_CEPID, 0x3FA, gui_id, gui);
+    }
+    return gui_id;
 }

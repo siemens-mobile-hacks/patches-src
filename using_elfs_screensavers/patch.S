@@ -1,15 +1,14 @@
-.section .text.CreateGUI_Jump
-.thumb
-bl CreateGUI_SS
-
-#ifdef ELKA
-    .section .text.FixScreenSaver_1
+#ifdef NEWSGOLD
+    .section .text.Outdoor_Add_Part1
     .thumb
-    cmp r5, #0xFF
+    cmp r1, #0x8
 
-    .section .text.FixScreenSaver_2
+    .section .text.Outdoor_Add_Part2
     .thumb
-    cmp r5, #0xFF
+    mov r1, #0x7
+
+    .section .data.Outdoor_RemoveMissedIcon
+    .int 0x0
 #else
     .section .text.FixScreenSaver_1
     .thumb
@@ -21,18 +20,34 @@ bl CreateGUI_SS
 #endif
 
 #ifdef NEWSGOLD
-    .section .text.GetLangMessageIntoWS_Jump_1
+    .section .text.FixName_Jump_1
     .thumb
-    bl GetLangMessageIntoWS
+    ldr r1, [r1, r0]
+    add r0, r5, #0x00
+    bl FixName_Hook
 
-    .section .text.GetLangMessageIntoWS_Jump_2
+    .section .text.FixName_Jump_2
     .thumb
-    bl GetLangMessageIntoWS
+    mov r1, r2
+    bl FixName_Hook
 #else
-    .section .data.OnRedraw_Addr
-    .int OnRedraw
-
-    .section .text.GetLangMessageIntoWS_Jump
+    .section .text.FixName_Jump
     .thumb
-    bl GetLangMessageIntoWS
+    ldr r1, [r1, r0]
+    mov r2, #0x00
+    add r0, r5, #0x00
+    bl FixName_Hook
 #endif
+
+#ifdef NEWSGOLD
+    .section .text.BaseOnRedraw_Jump
+    .thumb
+    bl BaseOnRedraw_Hook
+#else
+    .section .data.OnRedraw_Jump
+    .int OnRedraw_Hook
+#endif
+
+.section .text.CreateGUI_Jump
+.thumb
+bl CreateGUI_Hook
