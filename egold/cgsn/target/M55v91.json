@@ -1,0 +1,19 @@
+{
+  "model": "M55",
+  "version": "91",
+  "FirmwareBase": "0x200000",
+  "symbols": {
+    "GetArgPointer": "0xC39B08",
+    "ATEmptyBuffer": "0xC3C84C",
+    "AT_AddAnsw": "0xC3C484",
+    "ATSendBufferToSerialPort": "0xC3CED0",
+    "AT_SayResult": "0xC394D8",
+    "IPCopyStringZ": "0xBFA7FA",
+    "OrigATHandle": "0xC249D8",
+    "AddrInTable": "0x455B3C",
+    "PatchAddress": "0x506FEE"
+  },
+  "constants": {
+    "StkSize": "0x46"
+  }
+}

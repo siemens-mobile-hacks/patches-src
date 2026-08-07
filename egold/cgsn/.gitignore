@@ -1,0 +1,19 @@
+# Generated build tree and patches
+/build/
+/cgsn_*.vkp
+/AGENTS.md
+
+# Firmware images must never be committed
+*.bin
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Keil C166 outputs outside build/ (if created manually)
+*.ABS
+*.H86
+*.LST
+*.M66
+*.OBJ
+*.SBR

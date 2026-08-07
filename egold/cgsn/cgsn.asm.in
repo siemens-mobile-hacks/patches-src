@@ -1,0 +1,639 @@
+;{{MODEL}} debug patch source file By SiNgle (For {{MODEL}} v{{VERSION}})
+;----------------------------------------------
+
+$Mod167
+
+$IF NOT TINY
+$SEGMENTED
+$ENDIF
+
+GetArgPointer EQU {{GetArgPointer}} ;Address of the function, what return the pointer to arguments
+ATEmptyBuffer EQU {{ATEmptyBuffer}} ;function, what called at the begin of original CGSN command.
+AT_AddAnsw EQU {{AT_AddAnsw}} ;Adds string [R13:R12] to AT responce
+ATSendBufferToSerialPort EQU {{ATSendBufferToSerialPort}}
+;0E20D38h ;Sends the SendLater buffer (this function do not emptying the buffer)
+AT_SayResult EQU {{AT_SayResult}} ;Proc., finishing answer with 'OK' or 'ERROR' (or someth. else :)
+IPCopyStringZ EQU {{IPCopyStringZ}} ;Inter-page copy proc. (R15:[R14] ---> R13:[R12])
+OrigATHandle EQU {{OrigATHandle}} ;Original address of GSN procedure
+AddrInTable EQU {{AddrInTable}} ;File offset of handler in AT+CGSN command table
+PatchAddress EQU {{PatchAddress}} ;Free runtime address in fullflash
+StkSize EQU {{StkSize}} ;Needed stack size, even value, >= 46h
+
+Table Section Data Byte At AddrInTable
+funcoff dw sof(NewHandle2)
+funcseg dw seg(NewHandle2)
+Table ends
+
+;==========================================================
+Patch Section Code Word At PatchAddress
+
+GetNextDigit Proc near
+movb RL1, [R12+]
+subb RL1, #30h
+jmpr cc_C, locNotDigit
+cmpb RL1, #10
+jmpr cc_C, locDigit
+andb RL1,#0DFh
+subb RL1, #7
+cmpb RL1, #0Fh
+jmpr cc_UGT, locNotDigit
+locDigit:
+shl R4, #04h
+orb RL4, RL1
+ret
+locNotDigit:
+bset C
+ret
+GetNextDigit endp
+;-----------------------------------------------
+
+GetHexWord Proc near
+callr GetHexByte
+jmpr cc_C, ErrEx
+mov R5, R4
+shl R5, #8
+callr GetHexByte
+jmpr cc_C, ErrEx
+or R4, R5
+ErrEx:
+ret
+GetHexWord endp
+;------------------------------------------------
+
+GetAddress Proc near
+mov R12, R11 ;^Param
+movb RH1, [R12+#2]
+cmpb RH1, #3Ah ;':'
+jmpr cc_Z, ReadAddr
+cmpb RH1, #2Ch ;','
+jmpr cc_NZ, AddrErr
+ReadAddr:
+callr GetHexByte
+jmpr cc_C, AddrErr
+mov R15, R4
+add R12, #1
+callr GetHexWord
+jmpr cc_C, AddrErr
+mov R14, R4
+cmpb RH1, #2Ch ;','
+jmpr cc_Z, Addr_OK
+;--------------------- Transform from page address -------------
+bmov R14.14, R15.0
+bmov R14.15, R15.1
+shr R15, #2
+Addr_OK:
+mov R4, #0
+ret
+AddrErr:
+mov R4, #1
+ret
+GetAddress endp
+;-------------------------------------------------
+
+FillRegForm Proc near
+movb RL5, [R12+]
+jmpr cc_UC, EnterWhile
+LoopWhile:
+mov R4, #0
+callr GetNextDigit
+jmpr cc_C, QuitFill
+cmp R4, #1
+jmpr cc_C, QuitFill
+cmp R4, #0Fh
+jmpr cc_UGT, QuitFill
+mov R6, R4
+sub R6, #1
+add R12, #1
+callr GetHexWord
+jmpr cc_C, QuitFill
+mov R5, #1
+shl R5, R6
+mov R7, [R0+#1Eh]
+or R7, R5
+mov [R0+#1Eh], R7
+shl R6, #1
+add R6, R0
+mov [R6], R4
+movb RL5, [R12+]
+cmpb RL5, #2Ch ;','
+jmpr cc_NZ, EnterWhile
+movb RL5, [R12+]
+EnterWhile:
+andb RL5, #0DFh
+cmpb RL5, #52h ;'R'
+jmpr cc_Z, LoopWhile
+QuitFill:
+ret
+FillRegForm endp
+;---------------------------------------------------
+
+GetHexByte Proc near
+mov R4, #0
+callr GetNextDigit
+jmpr cc_C, locret
+callr GetNextDigit
+locret:
+ret
+GetHexByte endp
+;----------------------------------------------
+
+TreatExecParam Proc near
+mov R4, #0
+mov [R0+#1Eh], R4
+movb RL5, [R11+#7]
+cmpb RL5, #2Ch
+jmpr cc_NZ, EndTreat
+callr FillRegForm
+EndTreat:
+ret
+TreatExecParam endp
+;----------------------------------------------------
+
+LoadRegAndCall Proc far
+push R15
+push R14
+mov MDL, #1
+mov MDH, #0
+Cycle:
+mov R15, [R0+#1Eh]
+and R15, MDL
+jmpr cc_Z, EndCase
+mov R14, MDH
+shl R14, #1
+mov R15, R0
+add R15, R14
+mov R15, [R15]
+add R14, CP
+add R14, #2
+mov [R14], R15
+
+EndCase:
+mov R15, MDL
+shl R15, #1
+mov MDL, R15
+add MDH, #1
+cmp MDH, #0Ch
+jmpr cc_ULE, Cycle
+mov R14, [R0+#1Eh]
+and R14, MDL
+jmpr cc_Z, setR15
+mov R14, [R0+#1Ah]
+setR15:
+mov R15, MDL
+shl R15, #1
+mov MDL, R15
+mov R15, [R0+#1Eh]
+and R15, MDL
+jmpr cc_Z, ToJmp
+mov R15, [R0+#1Ch]
+ToJmp:
+rets
+LoadRegAndCall endp
+;-----------------------------------------
+
+DumpRegister Proc near
+mov [-R0], R4
+movb RH4, #52h ;'R'
+movb [R12], RH4
+add R12, #1
+movb RH4, #0
+callr Byte2Hex
+movb [R12], RH4
+add R12, #1
+movb RH4, #3Dh ;'='
+movb [R12], RH4
+add R12, #1
+mov R4, R15
+callr Word2Hex
+mov R4, [R0+]
+ret
+DumpRegister endp
+;-----------------------------------------
+
+DumpAllRegs Proc near
+sub R0, #(134-StkSize) ;additional place
+push R15
+;for two lines
+push R12
+push R4
+mov R12, R0
+mov R4, #0
+Cyc:
+mov R15, R4
+shl R15, #1
+add R15, CP
+mov R15, [R15+]
+cmp R4, #4
+jmpr cc_NZ, Go1
+pop R15
+Go1:
+cmp R4, #12
+jmpr cc_NZ, Go2
+pop R15
+Go2:
+cmp R4, #15
+jmpr cc_NZ, Next
+pop R15
+Next:
+callr DumpRegister
+movb RH4, #20h
+movb [R12], RH4
+add R12, #1
+movb RH4, #0
+add R4, #1
+cmp R4, #8
+jmpr cc_NZ, NoCR
+callr AddCRLF
+NoCR:
+cmp R4, #10h
+jmpr cc_C, Cyc
+movb RL4, #0
+movb [R12], RL4
+mov R12, R0
+and R12, #3FFFh
+mov R13, DPP1
+calls seg(AT_AddAnsw), sof(AT_AddAnsw)
+add R0, #(134-StkSize)
+ret
+DumpAllRegs endp
+;--------------------------------------------------
+
+Byte2Hex Proc near
+mov [-R0], R1
+mov R1, R4
+shr R1, #4
+shl R4, #8
+or R4, R1
+and R4, #0F0Fh
+cmpb RH4, #0Ah
+jmpr cc_C, noChar
+addb RH4, #7
+noChar:
+cmpb RL4, #0Ah
+jmpr cc_C, noChar1
+addb RL4, #7
+noChar1:
+add R4, #3030h
+mov R1, [R0+]
+ret
+Byte2Hex endp
+;----------------------------------------------
+
+; R12 - addr of place to add R4 to
+DumpR4 Proc near
+movb [R12], rl4
+add R12, #1
+movb [R12], rh4
+add R12, #1
+ret
+DumpR4 endp
+;-------------------------------------------
+
+Word2Hex Proc near
+mov [-R0], R4
+shr R4, #8
+callr Byte2Hex
+callr DumpR4
+mov R4, [R0]
+and R4, #0FFh
+callr Byte2Hex
+callr DumpR4
+mov R4, [R0+]
+ret
+Word2Hex endp
+;-----------------------------------------------
+
+; R12 - addr of place to add CRLF to
+AddCRLF Proc near
+mov [-R0], R4
+mov R4, #0A0Dh
+callr DumpR4
+mov R4, [R0+]
+ret
+AddCRLF Endp
+;-------------------------------------------------
+
+NewHandle2 Proc far
+calls seg(GetArgPointer), sof(GetArgPointer)
+mov DPP0, R5
+mov R11, R4
+movb RL3, [R11+]
+cmpb RL3, #3Dh ; '='
+jmpr cc_z, ToOrigin
+subb RL3, #42
+jmpr cc_NC, HandleNew
+ToOrigin:
+jmps seg(OrigATHandle), sof(OrigATHandle)
+
+;----------------------------------------------
+HandleNew:
+push DPP0
+mov [-R0], R11
+mov [-R0], R3
+calls seg(ATEmptyBuffer), sof(ATEmptyBuffer)
+mov R3, [R0+]
+mov R11, [R0+]
+pop DPP0
+
+sub R0, #StkSize
+cmpb RL3, #2
+jmpr cc_Z, HandleAsk ;Ask version
+call GetAddress
+cmp R4, #0
+jmpr cc_NZ, ErrExit ;Address error
+mov R12, #8
+add R12, R11
+cmpb RL3, #0
+jmp cc_Z, HandleAsterisk ;Write data
+subb RL3, #4
+jmp cc_Z, HandleDot ;Search data
+subb RL3, #12h
+jmp cc_Z, HandleAtSign ;Run procedure
+;_________________ Read data ______________________________
+call TreatDumpParam
+movb RL4, [R11+#2]
+cmpb RL4, #2Ch
+jmpr cc_Z, DumpData
+bset R3.8
+DumpData:
+;R15:R14 - seg:offset of memory
+
+;RH3 =1 - if R15:R14 must be converterd to page:offset
+
+;RL3 - length of data to dump.
+bset R3.9
+MainCycle:
+mov R12, R0
+jb R3.9, DoNotAddCRLF
+callr AddCRLF
+DoNotAddCRLF:
+bclr R3.9
+movb RL4, #5Bh ; '['
+movb [R12], RL4
+add R12, #1
+jnb R3.8, SegAddr
+;---------- Page Addressing --------------
+PageAddr:
+call Seg2Page
+mov R4, R10
+callr Byte2Hex
+callr DumpR4
+movb RL4, #3Ah ; delimiter ':'
+movb [R12], RL4
+add R12, #1
+mov R4, R8
+jmpr cc_UC, DumpOffs
+;---------- Segment Addressing ----------
+SegAddr:
+mov R4, R15
+callr Byte2Hex
+callr DumpR4
+mov R4, R14
+DumpOffs:
+callr Word2Hex
+mov R4, #3A5Dh ; ']:'
+callr DumpR4
+movb RL2, #0Fh
+IntCycle:
+call Seg2Page
+cmpb RL2, #7
+jmpr cc_NZ, GoOn
+mov R4, #2D20h
+callr DumpR4
+GoOn:
+movb RL4, #20h
+movb [R12], RL4
+add R12, #1
+mov R4, #0
+extp R10, #1
+movb RL4, [R8]
+call Byte2Hex
+callr DumpR4
+cmp RL3, #80h
+jmp cc_NZ, NoFlushBuffer
+bset R3.9
+NoFlushBuffer:
+subb RL3, #1
+jmpr cc_C, PrintStr
+add R14, #1
+addc R15, #0
+subb RL2, #1
+jmpr cc_NC, IntCycle
+PrintStr:
+mov [R0+#(StkSize-2)], R3
+mov [R0+#(StkSize-4)], R14
+mov [R0+#(StkSize-6)], R15
+movb RL4, #0
+movb [R12], RL4
+mov R12, R0
+and R12, #3FFFh
+mov R13, DPP1
+calls seg(AT_AddAnsw), sof(AT_AddAnsw) ;R11 and DPP0 is destroyed.
+mov R3, [R0+#(StkSize-2)]
+jnb R3.9, DoNotFlushBuffer
+; for S55 (and, may be other) we cannot use Buffer for
+; lenght of data more than 7Fh. If we write more data is ACSII format phone will
+; turned off while you try to connect to him wia bluetooth.
+; Therefore we sometime need to flush internal Buffer or AT command.
+calls seg(ATSendBufferToSerialPort), sof(ATSendBufferToSerialPort)
+calls seg(ATEmptyBuffer), sof(ATEmptyBuffer)
+mov R3, [R0+#(StkSize-2)]
+DoNotFlushBuffer:
+mov R14, [R0+#(StkSize-4)]
+mov R15, [R0+#(StkSize-6)]
+cmpb RL3, #0FFh
+jmpr cc_NZ, MainCycle
+mov R12, #0 ; Say 'OK'
+jmpr cc_UC, EndOfCommand
+;-------------------------------------------
+ErrExit:
+
+mov R15, #pag(AddrErrStr)
+mov R14, #pof(AddrErrStr)
+call AddString
+ToErEx:
+mov R12, #4 ; Say 'ERROR'
+jmpr cc_UC, EndOfCommand
+
+;________________ Ask Patch version ________________
+HandleAsk:
+mov R15, #pag(InfoString)
+mov R14, #pof(InfoString)
+callr AddString
+mov R12, #0 ; Say 'OK'
+jmpr cc_UC, EndOfCommand
+
+;________________ Write Data ______________________
+HandleAsterisk:
+Call GetHexByte
+jmpr cc_C, ToQuit
+callr Seg2Page
+mov R7, R8
+and R7, #0FFFEh
+extp R10, #1
+mov R3, [R7]
+bmov C, R14.0
+jmpr cc_C, OddByte
+movb RL3, RL4
+jmpr cc_UC, RecWord
+OddByte:
+movb RH3, RL4
+RecWord:
+extp R10, #2
+mov [R7], R3
+mov R4, [R7]
+cmp R3, R4
+jmpr cc_NZ, ErrWr
+add R14, #1
+addc R15, #0
+jmpr cc_UC, HandleAsterisk
+ErrWr:
+mov R10, #pag(sWriteError)
+mov R8, #pof(sWriteError)
+mov R9, #17
+callr PutStrWithAdr
+mov R12, #4 ; Say 'ERROR'
+jmpr cc_UC, EndOfCommand
+ToQuit:
+mov R12, #0 ; Say 'OK'
+EndOfCommand:
+add R0, #StkSize
+mov [-R0], R12
+calls seg(ATSendBufferToSerialPort), sof(ATSendBufferToSerialPort)
+mov R12, [R0+]
+jmps seg(AT_SayResult), sof(AT_SayResult)
+
+
+;______________ Run Procedure _______________________
+HandleAtSign:
+call TreatExecParam
+calls seg(LoadRegAndCall), sof(LoadRegAndCall)
+call DumpAllRegs
+mov R12, #0 ; Say 'OK'
+jmpr cc_UC, EndOfCommand
+
+;_______________ Search Data ________________________
+HandleDot:
+mov R2, R0
+LoadLoop:
+call GetHexByte
+jmpr cc_C, DataEnd
+movb [R2], RL4
+add R2, #1
+jmpr cc_UC, LoadLoop
+;---------------------------------------------
+DataEnd:
+sub R2, R0
+IncMem:
+mov R1, R0
+mov R13, R14
+mov R12, R2
+aLoopR12:
+exts R15, #1
+movb RL4, [R13+]
+cmpb RL4, [R1+]
+jmpr cc_Z, NxtByte
+add R14, #1
+jmpr cc_NZ, IncMem
+mov R12, #4 ; Say 'ERROR'
+jmpr cc_UC, EndOfCommand
+NxtByte:
+sub R12, #1
+jmpr cc_NZ, aLoopR12
+;------------ Data found -------------
+mov R10, #pag(sDataFound)
+mov R8, #pof(sDataFound)
+mov R9, #14
+callr PutStrWithAdr
+EndSegm:
+mov R12, #0 ; Say 'OK'
+jmpr cc_UC, EndOfCommand
+;-----------------------------------------
+NewHandle2 endp
+;============================================================
+
+Seg2Page Proc near
+mov R10, R15
+shl R10, #2
+mov R8, R14
+shr R8, #14
+or R10, R8
+mov R8, R14
+and R8, #3FFFh
+ret
+Seg2Page endp
+;------------------------------------------
+
+; R15:R14 - page:offset of string
+; R12 - offset of buffer in stack
+PutLine2Stack Proc near
+and R14, #3FFFh
+and R12, #3FFFh
+mov R13, DPP1
+calls seg(IPCopyStringZ), sof(IPCopyStringZ)
+;Inter-page copy proc. (R15:[R14] ---> R13:[R12])
+ret
+PutLine2Stack endp
+;---------------------------------------------------------------------------------
+
+; R15:R14 - page:offset of string
+AddString proc near
+mov R12, R0
+callr PutLine2Stack
+mov R12, R0
+and R12, #3FFFh
+mov R13, DPP1
+push DPP0
+calls seg(AT_AddAnsw), sof(AT_AddAnsw)
+pop DPP0
+ret
+AddString endp
+;--------------------------------------------
+
+TreatDumpParam Proc near
+mov R4, #1
+movb RL5, [R11+#7]
+cmpb RL5, #2Ch
+jmpr cc_NZ, Cont
+call GetHexByte
+jmpr cc_NC, Cont
+mov R4, #1
+Cont:
+mov R3, R4
+mov [R0+#(StkSize-2)], R3
+ret
+TreatDumpParam endp
+;----------------------------------------------
+
+PutStrWithAdr Proc near
+mov R12, R0
+mov [-R0], R15
+mov [-R0], R14
+mov R15, R10
+mov R14, R8
+callr PutLine2Stack
+mov R14, [R0+]
+mov R4, [R0+]
+mov R12, R9
+add R12, R0
+call Byte2Hex
+call DumpR4
+mov R4, R14
+call Word2Hex
+movb RL4, #0
+movb [R12], RL4
+mov R12, R0
+and R12, #3FFFh
+mov R13, DPP1
+calls seg(AT_AddAnsw), sof(AT_AddAnsw)
+ret
+PutStrWithAdr endp
+
+InfoString: db 'KonstanT, ValeraVi (S55), SiNgle ({{MODEL}}) (c) Patch v1.2',0
+AddrErrStr: db 'Error in address pointing!',0
+sDataFound: db 'Data found at ',0
+sWriteError: db 'Error writing at ',0
+
+Patch EndS
+
+END
