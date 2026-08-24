@@ -1,0 +1,19 @@
+{
+  "model": "C60",
+  "version": "17",
+  "FirmwareBase": "0x200000",
+  "symbols": {
+    "GetArgPointer": "0xB37B3E",
+    "ATEmptyBuffer": "0xB3C824",
+    "AT_AddAnsw": "0xB3C55E",
+    "ATSendBufferToSerialPort": "0xB3CD22",
+    "AT_SayResult": "0xB374E2",
+    "IPCopyStringZ": "0xCEA7D2",
+    "OrigATHandle": "0xB266A2",
+    "AddrInTable": "0x939E7A",
+    "PatchAddress": "0x830254"
+  },
+  "constants": {
+    "StkSize": "0x46"
+  }
+}

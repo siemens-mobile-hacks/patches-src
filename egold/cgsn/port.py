@@ -49,6 +49,13 @@ def parse_target(name):
     return match.groups()
 
 
+def parse_hex_address(value):
+    try:
+        return int(value, 16)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(f"invalid hexadecimal address: {value}") from error
+
+
 def run_patterns(fullflash, patterns, firmware_base):
     command = [
         "ptr89",
@@ -62,8 +69,15 @@ def run_patterns(fullflash, patterns, firmware_base):
         "20",
         "-J",
     ]
-    for pattern in patterns.values():
-        command.extend(("-p", pattern))
+    requested = []
+    for name, alternatives in patterns.items():
+        if isinstance(alternatives, str):
+            alternatives = [alternatives]
+        if not alternatives or not all(isinstance(item, str) for item in alternatives):
+            raise SystemExit(f"Invalid patterns for {name}: expected a string or list")
+        for pattern in alternatives:
+            requested.append((name, pattern))
+            command.extend(("-p", pattern))
 
     try:
         result = subprocess.run(command, check=True, text=True, capture_output=True)
@@ -75,12 +89,14 @@ def run_patterns(fullflash, patterns, firmware_base):
 
     report = json.loads(result.stdout)
     reported = report.get("patterns", [])
-    if len(reported) != len(patterns):
+    if len(reported) != len(requested):
         raise SystemExit("ptr89 returned an incomplete pattern report")
 
-    found = {}
-    for name, item in zip(patterns, reported, strict=True):
-        found[name] = [entry["address"] for entry in item.get("results", [])]
+    found = {name: [] for name in patterns}
+    for (name, _pattern), item in zip(requested, reported, strict=True):
+        found[name].extend(entry["address"] for entry in item.get("results", []))
+    for name, addresses in found.items():
+        found[name] = list(dict.fromkeys(addresses))
     return found
 
 
@@ -172,9 +188,9 @@ def main():
     parser.add_argument("fullflash", type=Path, help="original fullflash")
     parser.add_argument(
         "--base",
-        type=lambda value: int(value, 0),
+        type=parse_hex_address,
         required=True,
-        help="CPU address corresponding to fullflash offset 0",
+        help="hex CPU address corresponding to fullflash offset 0",
     )
     parser.add_argument(
         "--set",
