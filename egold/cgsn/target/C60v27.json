@@ -1,6 +1,6 @@
 {
   "model": "C60",
-  "version": "17",
+  "version": "27",
   "FirmwareBase": "0x200000",
   "symbols": {
     "GetArgPointer": "0xB37B3E",
