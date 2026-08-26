@@ -1,0 +1,19 @@
+{
+  "model": "MC60",
+  "version": "13",
+  "FirmwareBase": "0x200000",
+  "symbols": {
+    "GetArgPointer": "0xC041D4",
+    "ATEmptyBuffer": "0xC06E20",
+    "AT_AddAnsw": "0xC06A58",
+    "ATSendBufferToSerialPort": "0xC074A4",
+    "AT_SayResult": "0xC03A8E",
+    "IPCopyStringZ": "0xBFA80C",
+    "OrigATHandle": "0xBAF69A",
+    "AddrInTable": "0x44029A",
+    "PatchAddress": "0x9C0246"
+  },
+  "constants": {
+    "StkSize": "0x46"
+  }
+}
