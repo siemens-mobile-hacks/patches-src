@@ -9,21 +9,25 @@ set(CMAKE_C_STANDARD 11)
 add_compile_options(-Os)
 
 # S65v58
-add_executable(S65v58 patch.c patch.S)
+add_executable(S65v58 patch_sg.c patch_sg.S)
 define_patch(S65v58 SG S65 58)
 
 # СX70v56
-add_executable(CX70v56 patch.c patch.S)
+add_executable(CX70v56 patch_sg.c patch_sg.S)
 define_patch(CX70v56 SG CX70 56)
 
 # СF75v23
-add_executable(CF75v23 patch.c patch.S)
+add_executable(CF75v23 patch_sg.c patch_sg.S)
 define_patch(CF75v23 SG CF75 23)
 
 # C72_22
-add_executable(C72_22 patch.c patch.S)
+add_executable(C72_22 patch_sg.c patch_sg.S)
 define_patch(C72_22 SG C72 22)
 
 # C75_24
-add_executable(C75_24 patch.c patch.S)
+add_executable(C75_24 patch_sg.c patch_sg.S)
 define_patch(C75_24 SG C75 24)
+
+# CL61_00
+add_executable(CL61_00 patch_nsg.c patch_nsg.S)
+define_patch(CL61_00 ELKA CL61 00)

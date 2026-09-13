@@ -1,19 +1,17 @@
-#ifdef SGOLD
-    #ifdef S65_58
-        #include "S65_58.h"
-    #endif
-    #ifdef CX70_56
-        #include "CX70_56.h"
-    #endif
-    #ifdef CF75_23
-        #include "CF75_23.h"
-    #endif
-    #ifdef C72_22
-        #include "C72_22.h"
-    #endif
-    #ifdef C75_24
-        #include "C75_24.h"
-    #endif
+#ifdef S65_58
+    #include "S65_58.h"
+#endif
+#ifdef CX70_56
+    #include "CX70_56.h"
+#endif
+#ifdef CF75_23
+    #include "CF75_23.h"
+#endif
+#ifdef C72_22
+    #include "C72_22.h"
+#endif
+#ifdef C75_24
+    #include "C75_24.h"
 #endif
 
 #define _GBS_SendMessage ((void (*)(int cepid_to, int msg, ...))(ADDR_GBS_SendMessage))
